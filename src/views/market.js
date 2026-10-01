@@ -27,6 +27,29 @@ function bangTin(ds, nhan) {
     <tbody>${ds.map(dong).join('')}</tbody></table></div>`;
 }
 
+/* Bảng hai dòng ngay dưới con số lớn (01/10, chủ dự án: "nhìn 2.000 tin không hiểu là của toàn bộ hay 407"). */
+function soSanh(d) {
+  const v = d.pham_vi;
+  const r = v?.rieng_407;
+  if (!r) return '';
+  const dong = (ten, tin, toa, giu, tang, giam) => `<tr><th scope="row">${ten}</th><td class="n">${so(tin, 0)}</td><td class="n">${toa}</td>`
+    + `<td class="n">${so(100 * giu / tin, 1)}%</td><td class="n">${tang}</td><td class="n">${giam}</td></tr>`;
+  return `<div class="ovsosanh">
+        <p class="ovsosanh__mo">Con số lớn ở trên tính trên <strong>toàn bộ kho trang rao</strong>, không riêng 407 tòa. Dòng thứ hai tách riêng
+          các tin thuộc 407 tòa của bộ dữ liệu.</p>
+        <div class="tablewrap" tabindex="0" aria-label="So sánh toàn bộ kho trang rao với riêng 407 tòa"><table class="ovtable">
+          <caption class="sr-only">Số tin, số tòa, tỷ lệ giữ nguyên giá, số tin tăng và giảm: toàn bộ kho trang rao và riêng 407 tòa.</caption>
+          <thead><tr><th scope="col">Tập dữ liệu</th><th scope="col" class="n">Tin so được</th><th scope="col" class="n">Tòa</th>
+            <th scope="col" class="n">Giữ nguyên giá</th><th scope="col" class="n">Tăng</th><th scope="col" class="n">Giảm</th></tr></thead>
+          <tbody>
+            ${dong('Toàn bộ kho trang rao (Maison Office, Saigon Office)', d.so_duoc, `ít nhất ${so(v.so_toa_ghep, 0)}`, d.giu_gia, d.tang, d.giam)}
+            ${dong('Riêng 407 tòa của bộ dữ liệu', r.tin, `${r.toa}/407`, r.giu, r.tang, r.giam)}
+          </tbody></table></div>
+        <p class="ovsosanh__mo">Tin có hai đầu khoảng giá đi ngược chiều không xếp vào giữ nguyên, tăng hay giảm (${d.doi_khoang || 0} tin ở
+          dòng đầu, ${r.doi_khoang} tin ở dòng sau).</p>
+      </div>`;
+}
+
 function phamVi(d) {
   const v = d.pham_vi;
   if (!v) return '';
@@ -81,11 +104,12 @@ export function renderMarket(d) {
   return `<div class="ov">
     <section class="ov__hero">
       <p class="ov__eyebrow">Property Insight · Biến động giá chào trên trang rao</p>
-      <div class="ov__bignum"><span class="ov__num">${so(100 * d.giu_gia / d.so_duoc, 1)}%</span><span class="ov__unit">tin giữ nguyên giá chào<br>sau ${khoang(d.cach_ngay)}</span></div>
+      <div class="ov__bignum"><span class="ov__num">${so(100 * d.giu_gia / d.so_duoc, 1)}%</span><span class="ov__unit">tin giữ nguyên giá chào sau ${khoang(d.cach_ngay)},<br>trên toàn bộ kho trang rao (${so(d.so_duoc, 0)} tin, ít nhất ${so(d.pham_vi?.so_toa_ghep || 0, 0)} tòa)</span></div>
       <h2 class="ov__thesis">Giá chào trên hai trang rao, so giữa hai lần thu</h2>
       <p class="ov__lede">Mỗi tin chỉ được so với chính nó ở lần thu trước, trên cùng trang rao và cùng đường dẫn; không so giá
         giữa hai trang. ${so(d.giu_gia, 0)}/${so(d.so_duoc, 0)} tin giữ nguyên giá, nên mức đổi trung vị trên mọi tin là
         ${pt(d.trung_vi_moi_tin_pt)}.</p>
+      ${soSanh(d)}
       ${phamVi(d)}
       <div class="ov__stats">
         <div class="ov__stat"><span class="v">${d.tang}</span><span class="k">tin tăng giá chào</span></div>

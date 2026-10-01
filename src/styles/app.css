@@ -743,3 +743,16 @@ kbd, .kbd {
 .amcat[aria-pressed="true"] { background: var(--amcat-color); border-color: var(--amcat-color); color: #fff; }
 @media (pointer: coarse) { .amcat { height: 34px; } }
 
+
+/* Công tắc phiên bản ở giữa thanh trên (01/10): 407 tòa · giá niêm yết | phiên bản đầy đủ · giá chào */
+.banpick { display: flex; flex: 0 0 auto; border: 1px solid var(--line); border-radius: var(--r-sm, 6px); overflow: hidden; background: var(--ground); }
+.banpick__opt { display: flex; flex-direction: column; justify-content: center; gap: 1px; padding: 5px 16px; min-height: 40px;
+  color: var(--ink); text-decoration: none; line-height: 1.2; white-space: nowrap; }
+.banpick__opt + .banpick__opt { border-left: 1px solid var(--line); }
+.banpick__opt b { font-size: var(--fs-sm); font-weight: 650; }
+.banpick__opt small { font-size: var(--fs-2xs, 11px); color: var(--ink-2); }
+.banpick__opt:hover { background: var(--hover-bg, #E4EAE5); }
+.banpick__opt[aria-current="page"] { background: var(--ink); color: var(--ground); }
+.banpick__opt[aria-current="page"] small { color: var(--ground); opacity: .85; }
+.banpick__opt:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (max-width: 900px) { .banpick { order: 8; flex: 1 1 100%; } .banpick__opt { flex: 1 1 50%; white-space: normal; } }

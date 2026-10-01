@@ -50,6 +50,11 @@
     <span class="samplenote" title="407 tòa nhà văn phòng với giá niêm yết tháng 03/2026 (gồm phí dịch vụ, chưa VAT). 7 tòa chưa có tọa độ nên chỉ có trong danh sách.">407 tòa nhà · giá niêm yết 03/2026</span>
 
     <div class="topbar__spacer"></div>
+    <nav class="banpick" id="banpick" aria-label="Chọn phiên bản dữ liệu">
+      <a class="banpick__opt" id="ban-407" href="./"><b>407 tòa</b><small id="ban-407-so">giá niêm yết 03/2026</small></a>
+      <a class="banpick__opt" id="ban-day-du" href="./?ban=day-du"><b>Phiên bản đầy đủ</b><small id="ban-day-du-so">mọi tòa trên trang rao · giá chào</small></a>
+    </nav>
+    <div class="topbar__spacer"></div>
 
     <div class="viewtabs" role="group" aria-label="Chọn cách xem">
       <button class="btn" type="button" id="view-map" aria-pressed="true">Bản đồ</button>
@@ -320,7 +325,7 @@
                    trên bản đồ: màu của 407 chấm và của mọi cụm. Thang tính
                    trên tập đang hiện nên nó phải cập nhật theo bộ lọc. -->
               <div class="rentkey" id="rentkey" aria-live="polite">
-                <span class="label">Giá niêm yết 03/2026 · màu trên bản đồ</span>
+                <span class="label" id="rentkey-title">Giá niêm yết 03/2026 · màu trên bản đồ</span>
                 <div class="rentkey__hist"><div class="rentkey__bars" id="rentkey-ramp" role="img"></div><span class="rentkey__mark" id="rentkey-mark" hidden aria-hidden="true"></span></div>
                 <div class="rentkey__lb"><span id="rentkey-lo">—</span><span id="rentkey-hi">—</span></div>
                 <span class="rentkey__na"><i aria-hidden="true"></i>chưa có giá</span>

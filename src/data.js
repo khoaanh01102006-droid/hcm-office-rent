@@ -11,6 +11,8 @@
    ========================================================================= */
 
 /** Trạng thái của một trường dữ liệu. Bốn trạng thái, không phải hai. */
+import { NHAN, DUONG_DAN, datKyGia } from './che_do.js';
+
 export const FieldState = {
   PRESENT: 'present',           // có quan sát
   NOT_COLLECTED: 'not_collected', // chưa thu thập trong bản thử này
@@ -114,10 +116,11 @@ export const metroVi = (n) => (n == null ? n : METRO_VI[n] || n);
 /** Đọc payload và dựng mô hình hiển thị. Không ghi, không sửa tệp gốc. */
 export async function loadPilot() {
   const [payload, methodology] = await Promise.all([
-    fetch('./data/pilot_12_buildings_full.json').then((r) => r.json()),
+    fetch(DUONG_DAN.payload).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
     fetch('./data/pilot_methodology.json').then((r) => r.json()),
   ]);
 
+  datKyGia(payload.banDayDu?.ky_gia);   // nhãn kỳ giá của phiên bản đầy đủ đọc từ dữ liệu, trước khi dựng định nghĩa trường giá
   const buildings = payload.records.map((rec) => buildModel(rec, payload));
 
   return {
@@ -132,6 +135,8 @@ export async function loadPilot() {
     sampleSize: buildings.length,
     /** Cửa sổ thu thập giá thật, đọc từ dữ liệu chứ không viết cứng. */
     priceWindow: priceWindow(buildings),
+    /** Phiên bản đầy đủ (n37): số tòa theo nguồn, kỳ giá, hạn tọa độ Google. */
+    banDayDu: payload.banDayDu || null,
   };
 }
 
@@ -191,7 +196,12 @@ function buildModel(rec, payload) {
     gradeField: field(b.gradeRaw, { ...srcMeta, definition: 'Hạng tòa nhà theo nguồn dữ liệu' }),
 
     // ---- Giá: ba đại lượng KHÁC ĐỊNH NGHĨA, không bao giờ trộn -----------
-    baseRent: field(b.baseRent, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw, definition: 'Giá niêm yết tháng 03/2026, gồm phí dịch vụ, chưa VAT.' }),
+    baseRent: field(b.baseRent, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw, definition: NHAN.dinhNghiaGia }),
+    // Phiên bản đầy đủ (01/10): giá niêm yết 03/2026 của 407 tòa giữ riêng, không vào thang giá chào.
+    giaNiemYet407: field(b.giaNiemYet407 ?? null, { unit: 'USD/m²/tháng', definition: 'Giá niêm yết tháng 03/2026, gồm phí dịch vụ, chưa VAT.' }),
+    laToa407: b.laToa407 !== false,
+    toaDoGoogle: !!b.toaDoGoogle,
+    hetHanToaDo: b.hetHanToaDo || null,
     baseRentMin: field(b.baseRentMin, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw }),
     baseRentMax: field(b.baseRentMax, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw }),
     serviceCharge: field(b.serviceCharge, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.serviceChargeRaw, definition: 'Phí dịch vụ do nguồn niêm yết công bố.' }),
@@ -416,11 +426,17 @@ export function filterBuildings(buildings, f) {
   });
 }
 
+/* Thiếu giá/khoảng cách thì xếp CUỐI ở mọi chiều (phiên bản đầy đủ có tòa ghi "liên hệ"; null - số = NaN làm sắp lộn xộn). */
+const soSanh = (x, y, chieu = 1) => {
+  const a = Number.isFinite(x) ? x : null, b = Number.isFinite(y) ? y : null;
+  if (a == null || b == null) return (a == null) - (b == null);
+  return chieu * (a - b);
+};
 export const SORTS = {
-  rent_asc: { label: 'Giá thuê thấp → cao', cmp: (a, b) => a.baseRent.value - b.baseRent.value },
-  rent_desc: { label: 'Giá thuê cao → thấp', cmp: (a, b) => b.baseRent.value - a.baseRent.value },
-  metro_asc: { label: 'Gần ga metro nhất', cmp: (a, b) => a.distanceMetro.value - b.distanceMetro.value },
-  grade_asc: { label: 'Hạng tòa nhà', cmp: (a, b) => a.gradeOrder - b.gradeOrder || a.baseRent.value - b.baseRent.value },
+  rent_asc: { label: 'Giá thuê thấp → cao', cmp: (a, b) => soSanh(a.baseRent.value, b.baseRent.value) },
+  rent_desc: { label: 'Giá thuê cao → thấp', cmp: (a, b) => soSanh(a.baseRent.value, b.baseRent.value, -1) },
+  metro_asc: { label: 'Gần ga metro nhất', cmp: (a, b) => soSanh(a.distanceMetro.value, b.distanceMetro.value) },
+  grade_asc: { label: 'Hạng tòa nhà', cmp: (a, b) => a.gradeOrder - b.gradeOrder || soSanh(a.baseRent.value, b.baseRent.value) },
   spread_desc: { label: 'Hai nguồn lệch nhiều nhất', cmp: (a, b) => (b.sourceBand?.spreadPct ?? -1) - (a.sourceBand?.spreadPct ?? -1) },
 };
 

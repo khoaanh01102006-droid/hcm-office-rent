@@ -15,6 +15,7 @@ import { renderCompare } from './views/compare.js';
 import { renderOverview } from './views/overview.js';
 import { renderMarket } from './views/market.js';
 import { renderNotes } from './views/notes.js';
+import { DAY_DU, NHAN, DUONG_DAN, LINK_407, LINK_DAY_DU, datKyGia } from './che_do.js';
 import { storyShell, mountStory, resizeStory } from './views/story.js';
 import { googleShell, startGoogle, enrichProfileWithGoogle } from './views/google.js';
 import { renderMethod } from './views/method.js';
@@ -85,6 +86,7 @@ async function init() {
   $('#listscroll').innerHTML = loadingState();
 
   state.data = await loadPilot();
+  ganCheDo();
   const b = state.data.buildings;
   state.scaleMax = Math.max(1, ...b.map((x) => (
     isPresent(x.grossIncVat) ? x.grossIncVat.value : (isPresent(x.baseRent) ? x.baseRent.value : 0)
@@ -105,7 +107,7 @@ async function init() {
     amenity: napJson('./data/osm_amenities.json'), iso: napJson('./data/osm_isochrones.json'),
     density: napJson('./data/osm_density.json'), bus: napJson('./data/osm_bus_network.json'),
     driving: napJson('./data/osm_driving.json'), transit: napJson('./data/osm_transit.json'),
-    area: napJson('./data/osm_areas.json'), giaNguon: napJson('./data/gia_nhieu_nguon.json'),
+    area: napJson('./data/osm_areas.json'), giaNguon: napJson(DUONG_DAN.gia),
     canXacNhan: napJson('./data/can_xac_nhan.json'),
   };
   Object.values(lop).forEach((x) => x.catch(() => {}));
@@ -220,8 +222,9 @@ function openGuide() {
   $('#sheet-title').textContent = 'Hướng dẫn';
   $('#sheet-body').innerHTML = `<div class="pf">
     <section class="pf__sec pf__sec--lead">
-      <p class="ov__lede">Property Insight tổng hợp ${state.data.buildings.length} tòa văn phòng tại TP.HCM với giá niêm yết
-        tháng 03/2026 (gồm phí dịch vụ, chưa VAT), tỷ lệ lấp đầy và vị trí.</p>
+      <p class="ov__lede">Property Insight tổng hợp ${state.data.buildings.length} tòa văn phòng tại TP.HCM: ${esc(NHAN.giaDai)}${DAY_DU
+    ? '. Đây là phiên bản đầy đủ: 407 tòa của bộ dữ liệu và các tòa trên trang rao; bấm "407 tòa" ở giữa thanh trên để về bản chính.'
+    : ', cùng tỷ lệ lấp đầy và vị trí.'}</p>
       <ol class="method__steps">
         <li><span>01</span><div>Trên bản đồ, mỗi chấm là một tòa nhà, màu theo mức giá thuê (xem thang màu trên bản đồ).
           Vòng tròn có số là nhóm tòa gần nhau; bấm vào để phóng to.</div></li>
@@ -340,9 +343,9 @@ function apply({ fit = false } = {}) {
   if (currentWards.size) parts.push(`${currentWards.size} phường/xã`);
   $('#region-summary').textContent = parts.length ? parts.join(' · ') : 'Toàn TP.HCM';
 
-  $('#list-count').textContent = `${list.length} tòa nhà`;
+  $('#list-count').textContent = `${list.length.toLocaleString('vi-VN')} tòa nhà`;
   $('#list-sub').textContent = (list.length === all.length ? 'tất cả' : `trong ${all.length} tòa`)
-    + ' · giá niêm yết 03/2026';
+    + ' · ' + NHAN.giaNgan;
 
   renderList(list);
   map?.setBuildings(list.map((x) => x.id));
@@ -405,7 +408,7 @@ function stripItem(b, mode) {
   // Nhãn đầy đủ nằm ở aria-label vì thẻ bị cắt chữ khi hẹp; trình đọc màn
   // hình phải nghe được cả những gì mắt không đọc hết.
   const label = `${b.name}, hạng ${b.gradeLabel}`
-    + (price ? `, giá niêm yết 03/2026: ${money(b.baseRent.value)} USD/m²/tháng` : ', chưa có giá')
+    + (price ? `, ${NHAN.giaNgan}: ${money(b.baseRent.value)} USD/m²/tháng` : ', chưa có giá')
     + (metro ? `, cách ga ${b.nearestMetro} ${distance(b.distanceMetro.value)}` : '');
 
   if (mode === 'rows') {
@@ -495,16 +498,50 @@ function applySkin(id, { silent = false } = {}) {
   announce(`Đã đổi sang giao diện ${s.label}. ${s.note}.`);
 }
 
+/* Công tắc phiên bản ở giữa thanh trên (01/10). Đổi phiên bản = tải lại trang (che_do.js), nên ở đây chỉ đánh dấu nút đang chọn
+   và đổi những chữ tĩnh trong index.html cho đúng phiên bản. Chế độ chia sẻ (bản công khai) chưa có phiên bản đầy đủ: ẩn công tắc. */
+function ganCheDo() {
+  datKyGia(state.data.banDayDu?.ky_gia);
+  const n = state.data.buildings.length;
+  $('#ban-407')?.setAttribute('href', LINK_407);
+  $('#ban-day-du')?.setAttribute('href', LINK_DAY_DU);
+  $(DAY_DU ? '#ban-day-du' : '#ban-407')?.setAttribute('aria-current', 'page');
+  // Ô ghi chú cỡ mẫu ở thanh trên nói đúng điều công tắc đã nói (số tòa + loại giá), lại làm chật thanh: ẩn đi khi có công tắc.
+  const sn = $('.samplenote');
+  if (sn && $('#banpick')) sn.style.display = 'none';
+  $('#ban-407-so') && ($('#ban-407-so').textContent = `giá niêm yết 03/2026`);
+  if (DAY_DU) {
+    const dd = state.data.banDayDu || {};
+    $('#ban-day-du-so') && ($('#ban-day-du-so').textContent = `${n.toLocaleString('vi-VN')} tòa · ${NHAN.giaNgan}`);
+    $('#f-rent-hint') && ($('#f-rent-hint').textContent = `${NHAN.giaTieuDe}, USD/m²/tháng`);
+    const lk = $('#rentkey-title');
+    if (lk) lk.textContent = `${NHAN.giaTieuDe} · màu trên bản đồ`;
+    $('#overview')?.setAttribute('aria-label', `Tổng quan ${n} tòa nhà, phiên bản đầy đủ`);
+    // Kể chuyện dựng riêng trên 407 tòa (đi lại bằng giao thông công cộng): chỉ có ở bản chính.
+    const ke = $('#view-story');
+    if (ke) ke.hidden = true;
+    document.body.dataset.ban = 'day_du';
+    announce(`Phiên bản đầy đủ: ${n} tòa (${dd.toa_407 || 407} tòa của bộ dữ liệu và ${dd.toa_trang_rao || n - 407} tòa trên trang rao), ${NHAN.giaNgan}.`);
+  }
+  import('../config.local.js').then((c) => {
+    if (c.SHARE_MODE) { const bp = $('#banpick'); if (bp) bp.hidden = true; if (sn) sn.style.display = ''; }
+  }).catch(() => {});
+}
+
 function buildBasemapControls() {
   const wrap = $('#base-opts');
   if (!wrap) return;
-  wrap.innerHTML = Object.entries(BASEMAPS).map(([id, b]) => {
-    const on = id === BASEMAP_DEFAULT;
+  const nen = DAY_DU ? Object.entries(BASEMAPS).filter(([, b]) => b.google) : Object.entries(BASEMAPS);
+  const macDinh = DAY_DU ? 'google-roadmap' : BASEMAP_DEFAULT;
+  wrap.innerHTML = nen.map(([id, b]) => {
+    const on = id === macDinh;
     return `<button class="baseopt ${b.kind === 'raster' ? 'is-online' : ''}" type="button"
       role="radio" aria-checked="${on}" data-base="${esc(id)}"
       title="${esc(b.note)}">${esc(b.label)}</button>`;
   }).join('');
-  $('#base-note').textContent = BASEMAPS[BASEMAP_DEFAULT].note;
+  $('#base-note').textContent = DAY_DU
+    ? 'Phiên bản đầy đủ chỉ dùng nền Google: vị trí tòa trên trang rao lấy từ Google Maps, điều khoản của Google không cho vẽ trên nền khác.'
+    : BASEMAPS[BASEMAP_DEFAULT].note;
 
   wrap.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-base]');
@@ -609,7 +646,7 @@ function tableHtml(list) {
 function itemLabel(b) {
   return [
     b.name, `hạng ${b.gradeLabel}`, b.districtLabel,
-    isPresent(b.baseRent) ? `giá niêm yết 03/2026: ${money(b.baseRent.value)} USD/m²/tháng` : 'chưa có giá',
+    isPresent(b.baseRent) ? `${NHAN.giaNgan}: ${money(b.baseRent.value)} USD/m²/tháng` : 'chưa có giá',
     isPresent(b.grossExVat) ? `tổng trước VAT ${money(b.grossExVat.value)}` : null,
     isPresent(b.distanceMetro) ? `cách ga ${b.nearestMetro} ${distance(b.distanceMetro.value)}` : null,
   ].filter(Boolean).join(', ') + '.';
@@ -618,7 +655,7 @@ function itemLabel(b) {
 /* ---- Bốn trạng thái ----------------------------------------------------- */
 function loadingState() {
   return `<div role="status" aria-live="polite" style="display:flex;flex-direction:column;gap:var(--s-2)">
-    <span class="sr-only">Đang nạp 407 tòa nhà và bản đồ.</span>
+    <span class="sr-only">Đang nạp dữ liệu tòa nhà và bản đồ.</span>
     ${'<div class="skel" aria-hidden="true"></div>'.repeat(4)}
   </div>`;
 }
@@ -760,7 +797,7 @@ function renderFocus() {
     </div>
     <div class="fbuild__price">
       <span class="fbuild__num">${isPresent(b.baseRent) ? esc(money(b.baseRent.value)) : '—'}</span>
-      <span class="fbuild__unit">USD/m²/tháng · giá niêm yết 03/2026, gồm phí dịch vụ</span>
+      <span class="fbuild__unit">USD/m²/tháng · ${esc(NHAN.giaNgan)}, ${esc(NHAN.giaCoSo)}</span>
       ${isPresent(b.grossExVat)
     ? `<span class="fbuild__gross">tổng trước VAT <b>${esc(money(b.grossExVat.value))}</b></span>` : ''}
     </div>
@@ -1895,11 +1932,11 @@ function paintRentKey(scale) {
   $('#rentkey-lo').textContent = money(scale.min);
   $('#rentkey-hi').textContent = money(scale.max);
   if (note) {
-    note.innerHTML = `${scale.n} tòa đang hiện · 5 mức màu
+    note.innerHTML = `${scale.n.toLocaleString('vi-VN')} tòa đang hiện · 5 mức màu
       <details class="rentkey__why"><summary>Cách đọc</summary>
         <p>Cột cao là nhiều tòa ở mức giá đó. Mỗi màu gồm khoảng một phần năm số tòa, từ rẻ đến đắt.
         Đổi bộ lọc thì thang tính lại.</p>
-        <p>Giá niêm yết 03/2026, gồm phí dịch vụ, chưa VAT, đơn vị USD/m²/tháng.</p>
+        <p>${esc(NHAN.giaDai)}, đơn vị USD/m²/tháng.</p>
       </details>`;
   }
 }
@@ -2096,8 +2133,8 @@ function rentBandChip(b) {
    thật ra ĐẮT hơn X%. Nay: nửa dưới nói "rẻ hơn" (theo % tòa giá cao hơn), nửa trên nói "đắt hơn" (theo % tòa giá thấp hơn);
    chỉ tòa có đúng giá thấp nhất hoặc cao nhất mới được gọi "rẻ nhất"/"đắt nhất". */
 function rentPosPhrase(v, sc) {
-  if (v <= sc.min) return `rẻ nhất trong ${sc.n} tòa đang hiện`;
-  if (v >= sc.max) return `đắt nhất trong ${sc.n} tòa đang hiện`;
+  if (v <= sc.min) return `rẻ nhất trong ${sc.n.toLocaleString('vi-VN')} tòa đang hiện`;
+  if (v >= sc.max) return `đắt nhất trong ${sc.n.toLocaleString('vi-VN')} tòa đang hiện`;
   const toaReHon = sc.pctBelow(v);   // % tòa có giá thấp hơn tòa này
   const toaDatHon = sc.pctAbove(v);  // % tòa có giá cao hơn tòa này
   return toaReHon >= 50 ? `đắt hơn ${toaReHon}% số tòa` : `rẻ hơn ${toaDatHon}% số tòa`;

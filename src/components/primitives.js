@@ -2,6 +2,7 @@
    thực của dữ liệu, không chỉ về hình thức.
    Ngôn ngữ hình ảnh theo shadcn/ui: badge viền mảnh, chữ nhỏ, icon 13–14px. */
 
+import { NHAN } from '../che_do.js';
 import { icon } from '../icons.js';
 import { FieldState, isPresent } from '../data.js';
 import { money, distance, dateShort, ageInDays, percent } from '../format.js';
@@ -139,4 +140,4 @@ export function metroLine(b) {
 }
 
 export const sampleNote = (n = 407) =>
-  `<span class="samplenote" title="${n} tòa nhà văn phòng với giá niêm yết tháng 03/2026">${n} tòa nhà · giá niêm yết 03/2026</span>`;
+  `<span class="samplenote" title="${n} tòa nhà văn phòng · ${NHAN.giaDai}">${n} tòa nhà · ${NHAN.giaNgan}</span>`;

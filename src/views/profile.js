@@ -5,6 +5,7 @@ import { icon } from '../icons.js';
 import { isPresent, FieldState } from '../data.js';
 import { money, distance, dateTime, num, percent } from '../format.js';
 import { esc, missingChip, gradeBadge } from '../components/primitives.js';
+import { DAY_DU, NHAN } from '../che_do.js';
 
 const windowLabel = { morning: '08:00', midday: '13:30', evening: '17:30' };
 const destinationLabel = { cbd: 'Trung tâm (UBND Thành phố)', airport: 'Sân bay Tân Sơn Nhất' };
@@ -41,11 +42,14 @@ export function renderProfile(b, data, _osm, giaNguon, canXacNhan) {
   return `<div class="pf">
     ${hero(b)}
     ${ca ? `<p class="pf__warn">${icon('alert', { size: 13 })} Đang chờ thầy xác nhận: ${esc(ca.van_de)} ${esc(ca.cau_hoi)}</p>` : ''}
+    ${b.laToa407 ? '' : `<p class="pf__warn">${icon('alert', { size: 13 })} Tòa trên trang rao, ngoài bộ dữ liệu 407 tòa. Vị trí là ghim
+      Google Maps của trang rao, chỉ hiện trên nền Google${b.hetHanToaDo ? ` và được lấy lại trước ${esc(b.hetHanToaDo.split('-').reverse().join('/'))}` : ''};
+      trang rao không ghi diện tích cho thuê và tỷ lệ lấp đầy.</p>`}
     ${priceSourcesBlock(b, g)}
-    ${leaseBlock(b)}
+    ${b.laToa407 ? leaseBlock(b) : hangTrangRao(b)}
     ${locationBlock(b, g)}
-    ${surroundBlock(b)}
-    ${trafficBlock(b)}
+    ${b.laToa407 ? surroundBlock(b) : ''}
+    ${b.laToa407 ? trafficBlock(b) : ''}
     ${evidenceBlock(b, data)}
   </div>`;
 }
@@ -63,7 +67,7 @@ function hero(b) {
         </figure>`
       : `<div class="pf__fig pf__fig--none">${missingChip(FieldState.NOT_COLLECTED, 'Chưa có ảnh cho tòa này.', 'Chưa có ảnh')}</div>`}
     <div class="pf__ident">
-      <div class="pf__badges">${gradeBadge(b)} <span class="badge badge--muted">${esc(b.submarketLabel)}</span></div>
+      <div class="pf__badges">${gradeBadge(b)}${b.submarketLabel ? ` <span class="badge badge--muted">${esc(b.submarketLabel)}</span>` : ''}</div>
       <h3 class="pf__name">${esc(b.name)}</h3>
       ${b.nameOriginal && b.nameOriginal !== b.name ? `<p class="pf__addr">Tên khác: ${esc(b.nameOriginal)}</p>` : ''}
       <p class="pf__addr">${esc(b.address)}</p>
@@ -99,8 +103,10 @@ function priceSourcesBlock(b, g) {
       <span class="pf__srcnote">USD/m²/tháng, chưa VAT</span></div>
     <div class="pf__pricegrid">
       <div class="pricerow is-strong">
-        <div class="pricerow__label"><span>${tom && tom.n > 1 ? 'Trung vị các nguồn' : 'Giá niêm yết 03/2026'}</span>
-          <em>${tom && tom.n > 1 ? `từ ${esc(so1(tom.thap))} đến ${esc(so1(tom.cao))} · ${tom.n} mức giá gồm phí dịch vụ` : 'gồm phí dịch vụ, chưa VAT'}</em></div>
+        <div class="pricerow__label"><span>${tom && tom.n > 1 ? (DAY_DU ? 'Trung vị giá chào các trang rao' : 'Trung vị các nguồn') : NHAN.giaTieuDe}</span>
+          <em>${tom && tom.n > 1
+    ? `từ ${esc(so1(tom.thap))} đến ${esc(so1(tom.cao))} · ${tom.n} ${DAY_DU ? 'trang rao, lần thu mới nhất mỗi trang' : 'mức giá gồm phí dịch vụ'}`
+    : (DAY_DU ? 'giá cơ bản, chưa gồm phí dịch vụ, chưa VAT' : 'gồm phí dịch vụ, chưa VAT')}</em></div>
         <div class="pricerow__val">${tom ? `<strong>${esc(so1(tom.trung_vi))}</strong><span class="pricerow__unit">USD/m²/tháng</span>`
     : (isPresent(b.baseRent) ? `<strong>${esc(money(b.baseRent.value))}</strong><span class="pricerow__unit">USD/m²/tháng</span>` : missingChip(b.baseRent.state))}</div>
       </div>
@@ -110,10 +116,24 @@ function priceSourcesBlock(b, g) {
       <thead><tr><th scope="col">Nguồn</th><th scope="col">Thời điểm</th><th scope="col" class="n">Giá cơ bản</th>
         <th scope="col" class="n">Gồm phí</th><th scope="col" class="n"></th></tr></thead>
       <tbody>${hang}</tbody></table>` : ''}
-    <p class="pf__note">${coTrang
+    <p class="pf__note">${coTrang && DAY_DU
+    ? `Phiên bản đầy đủ dùng giá chào: giá cơ bản trang rao ghi, chưa gồm phí dịch vụ; giá theo khoảng lấy điểm giữa; trung vị tính trên lần thu mới nhất của mỗi trang rao.${b.laToa407 ? ' Dòng "Bộ dữ liệu 03/2026" là giá niêm yết gồm phí dịch vụ của bộ 407 tòa, chỉ để đối chiếu, không tính vào trung vị.' : ''}`
+    : coTrang
     ? 'Bộ dữ liệu 03/2026 ghi giá niêm yết đã gồm phí dịch vụ; trang rao ghi giá cơ bản và phí dịch vụ riêng, giá theo khoảng thì lấy điểm giữa. Trung vị chỉ tính các mức giá có phí dịch vụ.'
     : coTrangKhongGia ? 'Trang rao của tòa này không ghi giá (liên hệ).'
       : 'Chưa tìm thấy trang rao của tòa này trên Maison Office và Saigon Office.'}</p>
+  </section>`;
+}
+
+/* Tòa chỉ có trên trang rao (phiên bản đầy đủ): chỉ có hạng theo trang rao; không có NLA, lấp đầy. */
+function hangTrangRao(b) {
+  return `<section class="pf__sec">
+    <div class="pf__sechead"><h4>${icon('layers', { size: 15 })} Thông tin trên trang rao</h4>
+      <span class="pf__srcnote">Maison Office, Saigon Office</span></div>
+    <div class="pf__pricegrid">
+      <div class="pricerow"><div class="pricerow__label"><span>Hạng tòa nhà</span><em>theo trang rao</em></div>
+        <div class="pricerow__val">${b.gradeLabel ? `<strong>${esc(b.gradeLabel)}</strong>` : missingChip(FieldState.NOT_COLLECTED, 'Trang rao không ghi hạng.')}</div></div>
+    </div>
   </section>`;
 }
 

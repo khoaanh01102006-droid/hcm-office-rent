@@ -17,6 +17,7 @@
    3. Marker là <button> HTML thật, nằm trong tab order, đọc được đầy đủ.
    ========================================================================= */
 
+import { DAY_DU, NHAN } from './che_do.js';
 import { distance, money, gradeShort } from './format.js';
 import { isPresent } from './data.js';
 
@@ -339,6 +340,14 @@ export class PilotMap {
     // Bảy hồ sơ kiểm tra thủ công chưa có tọa độ vẫn nằm trong danh sách và
     // hồ sơ, nhưng không được phép sinh marker giả trên bản đồ.
     this.buildings = buildings.filter((b) => Number.isFinite(b.lat) && Number.isFinite(b.lng));
+    /* Phiên bản đầy đủ (01/10): tọa độ tòa trang rao là ghim Google, chỉ được vẽ trên nền Google. Tạo phiên Google TRƯỚC khi dựng
+       bản đồ; hỏng thì bỏ các tòa ấy khỏi bản đồ (vẫn có trong danh sách) và nói ra, không vẽ lên nền khác. */
+    if (DAY_DU) {
+      try { await ganPhienGoogle(BASEMAPS['google-roadmap']); this.basemapId = 'google-roadmap'; } catch (err) {
+        this.googleLoi = err.message;
+        this.buildings = this.buildings.filter((b) => !b.toaDoGoogle);
+      }
+    }
     const [ml, basemap] = await Promise.all([
       import('../vendor/maplibre/maplibre-gl.mjs'),
       fetch(BASEMAP_URL).then((r) => r.json()),
@@ -886,6 +895,11 @@ export class PilotMap {
       đường đi bộ và marker tiện ích đều phải đắp lại sau 'styledata'. */
   async setBasemap(id) {
     if (!BASEMAPS[id] || id === this.basemapId) return this.basemapId;
+    // Phiên bản đầy đủ chỉ dùng nền Google: tọa độ tòa trang rao lấy từ Google, điều khoản không cho vẽ trên nền khác.
+    if (DAY_DU && !BASEMAPS[id].google && !this.googleLoi) {
+      this.onBasemapError?.(id, new Error('phiên bản đầy đủ chỉ dùng nền Google (tọa độ tòa trang rao lấy từ Google)'));
+      return this.basemapId;
+    }
     const base = BASEMAPS[id];
     /* Kiểu vector phải TẢI XONG rồi mới đổi. Đổi trước rồi tải sau sẽ dựng
        một kiểu rỗng trong lúc chờ, và người dùng thấy bản đồ trắng nháy. */
@@ -946,6 +960,7 @@ export class PilotMap {
      tự bỏ lớp này. Giá là GIÁ CHÀO: chấm một màu, không tô theo thang giá niêm yết (gồm phí dịch vụ) của 407 toà; giá chỉ hiện khi bấm.
      Dữ liệu ở data/rieng/ (git bỏ qua; chế độ chia sẻ chặn), sinh bởi atlas/06_PHAN_TICH/kich_ban/n25_du_lieu_ban_do_pi.py. */
   async _apLopTrangRao() {
+    if (DAY_DU) return;   // bản đầy đủ: tòa trang rao đã là tòa chính trên bản đồ, không vẽ lớp phụ nữa
     if (!BASEMAPS[this.basemapId]?.google || !this.map) return;
     if (!this._trangRao) {
       try {
@@ -1035,7 +1050,7 @@ export class PilotMap {
     el.innerHTML = `<span class="mk__dot${k < 0 ? ' mk__dot--na' : ''}" aria-hidden="true"></span>
       ${price ? `<span class="mk__price" aria-hidden="true">${price}</span>` : ''}
       <span class="mk__label" aria-hidden="true"><b>${escapeHtml(b.name)}</b><small>${
-  price ? `${price} USD/m² · giá niêm yết 03/2026` : 'chưa có giá'}</small></span>`;
+  price ? `${price} USD/m² · ${NHAN.giaNgan}` : 'chưa có giá'}</small></span>`;
     el.setAttribute('aria-label', markerLabel(b));
     el.addEventListener('click', (ev) => { ev.stopPropagation(); this.onSelect(b.id); });
     el.addEventListener('focus', () => this.onHover(b.id));
@@ -2164,7 +2179,7 @@ export const AMENITY_ICONS = {
 function markerLabel(b) {
   return [
     b.name, `hạng ${b.gradeLabel}`, b.districtLabel,
-    isPresent(b.baseRent) ? `giá niêm yết 03/2026: ${money(b.baseRent.value)} USD/m²/tháng` : 'chưa có giá',
+    isPresent(b.baseRent) ? `${NHAN.giaNgan}: ${money(b.baseRent.value)} USD/m²/tháng` : 'chưa có giá',
     isPresent(b.grossExVat) ? `tổng trước VAT ${money(b.grossExVat.value)}` : null,
     isPresent(b.distanceMetro) ? `cách ga ${b.nearestMetro} ${distance(b.distanceMetro.value)}` : null,
   ].filter(Boolean).join(', ') + '. Nhấn để mở bản xem nhanh.';

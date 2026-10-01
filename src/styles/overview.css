@@ -615,3 +615,5 @@ body[data-view="market"] .tray { display: none; }
 .ovbars__so { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
 .ovbars__thanh--giam { background: var(--r1); border: 1px solid var(--r3); }
 .ovbars__thanh--tang { background: var(--r4); }
+.ovsosanh { margin: var(--s-4) 0; }
+.ovsosanh__mo { font-size: var(--fs-xs); color: var(--ink-2); line-height: 1.55; margin: 0 0 var(--s-2); }
