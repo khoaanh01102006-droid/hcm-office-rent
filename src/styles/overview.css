@@ -28,6 +28,17 @@ body[data-view="overview"] .tray { display: none; }
   gap: var(--s-6);
 }
 .ov__band--notes { border-bottom: 0; }
+/* Cần thầy xác nhận */
+.ovxn { list-style: none; padding: 0; margin: var(--s-4) 0 0; display: grid; gap: var(--s-3);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.ovxn__ca { background: var(--ground); border: 1px solid var(--line); border-left: 3px solid var(--ink-2); padding: var(--s-4); }
+.ovxn__ca--cao { border-left-color: var(--r5, #b45309); }
+.ovxn__dau { display: flex; flex-direction: column; gap: 2px; margin-bottom: var(--s-2); }
+.ovxn__dau small { color: var(--ink-2); font-size: var(--fs-2xs); }
+.ovxn__muc { font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.ovxn__ca p { font-size: var(--fs-xs); line-height: 1.55; margin: 0 0 6px; }
+.ovxn__so, .ovxn__da { color: var(--ink-2); }
+.ovxn__hoi { font-weight: 600; margin-bottom: 0 !important; }
 
 .ov__head { display: flex; flex-direction: column; gap: var(--s-2); max-width: 62ch; }
 .ov__sectag {

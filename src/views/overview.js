@@ -6,7 +6,7 @@ import { esc, missingChip } from '../components/primitives.js';
 import { isPresent, FieldState } from '../data.js';
 import { money, distance, num } from '../format.js';
 
-export function renderOverview(buildings) {
+export function renderOverview(buildings, canXacNhan) {
   const withCoordinate = buildings.filter(hasCoordinate);
   const rents = buildings.filter((b) => isPresent(b.baseRent)).map((b) => b.baseRent.value).sort((a, b) => a - b);
   const medRent = rents.length ? rents[Math.floor(rents.length / 2)] : null;
@@ -59,8 +59,10 @@ export function renderOverview(buildings) {
       <p class="ov__note">Giá niêm yết USD/m²/tháng, gồm phí dịch vụ, chưa VAT. Khoảng cách tới metro đo theo đường thẳng.</p>
     </section>
 
+    ${canXacNhanBand(canXacNhan, buildings)}
+
     <section class="ov__band ov__band--notes">
-      <div class="ov__head"><p class="ov__sectag">04 · Lưu ý</p><h3>Khi đọc số liệu</h3></div>
+      <div class="ov__head"><p class="ov__sectag">05 · Lưu ý</p><h3>Khi đọc số liệu</h3></div>
       <div class="ov__stats">
         <div class="ov__stat"><span class="v">01</span><span class="k">Giá là giá niêm yết, gồm phí dịch vụ, chưa VAT; không phải giá ký hợp đồng.</span></div>
         <div class="ov__stat"><span class="v">02</span><span class="k">Khoảng cách tới metro, trung tâm và sân bay đo theo đường thẳng; thời gian đi bộ đo theo đường thật.</span></div>
@@ -68,6 +70,28 @@ export function renderOverview(buildings) {
       </div>
     </section>
   </div>`;
+}
+
+/* Cần thầy xác nhận (01/10): chỉ những ca đã thử đủ cách mà vẫn còn hai khả năng, hoặc lỗi nằm ở chính bộ dữ liệu.
+   Dữ liệu: atlas/06_PHAN_TICH/kich_ban/n34_can_thay_xac_nhan.py. */
+const MUC = { cao: 'Ưu tiên', trung_binh: 'Nên xem', thap: 'Xem khi rảnh' };
+function canXacNhanBand(d, buildings) {
+  const ds = d?.ca || [];
+  if (!ds.length) return '';
+  const ten = new Map(buildings.map((b) => [String(b.teacherNo), b.name]));
+  return `<section class="ov__band" id="can-xac-nhan">
+      <div class="ov__head"><p class="ov__sectag">04 · Cần xác nhận</p><h3>${ds.length} trường hợp cần thầy xác nhận</h3>
+        <p class="ov__lede">Đã đối chiếu với trang rao, Google và tìm trên web nhưng vẫn còn hai khả năng, hoặc dữ liệu có thể bị
+        nhập trùng. Các tòa còn lại đã được kiểm và sửa.</p></div>
+      <ol class="ovxn">${ds.map((c) => `<li class="ovxn__ca ovxn__ca--${esc(c.muc)}">
+        <div class="ovxn__dau"><span class="ovxn__muc">${esc(MUC[c.muc] || c.muc)}</span>
+          <strong>${esc(c.tieu_de)}</strong><small>STT ${c.stt.map((s) => esc(s)).join(', ')}${c.stt.length ? ` · ${c.stt.map((s) => esc(ten.get(s) || '')).filter(Boolean).join(' / ')}` : ''}</small></div>
+        <p>${esc(c.van_de)}</p>
+        <p class="ovxn__so">${esc(c.so_lieu)}</p>
+        <p class="ovxn__da">Đã làm: ${esc(c.da_lam)}</p>
+        <p class="ovxn__hoi">${esc(c.cau_hoi)}</p>
+      </li>`).join('')}</ol>
+    </section>`;
 }
 
 function tile(label, value) {

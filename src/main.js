@@ -104,6 +104,7 @@ async function init() {
     density: napJson('./data/osm_density.json'), bus: napJson('./data/osm_bus_network.json'),
     driving: napJson('./data/osm_driving.json'), transit: napJson('./data/osm_transit.json'),
     area: napJson('./data/osm_areas.json'), giaNguon: napJson('./data/gia_nhieu_nguon.json'),
+    canXacNhan: napJson('./data/can_xac_nhan.json'),
   };
   Object.values(lop).forEach((x) => x.catch(() => {}));
 
@@ -195,6 +196,7 @@ async function init() {
 
   // Giá nhiều nguồn cho trang chi tiết toà (n32_gia_nhieu_nguon.py); thiếu tệp thì trang chi tiết chỉ hiện giá bộ dữ liệu.
   try { state.giaNguon = await lop.giaNguon; } catch (err) { console.warn('Không nạp được giá nhiều nguồn:', err.message); }
+  try { state.canXacNhan = await lop.canXacNhan; } catch (err) { console.warn('Không nạp được danh sách cần xác nhận:', err.message); }
 
   $('#legend-note').textContent = MAP_META.markerNote;
 
@@ -1377,7 +1379,7 @@ function openProfile(id) {
   if (!b) return;
   state.lastFocus = document.activeElement;
   $('#sheet-title').textContent = b.name;
-  $('#sheet-body').innerHTML = renderProfile(b, state.data, state.amenityData, state.giaNguon);
+  $('#sheet-body').innerHTML = renderProfile(b, state.data, state.amenityData, state.giaNguon, state.canXacNhan);
   $$('#sheet-body [data-act="compare"]').forEach((btn) =>
     btn.setAttribute('aria-pressed', String(state.compare.includes(btn.dataset.id))));
 
@@ -1577,7 +1579,7 @@ function paintOverview() {
   // nên nó ném `buildings.filter is not a function` ngay dòng đầu và trang
   // Tổng quan CHƯA TỪNG vẽ được lần nào. Lỗi không lộ ra vì trang trống
   // trông giống như trang đang tải.
-  $('#overview').innerHTML = renderOverview(state.data.buildings);
+  $('#overview').innerHTML = renderOverview(state.data.buildings, state.canXacNhan);
 }
 
 function resetFilters() {

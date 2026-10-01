@@ -20,7 +20,9 @@ export const COORD_METHOD = {
   PUBLISHED_V8_ADDRESS_GEOCODE_LIMITED: 'Điểm theo địa chỉ',
   PUBLISHED_ADDRESS_POINT_LIMITED: 'Điểm theo địa chỉ',
   PUBLISHED_V8_DUPLICATE_ROW_COORDINATE_SHARED: 'Dùng chung vị trí với cùng tòa nhà',
-  AUDIT_20261001_TEACHER_FILE: 'Kiểm lại 01/10/2026: theo tọa độ bộ dữ liệu, trùng trang rao của chính tòa',
+  AUDIT_20261001_TEACHER_FILE: 'Kiểm lại 01/10/2026: theo tọa độ bộ dữ liệu, đã đối chiếu trang rao hoặc Google Maps',
+  AUDIT_20261001_OSM: 'Kiểm lại 01/10/2026: theo khu đất của tòa trên OpenStreetMap',
+  AUDIT_20261001_TEACHER_MANUAL: 'Tọa độ thầy đã kiểm tay (đối chiếu Google Maps và OpenStreetMap)',
   AUDIT_20261001_LISTING_PAGE: 'Kiểm lại 01/10/2026: theo bản đồ trên trang rao của chính tòa',
   AUDIT_20261001_ADDRESS_ONLY: 'Kiểm lại địa chỉ 01/10/2026; tọa độ giữ nguyên',
   HOLD_V8_MANUAL_REVIEW: 'Chưa xác định',
@@ -31,10 +33,12 @@ const host = (url) => { try { return new URL(url).hostname.replace(/^www\./, '')
 const ghimUrl = (ten, placeId) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ten || 'office')}&query_place_id=${encodeURIComponent(placeId)}`;
 const so1 = (v) => (v == null ? '—' : money(v));
 
-export function renderProfile(b, data, _osm, giaNguon) {
+export function renderProfile(b, data, _osm, giaNguon, canXacNhan) {
   const g = giaNguon?.toa?.[b.id] || null;
+  const ca = (canXacNhan?.ca || []).find((c) => c.stt.includes(String(b.teacherNo)));
   return `<div class="pf">
     ${hero(b)}
+    ${ca ? `<p class="pf__warn">${icon('alert', { size: 13 })} Đang chờ thầy xác nhận: ${esc(ca.van_de)} ${esc(ca.cau_hoi)}</p>` : ''}
     ${priceSourcesBlock(b, g)}
     ${leaseBlock(b)}
     ${locationBlock(b, g)}
