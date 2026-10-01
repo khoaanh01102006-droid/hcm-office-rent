@@ -1,0 +1,1240 @@
+/* =========================================================================
+   LỚP GIỌNG BIÊN TẬP — nạp SAU app.css và views.css.
+
+   Vì sao là một lớp riêng chứ không sửa thẳng: app.css và views.css mang
+   CẤU TRÚC (bố cục, trạng thái, hành vi). Tệp này mang GIỌNG (chữ, nhịp,
+   chi tiết). Tách ra thì đọc được sự khác biệt, và đổi hướng thị giác lần
+   sau không phải lục lại 900 dòng bố cục.
+
+   Bốn quy tắc, lấy từ bản mẫu tham chiếu:
+
+   1. Tiêu đề dùng Playfair Display. Con số dùng IBM Plex Mono +
+      tabular-nums. Thân bài dùng Be Vietnam Pro.
+   2. Nhãn mục viết hoa, mono, giãn chữ 0,16em — đây là thứ tạo ra giọng
+      "báo cáo thị trường" nhiều hơn bất kỳ chi tiết nào khác.
+   3. Bo góc gần như vuông (2px). Đường kẻ mảnh thay cho đổ bóng.
+   4. Chi tiết trang trí duy nhất lấy từ chính chủ đề: vạch ngang lặp trên
+      thanh giá, mô phỏng các tầng sàn.
+   ========================================================================= */
+
+/* ---- 1 · Chữ ----------------------------------------------------------- */
+
+body { font-weight: 400; }
+
+.topbar__title,
+.sidebar__title,
+.sheet__title,
+.pf__name,
+.cmphead,
+.overlay__head h2,
+.overlay__head h3 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.topbar__title { font-size: 1.05rem; letter-spacing: -0.01em; }
+.sidebar__title { font-size: 1.25rem; line-height: 1.15; letter-spacing: -0.025em; }
+.pf__name { font-size: 1.9rem; line-height: 1.12; letter-spacing: -0.03em; }
+.sheet__title { font-size: 1.1rem; letter-spacing: -0.02em; }
+
+.pf__sechead h4,
+.cmp__grouphead,
+.srccard__title,
+.method__must > h4 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Nhãn mục: mono, viết hoa, giãn chữ. Đây là chi tiết mang giọng nhiều nhất. */
+/* NHÃN MỤC — họ chữ thân bài, không hoa, không giãn.
+
+   Luật cũ đặt mọi nhãn mục thành mono + CHỮ HOA + giãn 0,16em. Nó lặp ở dải
+   bên trái, trong bộ lọc, trên bảng tiện ích, trong chú giải bản đồ, ở đầu
+   mọi mục — tức là thứ mắt gặp nhiều nhất. Ba đặc điểm đó cộng lại tạo ra
+   đúng cái vẻ "khuôn mẫu dựng sẵn" mà người dùng gọi tên.
+
+   Nay nhãn mục chỉ khác thân bài ở hai thứ nhẹ: nhỏ hơn một bậc và nhạt hơn
+   một bậc. Đủ để nhận ra là nhãn, không đủ để đòi phần chú ý. */
+.label,
+.ampanel__more,
+.maplegend__title .label,
+.cmp__unit,
+.fgroup__hint,
+.pf__srcnote {
+  font-family: var(--f-body);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.005em;
+  text-transform: none;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+.fgroup__hint { text-transform: none; letter-spacing: 0.02em; }
+
+.samplenote {
+  font-family: var(--f-body);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.005em;
+  text-transform: none;
+  color: var(--warn);
+  background: var(--warn-soft);
+  border: 0;
+  padding: 3px 9px;
+  border-radius: var(--r-sm);
+}
+
+/* ---- 2 · Mọi con số là chữ đơn cách, cột thẳng hàng tuyệt đối ---------- */
+.item__num, .item__gross b, .item__unit,
+.pop__num, .pop__unit,
+.pricerow__val strong, .pricerow__unit,
+.band__spread, .band__num, .band__date,
+.pf__distval, .spec,
+.cmp__val, .cmp__sub,
+.slider__val, .togglechip__n, .filterbadge,
+.amg__n, .place__dist, .place__rate,
+.dtable td, .grade, .metro b, .fresh {
+  font-family: var(--f-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.item__num { font-weight: 500; letter-spacing: -0.02em; }
+.pricerow__val strong { font-weight: 500; letter-spacing: -0.02em; }
+.band__spread { font-weight: 500; }
+
+/* ---- 3 · Nút và điều khiển: vuông, viền mảnh, không đổ bóng ------------ */
+.btn {
+  font-family: var(--f-body);
+  font-weight: 500;
+  border-radius: var(--r-sm);
+  box-shadow: none;
+}
+.btn--outline { box-shadow: none; border-color: var(--line-strong); }
+.btn--primary { box-shadow: none; }
+.btn:hover { background: var(--hover-bg); }
+
+.badge {
+  font-family: var(--f-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.03em;
+  border-radius: var(--r-sm);
+  font-weight: 400;
+}
+.grade { letter-spacing: 0.05em; }
+
+.searchtrigger, .sortselect, .togglechip, .switch, .mapcard {
+  border-radius: var(--r-sm);
+}
+
+/* Bộ chuyển đoạn (segmented control) — dùng cho lớp vùng đi bộ trên bản đồ.
+   aria-pressed là nguồn sự thật, không dùng class riêng. */
+.seg {
+  display: flex;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.seg button {
+  font-family: var(--f-body);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  padding: 0 9px;
+  min-height: 26px;
+  border: 0;
+  background: var(--surface);
+  color: var(--ink-2);
+  cursor: pointer;
+  border-right: 1px solid var(--line-strong);
+  white-space: nowrap;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.seg button:last-child { border-right: 0; }
+.seg button:hover { background: var(--hover-bg); color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+
+/* ---- 4 · Thanh cấu thành giá: vạch tầng sàn --------------------------- */
+.rentbar__track { border-radius: 1px; height: 6px; background: var(--r0); }
+.rentbar__seg {
+  border-radius: 0;
+  background-image: repeating-linear-gradient(
+    to bottom, rgba(255, 255, 255, .18) 0 1px, transparent 1px 4px);
+}
+:root[data-theme="dark"] .rentbar__seg {
+  background-image: repeating-linear-gradient(
+    to bottom, rgba(0, 0, 0, .28) 0 1px, transparent 1px 4px);
+}
+.sw--base, .sw--service, .sw--vat { border-radius: 1px; }
+
+/* ---- 5 · Vòng focus: đồng thau, thấy rõ trên mọi nền ------------------- */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* =========================================================================
+   THÀNH PHẦN MỚI CỦA BẢN ĐỒ
+   ========================================================================= */
+
+/* ---- Nhóm tiện ích: trạng thái "không có kết quả" có ngôn ngữ riêng ---- */
+.amcat.is-none {
+  background-color: var(--missing-bg);
+  background-image: var(--missing-hatch);
+  border: 1px dashed var(--missing-border);
+  color: var(--missing-fg);
+  opacity: 1;                 /* KHÔNG làm mờ — đây là quan sát, không phải lỗi */
+  cursor: help;
+}
+.amcat__none {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-left: 5px;
+  color: var(--missing-fg);
+}
+
+/* =========================================================================
+   BẢNG TIÊU ĐIỂM — một tấm ván neo cạnh trái bản đồ
+
+   VẤN ĐỀ CỦA BẢN TRƯỚC. Hai tấm thẻ NỔI cùng nói về một tòa nhà, cùng lúc:
+   thẻ xem nhanh 300px thả giữa bản đồ và bảng tiện ích 348px ở cạnh trái.
+   Cộng với dải danh sách 348px bên ngoài, phần bản đồ còn đọc được co lại
+   thành một dải hẹp bên phải — đúng chỗ KHÔNG có tuyến đi bộ nào. Người
+   dùng bật lớp tiện ích lên và thấy hai chấm trong sáu, không tuyến nào.
+
+   Ba luật của bản này:
+
+   1. MỘT bề mặt cho MỘT tòa nhà. Thông tin tòa nhà và tiện ích quanh nó là
+      cùng một câu hỏi, nên ở cùng một chỗ.
+   2. Neo cứng, không thả nổi. Vị trí cố định thì camera trừ ra được — xem
+      setViewportPadding() trong map.js. Thẻ thả nổi thì không.
+   3. MỘT vùng cuộn. Bản trước có cuộn trong cuộn: .amlist cao tối đa 212px
+      nằm trong .ampanel__body cao tối đa 540px. Đo được: sáu dòng đã phải
+      cuộn (294px nội dung trong 211px khung).
+   ========================================================================= */
+.focus {
+  position: absolute;
+  left: var(--s-3);
+  top: var(--s-3);
+  bottom: calc(var(--strip-h, 0px) + var(--s-3));
+  width: var(--focus-w);
+  max-width: calc(100% - var(--s-6));
+  z-index: 6;
+  display: flex; flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+.focus[hidden] { display: none !important; }
+.focus__scroll {
+  flex: 1 1 auto; min-height: 0;
+  overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: thin;
+  border-radius: inherit;
+}
+.focus__scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* Gập lại để nhìn bản đồ trống. Nút nằm đè lên góc trên phải của bảng —
+   luôn ở cùng một chỗ dù bảng đang mở hay đã gập. */
+.focus__fold {
+  position: absolute; top: 6px; right: 6px; z-index: 2;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  color: var(--ink-2); cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.focus__fold:hover { background: var(--hover-bg); color: var(--ink); }
+.focus__fold[aria-expanded="false"] span[id] { transform: rotate(180deg); display: block; }
+.focus.is-folded { bottom: auto; }
+.focus.is-folded .focus__scroll { display: none; }
+.focus__stub {
+  display: none;
+  padding: var(--s-2) 42px var(--s-2) var(--s-4);
+  font-size: var(--fs-sm); font-weight: 600; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.focus.is-folded .focus__stub,
+.focus.is-scrolled .focus__stub { display: block; }
+.focus.is-scrolled .focus__stub {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+@media (pointer: coarse) { .focus__fold { width: var(--touch); height: var(--touch); } }
+
+/* ---- Đầu bảng: chính tòa nhà, ở dạng gọn nhất còn nhận ra được --------- */
+.fbuild { padding: var(--s-3) var(--s-4) var(--s-4); }
+.fbuild__id { display: flex; gap: var(--s-3); align-items: flex-start; padding-right: 30px; }
+.fbuild__thumb {
+  flex: none; width: 64px; height: 64px;
+  object-fit: cover; background: var(--ground);
+  border-radius: var(--r-sm);
+}
+.fbuild__idtext { min-width: 0; flex: 1 1 auto; }
+.fbuild__name {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: var(--fs-lg); font-weight: 500; line-height: 1.2; color: var(--ink);
+}
+.fbuild__addr {
+  margin: 3px 0 0;
+  font-size: var(--fs-xs); line-height: 1.4; color: var(--ink-3);
+}
+.fbuild__meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 5px;
+  margin-top: var(--s-3);
+}
+.fbuild__chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--f-mono); font-size: var(--fs-2xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+}
+.fbuild__chip svg { color: var(--ink-3); }
+.fbuild__chip b { color: var(--ink); font-weight: 600; }
+
+/* Con số giá là thứ người thuê tìm trước tiên — nên nó là thứ to nhất
+   trong bảng, và đơn vị đi liền nó chứ không nằm ở chú giải nào khác. */
+.fbuild__price {
+  display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
+  margin-top: var(--s-3); padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+.fbuild__num {
+  font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+  font-size: var(--fs-2xl); font-weight: 500; line-height: 1; color: var(--ink);
+}
+.fbuild__unit { font-size: var(--fs-2xs); color: var(--ink-2); }
+.fbuild__gross {
+  width: 100%; margin-top: 5px;
+  font-family: var(--f-mono); font-size: var(--fs-2xs); color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.fbuild__gross b { color: var(--ink-2); font-weight: 500; }
+.fbuild__cta { display: flex; gap: 6px; margin-top: var(--s-3); }
+.fbuild__cta .btn { flex: 1 1 auto; justify-content: center; }
+
+/* =========================================================================
+   MỤC TIỆN ÍCH — nay là một MỤC trong bảng, không còn là một thẻ riêng
+   trôi nổi. Nó thừa hưởng nền và vùng cuộn của bảng tiêu điểm.
+   ========================================================================= */
+.ampanel {
+  border-top: 8px solid var(--ground);
+  display: flex; flex-direction: column;
+}
+.ampanel__head { padding: var(--s-3) var(--s-4) 0; }
+.ampanel__title {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  font-weight: 300;
+  line-height: 1.35;
+}
+.ampanel__title b { color: var(--ink); font-weight: 600; }
+.ampanel__body {
+  padding: var(--s-3) var(--s-4) var(--s-4);
+  display: flex; flex-direction: column; gap: var(--s-3);
+}
+.ampanel__cats { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.ampanel__ctl {
+  display: flex; flex-direction: column; gap: var(--s-2);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+.ampanel__ctlrow { display: flex; flex-direction: column; align-items: stretch; gap: 4px; }
+.ampanel__ctlrow > .label { flex: none; }
+.ampanel__ctlrow .seg { align-self: flex-start; max-width: 100%; }
+
+/* Nút khung giờ chưa có dữ liệu: cùng ngôn ngữ hình ảnh với mọi chỗ khác
+   trong sản phẩm — viền đứt + gạch chéo, KHÔNG chỉ làm mờ. Mờ đọc ra
+   "đang tắt"; gạch chéo đọc ra "chưa thu thập". Hai nghĩa khác nhau. */
+.seg button.is-none {
+  background-color: var(--missing-bg);
+  background-image: var(--missing-hatch);
+  color: var(--missing-fg);
+  cursor: help;
+}
+.seg--sm button { padding: 5px 9px; font-size: var(--fs-2xs); min-height: 26px; }
+/* Ở con trỏ thô, MỌI nút phải đạt 44px — kể cả nút trong bộ chuyển đoạn.
+   Trước đây luật này thiếu mà kiểm thử vẫn xanh, chỉ vì mọi bộ chuyển đoạn
+   đều nằm trong <details> đóng sẵn nên không đo được. Thêm một bộ nằm ngoài
+   là lộ ra ngay. */
+@media (pointer: coarse) { .seg button { min-height: var(--touch); } }
+
+.ampanel__bandnote,
+.ampanel__more,
+.amlist__empty,
+.ampanel__note {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--ink-3);
+}
+.ampanel__bandnote strong,
+.ampanel__note strong { color: var(--ink-2); font-weight: 600; }
+.ampanel__more {
+  padding-top: 2px;
+  font-family: var(--f-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.02em;
+}
+.amlist__empty { padding: var(--s-3) 0; }
+
+/* =========================================================================
+   DANH SÁCH XẾP HẠNG
+
+   BA THAY ĐỔI, mỗi cái sửa một lời than cụ thể.
+
+   1. SỐ MÉT KHÔNG CÒN LÀ THỨ NHỎ NHẤT TRÊN DÒNG. Bản trước đặt "190 m" ở
+      cột phải ngoài cùng, cỡ 11px, màu --ink-2, ngay dưới là "vòng 2,1×"
+      cỡ 10px màu --ink-3 — hai con số nhỏ hơn tên và nhạt hơn tên, trong
+      khi khoảng cách mới là thứ người thuê đang đi tìm. Nay số mét dùng
+      cùng cỡ chữ với tên và màu --ink đậm nhất.
+
+   2. KHOẢNG CÁCH CÓ KÊNH THỊ GIÁC RIÊNG. Một thanh dài tỉ lệ với quãng đi
+      bộ, so trên chính tập đang hiện. Đọc mười dòng bằng mắt nhanh hơn
+      đọc mười con số — đây là cách Citymapper và danh sách địa điểm của
+      Google Maps xếp hạng quãng đi.
+
+   3. ĐĨA MÀU NHÓM MANG SỐ PHÚT, trùng đúng ký hiệu trên bản đồ. Nhìn dòng
+      nào là biết ngay chấm nào ngoài kia — hai bề mặt dùng CÙNG một ký
+      hiệu, không phải hai bảng mã rời nhau.
+   ========================================================================= */
+.amlist {
+  list-style: none; margin: 0; padding: 0;
+  border-block: 1px solid var(--line);
+}
+.amrow + .amrow { border-top: 1px solid var(--line); }
+.amrow > button {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "min who num"
+    "min bar bar";
+  align-items: center;
+  column-gap: var(--s-3); row-gap: 4px;
+  width: 100%;
+  padding: 8px var(--s-2) 9px 6px;
+  background: none; border: 0;
+  border-left: 3px solid transparent;
+  font-family: var(--f-body);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.amrow > button:hover,
+.amrow.is-hot > button {
+  background: var(--hover-bg);
+  border-left-color: var(--amk-color);
+}
+
+/* Ô đầu dòng là ĐÚNG viên thuốc đang nằm trên bản đồ: cùng ký hiệu, cùng
+   con số, cùng cách đảo màu cho "gần nhất nhóm". Nhìn dòng nào là biết ngay
+   ghim nào ngoài kia — một bảng mã cho hai bề mặt, không phải hai bảng. */
+.amrow__min {
+  grid-area: min;
+  height: 23px;
+  padding: 0 7px 0 5px;
+  display: inline-flex; align-items: center; gap: 3px;
+  border-radius: var(--r-pill);
+  background: var(--amk-disc);
+  border: 2px solid var(--amk-color);
+  color: var(--amk-color);
+  font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.amrow__min b { font-size: 11px; font-weight: 600; }
+.amrow__min .amk__ic { width: 12px; height: 12px; flex: none; display: block; }
+.amrow__min .amk__ic svg { display: block; width: 100%; height: 100%; }
+.amrow.is-lead .amrow__min { background: var(--amk-color); border-color: var(--amk-disc); color: #FFFFFF; }
+.amrow__who { grid-area: who; min-width: 0; display: flex; flex-direction: column; }
+.amrow__who b {
+  font-size: var(--fs-sm); font-weight: 500; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.amrow__who i {
+  font-style: normal; font-size: var(--fs-2xs); color: var(--ink-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+/* "gần nhất nhóm" = chính các địa điểm được gắn nhãn tên trên bản đồ. Dấu
+   này là thứ nối hai bề mặt lại với nhau. */
+.amrow__who i em { font-style: normal; color: var(--accent); font-weight: 600; }
+
+/* Số mét: cùng cỡ với tên, màu đậm nhất. Đây là câu trả lời cho "khoảng
+   cách gần như không thấy được". */
+.amrow__num {
+  grid-area: num;
+  text-align: right;
+  font-family: var(--f-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.amrow__num b { font-size: var(--fs-sm); font-weight: 500; color: var(--ink); }
+
+/* Thanh quãng đường — tỉ lệ với số mét đi bộ trong chính tập đang hiện.
+   Phần đậm là quãng ĐƯỜNG THẲNG, phần nhạt kéo dài thêm là quãng ĐI BỘ
+   THẬT: chỗ thò ra chính là chỗ phải đi vòng. Hệ số vòng thôi là một con
+   số trừu tượng; nhìn thấy chỗ thò ra thì hiểu ngay. */
+.amrow__bar {
+  grid-area: bar;
+  display: flex; align-items: center; gap: 7px;
+  min-width: 0;
+}
+.amrow__track {
+  position: relative;
+  flex: 1 1 auto; min-width: 0;
+  height: 4px;
+  background: var(--line);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+.amrow__fill {
+  position: absolute; inset: 0 auto 0 0;
+  background: var(--amk-color);
+  border-radius: var(--r-pill);
+  opacity: 0.4;
+}
+.amrow__straight {
+  position: absolute; inset: 0 auto 0 0;
+  background: var(--amk-color);
+  border-radius: var(--r-pill);
+}
+.amrow__detour {
+  flex: none;
+  font-family: var(--f-mono); font-size: 10px; color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.amrow__detour.is-high { color: var(--warn); font-weight: 500; }
+
+/* Tùy chọn hiển thị: gập lại mặc định, và đặt SAU danh sách. Đây là cài
+   đặt, không phải nội dung — thứ hiếm khi động tới thì không được đứng
+   trước thứ đọc mỗi lần. */
+.ampanel__opts,
+.ampanel__why { border-top: 1px solid var(--line); padding-top: var(--s-2); }
+.ampanel__opts > summary,
+.ampanel__why > summary {
+  font-family: var(--f-mono); font-size: var(--fs-2xs); letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-3); cursor: pointer; list-style: none;
+  display: flex; align-items: center; gap: 6px; min-height: 26px; padding: 2px 0;
+}
+.ampanel__opts > summary::-webkit-details-marker,
+.ampanel__why > summary::-webkit-details-marker { display: none; }
+.ampanel__opts > summary::before,
+.ampanel__why > summary::before {
+  content: ""; width: 0; height: 0; border-left: 4px solid currentColor;
+  border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;
+  transition: transform var(--t-fast) var(--ease);
+}
+.ampanel__opts[open] > summary::before,
+.ampanel__why[open] > summary::before { transform: rotate(90deg); }
+.ampanel__opts > summary:hover,
+.ampanel__why > summary:hover { color: var(--ink); }
+.ampanel__opts .ampanel__ctl { border-top: 0; padding-top: var(--s-2); }
+.ampanel__opts .ampanel__bandnote { margin-top: var(--s-2); }
+
+.amlist__head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-2);
+  border-top: 1px solid var(--line); padding-top: var(--s-2);
+}
+.amlist__count {
+  font-family: var(--f-mono); font-size: var(--fs-2xs); color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.amlist { border-top: 0; }
+
+/* ---- Lớp nền & chú giải: một thẻ gập, không phải hai thẻ luôn mở ------- */
+.maplayers { width: 348px; max-width: 100%; padding: 0; overflow: hidden; }
+.maplayers__sum {
+  display: flex; align-items: center; gap: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  cursor: pointer; list-style: none;
+  min-height: var(--touch-sm, 32px);
+}
+.maplayers__sum::-webkit-details-marker { display: none; }
+.maplayers__sum:hover { background: var(--hover-bg); }
+.maplayers__now {
+  flex: 1 1 auto; min-width: 0;
+  font-size: var(--fs-2xs); color: var(--ink-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  text-align: right;
+}
+.maplayers__body {
+  padding: var(--s-3);
+  border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: var(--s-3);
+}
+.maplegend__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.maplegend__list li { display: flex; align-items: center; gap: 7px; font-size: var(--fs-2xs); color: var(--ink-2); }
+
+/* =========================================================================
+   MARKER TIỆN ÍCH — ba bậc
+
+     chấm   luôn hiện (trên z13,4). Vị trí là thứ bản đồ phải nói cho bằng
+            được, nên chấm KHÔNG BAO GIỜ bị giấu vì thiếu chỗ.
+     nhãn   chỉ địa điểm gần nhất của mỗi nhóm, và chỉ trên z14,6.
+     thẻ    đúng một cái đang trỏ tới.
+
+   KHÔNG BAO GIỜ đặt `position` trên phần tử marker. MapLibre định vị nó
+   bằng position:absolute + top/left:0 + transform; ghi đè bằng
+   position:relative làm marker rơi vào luồng văn bản và xếp chồng thành
+   một cột — toạ độ sai hoàn toàn. position:absolute của MapLibre đã đủ
+   làm gốc cho mọi phần tử con tuyệt đối bên trong.
+
+   Phần tử neo không mang kích thước hình học của nội dung: mọi thứ bên
+   trong đều absolute và tự căn từ tâm. Nhờ vậy bề rộng nhãn KHÔNG ảnh
+   hưởng tới vị trí — đây chính là lỗi ghim nhảy khi thu phóng ở bản trước.
+   ========================================================================= */
+.amk {
+  display: block;
+  width: 30px; height: 30px;
+  padding: 0; border: 0; background: none;
+  cursor: pointer;
+  transition: opacity var(--t-fast) var(--ease);
+}
+@media (pointer: coarse) { .amk { width: var(--touch); height: var(--touch); } }
+
+/* GHIM TIỆN ÍCH = KÝ HIỆU NHÓM + SỐ PHÚT, trong một viên thuốc.
+
+   Bản đầu: chấm trơn 11px — nói được đúng "có cái gì đó ở đây".
+   Bản hai:  đĩa mang số   — thêm được "bao xa", nhưng "CÁI GÌ" vẫn phải suy
+                             ra từ màu, mà tám màu cạnh nhau ở cỡ 12px thì
+                             tím với tím-xanh gần như một, và người mù màu
+                             thì mất hẳn kênh đó.
+   Bản này:  ký hiệu + số  — hai kênh độc lập, không kênh nào là màu.
+
+   BA BẬC RÚT GỌN khi hết chỗ, do _placeLabels() trong map.js quyết định:
+
+     (mặc định)  viên thuốc: ký hiệu + số phút
+     .is-plain   đĩa tròn 22px: chỉ ký hiệu — mất số, giữ loại
+     .is-bare    chấm 12px: mất cả hai, GIỮ VỊ TRÍ
+
+   Không có bậc thứ tư. Giấu nhãn được, giấu vị trí thì không.
+   Ba con số 22 / 12 ở đây khớp cứng với hằng ICON / BARE trong map.js —
+   đổi một chỗ phải đổi cả hai.
+
+   Nền viên thuốc là --amk-disc (trắng, cố định ở mọi giao diện): đĩa tự
+   mang nền của nó nên tám màu nhóm giữ nguyên tỉ lệ tương phản đã đo
+   (5,4:1 – 7,0:1) trên bản đồ sáng, bản đồ tối lẫn ảnh vệ tinh. */
+.amk__dot {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  height: 23px; min-width: 23px;
+  padding: 0 7px 0 5px;
+  display: flex; align-items: center; gap: 3px;
+  border-radius: var(--r-pill);
+  background: var(--amk-disc);
+  border: 2px solid var(--amk-color);
+  color: var(--amk-color);
+  font-family: var(--f-mono);
+  font-size: 11px; font-weight: 600; line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(20, 30, 26, 0.35);
+  transition: opacity var(--t-fast) var(--ease);
+}
+.amk__ic { display: block; width: 12px; height: 12px; flex: none; }
+.amk__ic svg { display: block; width: 100%; height: 100%; }
+.amk__dot b { font-weight: 600; }
+
+/* Gần nhất mỗi nhóm: đảo màu. Nhiều nhất tám cái nên nó được phép nặng. */
+.amk.is-lead .amk__dot {
+  height: 27px; min-width: 27px;
+  padding: 0 9px 0 6px;
+  background: var(--amk-color);
+  border-color: var(--amk-disc);
+  color: #FFFFFF;
+  font-size: 12px;
+}
+.amk.is-lead .amk__ic { width: 14px; height: 14px; }
+
+/* Bậc 2 — chỉ ký hiệu. Vẫn là đĩa tròn nên vẫn đọc ra "một địa điểm". */
+.amk.is-plain .amk__dot {
+  width: 22px; min-width: 0; height: 22px;
+  padding: 0; gap: 0;
+  justify-content: center;
+}
+.amk.is-plain .amk__dot b { display: none; }
+.amk.is-plain .amk__ic { width: 12px; height: 12px; }
+
+/* Bậc 3 — chấm trần. Chỉ còn vị trí, và vị trí thì không bao giờ bị bỏ. */
+.amk.is-bare .amk__dot {
+  width: 12px; height: 12px;
+  background: var(--amk-color);
+  border: 2px solid var(--amk-disc);
+  box-shadow: 0 0 0 1px rgba(20, 30, 26, 0.22);
+}
+.amk.is-bare .amk__ic { display: none; }
+
+/* =========================================================================
+   GHIM GIAO THÔNG — ga đường sắt và sân bay
+
+   Cùng họ hình với ghim tiện ích (đĩa trắng, ký hiệu đặc, nhãn dưới) nhưng
+   KHÁC hẳn về sắc độ: mực xám thay vì tám màu nhóm. Đây là hạ tầng của cả
+   thành phố, không phải tiện ích CỦA MỘT TÒA NHÀ — hai loại thông tin khác
+   nhau thì không được trông giống nhau.
+   ========================================================================= */
+.txk { width: 28px; height: 28px; border: 0; padding: 0; background: none; cursor: pointer; }
+.txk__pin {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--amk-disc);
+  border: 2px solid var(--ink-2);
+  color: var(--ink);
+  box-shadow: 0 1px 4px rgba(20, 30, 26, 0.35);
+}
+.txk__pin svg { display: block; width: 14px; height: 14px; }
+.txk__lab {
+  position: absolute; left: 50%; top: 50%;
+  margin-top: 17px;
+  transform: translateX(-50%);
+  max-width: 20ch;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: 2px 7px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  color: var(--ink);
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(16, 32, 26, .16);
+}
+/* Ga metro mang màu của chính tuyến — cùng màu với vệt tuyến trên bản đồ,
+   nên mắt nối được ga với tuyến mà không cần chú giải. Ga đường sắt và sân
+   bay giữ mực xám: chúng thuộc hạ tầng khác. */
+.txk--metro .txk__pin { border-color: var(--map-metro); color: var(--map-metro); }
+.txk--metro .txk__lab { border-color: var(--map-metro); }
+.txk--metro { z-index: 2; }
+/* Mốc CBD mang mực đậm nhất vì nó là ĐIỂM QUY CHIẾU của mọi khoảng cách
+   "cách CBD" trong sản phẩm — không ngang hàng với một cái ga hay sân bay. */
+.txk--cbd .txk__pin { border-color: var(--ink); color: var(--ink); border-width: 2.5px; }
+.txk--cbd .txk__lab { border-color: var(--ink); font-weight: 600; }
+.txk--cbd { z-index: 4; }
+/* Ở mức thành phố, mười bốn ga dọc một tuyến chỉ cần nói "có ga ở đây". */
+.txk.is-small .txk__pin { width: 15px; height: 15px; border-width: 2px; }
+.txk.is-small .txk__pin svg { width: 8px; height: 8px; }
+.txk.is-nolabel .txk__lab { display: none; }
+.txk:hover .txk__pin { border-color: var(--ink); }
+.txk:focus-visible { outline: none; }
+.txk:focus-visible .txk__pin { box-shadow: 0 0 0 2px var(--amk-disc), 0 0 0 5px var(--accent); }
+@media (pointer: coarse) { .txk { width: var(--touch); height: var(--touch); } }
+
+/* THỨ TỰ XẾP CHỒNG là kênh giải quyết va chạm cuối cùng. Chỗ nào đông quá
+   thì thuật toán ở _placeLabels() đã rút bớt số; phần chồng còn lại phải
+   xếp theo mức quan trọng, chứ không theo thứ tự tình cờ trong DOM.
+   Gần nhất mỗi nhóm luôn nằm trên, và cái đang trỏ tới nằm trên tất cả. */
+.amk { z-index: 1; }
+.amk.is-plain { z-index: 0; }
+.amk.is-lead { z-index: 3; }
+
+.amk__lab {
+  position: absolute; left: 50%; top: 50%;
+  margin-top: 17px;
+  transform: translateX(-50%);
+  max-width: 17ch;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: 2px 7px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  color: var(--ink);
+  pointer-events: none;
+}
+.amk.is-nolabel .amk__lab { display: none; }
+
+/* Thẻ đầy đủ — mẫu lấy từ tham chiếu người dùng gửi: MỘT khối thông tin
+   tại một thời điểm, không phải bốn mươi tám nhãn cùng lúc. */
+.amk__card {
+  position: absolute; left: 50%; bottom: 50%;
+  margin-bottom: 20px;
+  transform: translateX(-50%);
+  display: none;
+  width: max-content; max-width: 250px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s-2) var(--s-3);
+  text-align: left;
+  pointer-events: none;
+}
+.amk.is-hot .amk__card { display: block; }
+.amk__ctop { display: flex; align-items: center; gap: var(--s-3); }
+.amk__min {
+  flex: none;
+  display: flex; align-items: baseline; gap: 2px;
+  font-family: var(--f-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.amk__min b { font-size: 1.24rem; font-weight: 500; line-height: 1; }
+.amk__min i { font-style: normal; font-size: 10px; color: var(--ink-3); }
+.amk__who { min-width: 0; display: flex; flex-direction: column; }
+.amk__who b {
+  font-size: var(--fs-sm); font-weight: 600; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.amk__who i { font-style: normal; font-size: var(--fs-2xs); color: var(--ink-3); }
+.amk__cbot {
+  display: flex; gap: var(--s-3); flex-wrap: wrap;
+  margin-top: 5px; padding-top: 5px;
+  border-top: 1px solid var(--line);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.amk__cbot b { color: var(--ink-2); font-weight: 500; }
+.amk__tail {
+  position: absolute; left: 50%; bottom: -5px;
+  margin-left: -5px;
+  width: 10px; height: 10px;
+  transform: rotate(45deg);
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.amk.is-hot { z-index: 9; }
+.amk.is-hot .amk__dot {
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--amk-color);
+}
+.amk.is-hot .amk__lab { display: none; }      /* thẻ đã nói tên rồi */
+/* KHÔNG dùng `opacity` trên chính phần tử marker: MapLibre ghi opacity
+   TRỰC TIẾP vào style nội tuyến của phần tử (cơ chế che khuất theo địa
+   hình), nên luật theo lớp thua nội tuyến và bị bỏ qua im lặng. Cùng họ
+   với bẫy `position` ở trên — MapLibre sở hữu style của phần tử marker,
+   mọi hiệu ứng phải đặt lên phần tử CON.
+   `visibility` thì MapLibre không đụng tới, và nó di truyền xuống con. */
+.amk.is-dim .amk__dot,
+.amk.is-dim .amk__lab { opacity: 0.35; }
+/* Cổng mức phóng: dưới z13,4 cả cụm dồn vào vài chục pixel. Ẩn hẳn trung
+   thực hơn là vẽ một vệt màu không đọc được. */
+.amk.is-faded { visibility: hidden; pointer-events: none; }
+.amk:focus-visible { outline: none; }
+.amk:focus-visible .amk__dot { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---- Popup tiện ích --------------------------------------------------- */
+.mapop--am .maplibregl-popup-content { padding: 0; }
+.ampop { padding: var(--s-3) var(--s-4) var(--s-4); }
+.ampop__head { display: flex; align-items: center; gap: 6px; }
+.ampop__ic {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--amk-color); color: #fff;
+  display: grid; place-items: center; flex: none;
+}
+.ampop__ic svg { width: 11px; height: 11px; }
+.ampop__cat {
+  font-family: var(--f-mono); font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--ink-3);
+}
+.ampop__name {
+  font-family: var(--f-display); font-weight: 600; font-size: 1.05rem;
+  line-height: 1.2; margin: 6px 0 var(--s-3); letter-spacing: -0.01em;
+}
+.ampop__grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 0; }
+.ampop__grid > div {
+  background: var(--surface); padding: 6px 9px;
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3);
+}
+.ampop__grid dt { font-size: var(--fs-2xs); color: var(--ink-3); margin: 0; }
+.ampop__grid dd {
+  margin: 0; font-family: var(--f-mono); font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums; color: var(--ink);
+}
+.ampop__grid dd b { font-weight: 500; }
+.ampop__note, .ampop__src {
+  font-size: var(--fs-2xs); color: var(--ink-3); line-height: 1.5; margin: var(--s-2) 0 0;
+}
+.ampop__src code { font-size: 0.95em; }
+
+/* ---- Ảnh thu nhỏ trong danh sách -------------------------------------
+   Mỏ neo thị giác: nhận ra tòa quen mà không phải đọc tên. Đổi lại mất 84px
+   bề ngang cho chữ, nên địa chỉ bị cắt sớm hơn — địa chỉ đầy đủ nằm trong
+   hồ sơ và trong nhãn trình đọc màn hình.
+
+   alt="" có chủ đích: tên tòa nhà đã nằm ngay cạnh và trong aria-label của
+   nút phủ kín. Đọc lại tên lần nữa là thừa.                              */
+.item { padding-left: 96px; min-height: 96px; }
+.item__thumb {
+  position: absolute;
+  left: var(--s-3);
+  top: var(--s-3);
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  background: var(--ground);
+  border: 1px solid var(--line);
+}
+.item__thumb--none {
+  background-color: var(--missing-bg);
+  background-image: var(--missing-hatch);
+  border-style: dashed;
+  border-color: var(--missing-border);
+}
+.item__cmp { bottom: var(--s-3); }
+
+/* Bảng dày không có ảnh — đó là chế độ dành cho việc quét nhanh nhiều dòng,
+   thêm ảnh vào là phá đúng mục đích của nó. */
+body[data-density="table"] .item__thumb { display: none; }
+
+/* ---- Ghim GIÁ cho tòa nhà --------------------------------------------
+   Chấm mang chữ cái hạng buộc người xem phải tra chú giải mới hiểu. Con số
+   giá đọc được ngay và là thứ người thuê đi tìm. Hạng vẫn còn trong nhãn
+   trình đọc màn hình và trong tooltip khi rê chuột.                      */
+/* Hộp có kích thước THẬT, tâm đặt đúng toạ độ. Ghim treo lên từ đường giữa
+   hộp (`bottom: 50%`), nên bề rộng ghim không ảnh hưởng vị trí — cùng cách
+   giải như viên thuốc tiện ích, nhưng vẫn giữ được vùng chạm và vòng focus.
+   Nút 0×0 thì hai thứ đó đều bất định. */
+/* KHÔNG BAO GIỜ đặt position trên phần tử marker. MapLibre định vị nó bằng
+   position:absolute + top/left:0 + transform; ghi đè bằng position:relative
+   làm marker rơi vào luồng văn bản và xếp chồng thành một cột — toạ độ sai
+   hoàn toàn. position:absolute của MapLibre đã đủ làm gốc cho con tuyệt đối. */
+.mk {
+  display: block;
+  width: 40px; height: 40px;
+  background: none; border: 0; padding: 0;
+}
+.mk__pin {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  margin-bottom: 9px;
+  transform: translateX(-50%);
+  display: block;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--map-pin);
+  color: var(--map-pin-fg);
+  box-shadow: 0 1px 2px rgba(16, 32, 26, .18), 0 4px 12px -4px rgba(16, 32, 26, .35);
+  white-space: nowrap;
+  transition: background var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+}
+.mk__price {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.mk__price--none { opacity: 0.65; }
+.mk__tail {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  margin-left: -4.5px;
+  margin-bottom: 1.87px;   /* = (9·√2 − 9)/2 */
+  width: 9px; height: 9px;
+  transform: rotate(45deg);
+  background: var(--map-pin);
+}
+.mk:hover .mk__pin { transform: translateX(-50%) translateY(-2px); }
+.mk.is-selected .mk__pin,
+.mk.is-selected .mk__tail { background: var(--accent); }
+.mk.is-selected .mk__pin {
+  transform: translateX(-50%) scale(1.08);
+  transform-origin: 50% calc(100% + 9px);
+}
+@media (pointer: coarse) { .mk { width: var(--touch); height: var(--touch); } }
+.mk.is-compare .mk__pin { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent), var(--shadow); }
+.mk:focus-visible { outline: none; }
+.mk:focus-visible .mk__pin { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent), var(--shadow); }
+.mk.is-dim { opacity: 0.36; }
+.mktip { bottom: auto; top: -30px; }
+
+/* Ghim đang chọn luôn nằm trên — hai tòa cách nhau 200 m thì hai ghim giá
+   đè nhau, và cái bị che phải là cái người dùng KHÔNG chọn. */
+.maplibregl-marker:has(.mk.is-selected) { z-index: 4; }
+.maplibregl-marker:has(.mk.is-compare) { z-index: 3; }
+.maplibregl-marker:has(.mk:hover),
+.maplibregl-marker:has(.mk:focus-visible) { z-index: 5; }
+
+/* ---- Chú giải bản đồ: ký hiệu isochrone ------------------------------- */
+.isokey { display: flex; flex-direction: column; gap: 4px; margin-top: var(--s-2); }
+.isokey__row { display: flex; align-items: center; gap: 7px; font-size: var(--fs-2xs); color: var(--ink-2); }
+.isokey__sw { width: 16px; height: 10px; flex: none; border-radius: 1px; border: 1px solid; }
+.isokey__sw--1 { background: var(--iso-fill-1); border-color: var(--iso-1); }
+.isokey__sw--2 { background: var(--iso-fill-2); border-color: var(--iso-2); }
+.isokey__sw--3 { background: var(--iso-fill-3); border-color: var(--iso-3); }
+
+/* =========================================================================
+   BĂNG THẺ DƯỚI BẢN ĐỒ
+
+   Ba kiểu đổi được ngay trong ứng dụng, để so sánh trên dữ liệu thật thay vì
+   chọn theo ảnh mẫu. Băng thẻ và danh sách bên trái là cùng một tập đã lọc,
+   cùng thứ tự — bấm ở đâu cũng chọn cùng một tòa.
+
+   Chiều cao là hằng số CSS để lớp điều khiển bên trái tự đẩy lên đúng khoảng,
+   không phải chỉnh tay hai chỗ.
+   ========================================================================= */
+.filmstrip {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 6;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(8px) saturate(1.15);
+  border-top: 1px solid var(--line);
+  display: flex; flex-direction: column;
+}
+.filmstrip__bar {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: 5px var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+.filmstrip__spacer { flex: 1 1 auto; }
+.filmstrip__track {
+  display: flex; gap: 6px;
+  padding: var(--s-2) var(--s-3);
+  overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.filmstrip__track > [role="listitem"] { flex: none; display: flex; }
+
+/* Chiều cao băng thẻ là MỘT biến duy nhất. Bản trước đặt tay hai con số ở
+   hai chỗ (138/118 và 92/72) và cả hai đều nhỏ hơn chiều cao thật, nên dòng
+   ghi công OpenStreetMap bị băng thẻ che — mà ODbL bắt buộc nó hiển thị. */
+body { --strip-h: 0px; }
+body[data-strip="cards"] { --strip-h: 132px; }
+body[data-strip="rows"] { --strip-h: 90px; }
+
+/* Bảng tiêu điểm neo cứng ở cạnh trái, nên mọi thứ khác ở cạnh đó phải
+   nhường chỗ: thẻ lớp nền, thước tỉ lệ của MapLibre, và dòng ghi công.
+   Một biến duy nhất điều khiển cả ba — mở bảng thì chúng trượt sang phải,
+   đóng bảng thì trả về sát mép. Chồng lên nhau là cách nhanh nhất để một
+   dòng ghi công bắt buộc (ODbL) bị che mất. */
+.mapcol { --dock-left: 0px; }
+.mapcol.has-focus { --dock-left: calc(var(--focus-w) + var(--s-3)); }
+.mapctl--bl {
+  bottom: calc(var(--strip-h) + 30px);
+  left: calc(var(--s-3) + var(--dock-left, 0px));
+  transition: left var(--t-base, 200ms) var(--ease);
+}
+.maplibregl-ctrl-bottom-left { margin-left: var(--dock-left, 0px); }
+.maplibregl-ctrl-bottom-left,
+.maplibregl-ctrl-bottom-right { margin-bottom: var(--strip-h); }
+
+/* ---- Thẻ có ảnh ------------------------------------------------------- */
+.scard {
+  display: flex; align-items: stretch; gap: var(--s-2);
+  width: 252px; padding: 6px;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--surface); cursor: pointer; text-align: left;
+  font-family: var(--f-body);
+  transition: border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+}
+.scard:hover { background: var(--hover-bg); }
+.scard.is-on { border-color: var(--ink); background: var(--hover-bg); box-shadow: inset 0 0 0 1px var(--ink); }
+.scard__img {
+  flex: none; width: 62px; height: 62px; object-fit: cover;
+  border-radius: 2px; background: var(--ground); border: 1px solid var(--line);
+}
+.scard__img--none {
+  background-color: var(--missing-bg); background-image: var(--missing-hatch);
+  border-style: dashed; border-color: var(--missing-border);
+}
+.scard__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; justify-content: center; }
+.scard__top { display: flex; align-items: baseline; gap: 5px; }
+.scard__price {
+  font-family: var(--f-mono); font-size: 1.05rem; font-weight: 500;
+  letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1;
+}
+.scard__unit { font-size: 10px; color: var(--ink-3); }
+.scard__grade { margin-left: auto; padding: 0 5px; font-size: 10px; }
+.scard__name {
+  font-size: var(--fs-sm); font-weight: 500; line-height: 1.25;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%;
+}
+.scard__meta {
+  font-size: var(--fs-2xs); color: var(--ink-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ---- Dải gọn: một dòng, thấy gần hết 12 tòa cùng lúc ------------------ */
+.scard--row {
+  width: auto; align-items: center; gap: var(--s-2);
+  padding: 0 11px; height: 34px; min-height: 34px;
+}
+.scard--row .scard__price { font-size: var(--fs-base); }
+.scard--row .scard__name { font-size: var(--fs-xs); max-width: 16ch; }
+.scard--row .scard__meta { font-size: 10px; }
+
+@media (pointer: coarse) {
+  .scard { min-height: var(--touch); }
+  .scard--row { height: var(--touch); min-height: var(--touch); }
+}
+@media (max-width: 900px) {
+  .filmstrip { display: none; }
+  /* Băng thẻ đã ẩn thì chiều cao dành cho nó cũng phải về 0, nếu không mọi
+     thứ neo theo --strip-h sẽ chừa một khoảng trống cho một thứ không tồn tại. */
+  body[data-strip="cards"], body[data-strip="rows"] { --strip-h: 0px; }
+
+  /* BẢNG TIÊU ĐIỂM TRÊN MÀN HÌNH HẸP → TẤM TRƯỢT ĐÁY.
+
+     Trên màn hẹp không có "cạnh trái" để nhường: chiếm 372px của 390px là
+     chiếm cả màn hình. Tấm trượt đáy là bố cục chuẩn của mọi ứng dụng bản
+     đồ trên di động, và nó vẫn thỏa đúng luật số 2 — vị trí cố định, nên
+     camera trừ được phần bị che (nay là padding ĐÁY thay vì padding TRÁI). */
+  .focus {
+    left: 0; right: 0; bottom: 0; top: auto;
+    width: auto; max-width: none;
+    max-height: 46vh;
+    border-left: 0; border-right: 0; border-bottom: 0;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+  .focus.is-folded { top: auto; bottom: 0; }
+  .mapcol.has-focus { --dock-left: 0px; }
+  /* Thẻ lớp nền leo lên trên tấm trượt, không nấp dưới nó. --focus-h do
+     chính đoạn mã đo bảng đặt vào, cùng phép đo dùng cho camera. */
+  /* +34px: chừa chỗ cho dòng ghi công OpenStreetMap và thước tỉ lệ nằm
+     ngay trên mép tấm trượt. ODbL bắt buộc dòng ghi công hiển thị được. */
+  .mapctl--bl { bottom: calc(var(--focus-h, 0px) + 34px); }
+  .maplibregl-ctrl-bottom-left,
+  .maplibregl-ctrl-bottom-right { margin-bottom: var(--focus-h, 0px); }
+}
+
+/* ---- Chọn nền bản đồ --------------------------------------------------
+   Nền cần mạng được đánh dấu rõ bằng chấm màu cảnh báo: bản thử vốn chạy
+   ngoại tuyến, nên việc bắt đầu gọi ra ngoài phải là một lựa chọn nhìn thấy
+   được, không phải chuyện xảy ra âm thầm.                                */
+.basecard { padding: var(--s-2) var(--s-3); width: 100%; }
+.basecard__head { display: flex; align-items: baseline; gap: var(--s-2); margin-bottom: 6px; }
+.basecard__note {
+  font-size: var(--fs-2xs); color: var(--ink-3); line-height: 1.4;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
+}
+.basecard__opts { display: flex; flex-wrap: wrap; gap: 4px; }
+.baseopt {
+  display: inline-flex; align-items: center; gap: 5px;
+  min-height: 26px; padding: 0 9px;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--surface); color: var(--ink-2);
+  font-family: var(--f-body); font-size: var(--fs-2xs); font-weight: 500;
+  cursor: pointer; white-space: nowrap;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.baseopt:hover { background: var(--hover-bg); color: var(--ink); }
+.baseopt[aria-checked="true"] { background: var(--ink); border-color: var(--ink); color: var(--ground); }
+/* Chấm cảnh báo = nền này gọi ra máy chủ ngoài */
+.baseopt.is-online::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--warn); flex: none;
+}
+.baseopt.is-online[aria-checked="true"]::before { background: var(--ground); }
+@media (pointer: coarse) { .baseopt { min-height: var(--touch); } }
+
+/* =========================================================================
+   SỬA THEO BỘ DÒ IMPECCABLE
+   ========================================================================= */
+
+/* 1 · LỖI THẬT — rê chuột lên nút ĐANG CHỌN làm chữ biến mất.
+   `:hover` đổi nền sang --hover-bg nhưng trạng thái đang chọn vẫn giữ chữ
+   màu --ground → 1,1:1, gần như vô hình. Trạng thái đang chọn phải THẮNG
+   hover, không phải ngược lại. */
+.seg button[aria-pressed="true"]:hover,
+.baseopt[aria-checked="true"]:hover {
+  background: var(--ink);
+  color: var(--ground);
+}
+.btn[aria-pressed="true"]:hover { background: var(--secondary-hover, var(--ink)); color: var(--ground); }
+.scard.is-on:hover { background: var(--hover-bg); }
+/* Thẻ đang chọn đổi nền sang --hover-bg, sáng hơn --ground một bậc. --ink-3
+   đạt 4,55:1 trên --ground nhưng chỉ còn 4,24:1 trên nền sáng hơn đó, tức
+   hụt AA đúng ở thẻ ĐANG ĐƯỢC CHỌN — thẻ người dùng nhìn nhiều nhất. Lỗi
+   này có sẵn từ trước, axe-core bắt được ở G-2a. Đổi nền thì phải đổi cả
+   chữ: --ink-2 cho 6,3:1 trên chính nền đó. */
+.scard.is-on .scard__unit,
+.scard.is-on .scard__meta { color: var(--ink-2); }
+
+/* 2 · Khoảng đệm chật — con chữ chạm sát viền trên/dưới của bộ chuyển đoạn.
+   Thêm khe hở để nút không dính vào khung. */
+.seg { padding: 2px; gap: 2px; }
+.seg button { border-right: 0; border-radius: 1px; }
+.viewtabs { padding-block: 2px; }
+.cmdk__field { padding-bottom: 2px; }
+
+/* 3 · "Viền mảnh + bóng rộng" là dấu hiệu giao diện do máy sinh, và chính
+   bản mẫu tham chiếu đã nói rõ: dùng ĐƯỜNG KẺ MẢNH THAY CHO đổ bóng, không
+   phải cả hai. Chỗ nào đã có viền thì bỏ bóng rộng, chỉ giữ một bóng sát
+   để tách khỏi bản đồ. */
+.mapcard, .ampanel { box-shadow: 0 1px 2px rgba(16, 32, 26, .10); }
+.amk__lab, .amk__card { box-shadow: 0 1px 3px rgba(16, 32, 26, .16); }
+.scard { box-shadow: none; }
+:root[data-theme="dark"] .mapcard,
+:root[data-theme="dark"] .ampanel { box-shadow: 0 1px 2px rgba(0, 0, 0, .5); }
+:root[data-theme="dark"] .amk__lab,
+:root[data-theme="dark"] .amk__card { box-shadow: 0 1px 4px rgba(0, 0, 0, .7); }
+
+/* 4 · Chuyển động trên thuộc tính BỐ CỤC gây giật khung hình. Đổi sang
+   transform và opacity — trình duyệt xử lý được trên luồng hợp thành.
+   Vạch tầng sàn là các đường NGANG, nên kéo giãn theo chiều ngang không
+   làm méo chúng: scaleX an toàn ở đây. */
+.amk__lab { transition: opacity var(--t-fast) var(--ease); }
+.lbar {
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(var(--bar, 0));
+  transition: transform var(--t-bar) var(--ease-out), background-color var(--t-slow) var(--ease);
+}
+@media (prefers-reduced-motion: reduce) { .lbar { transition: none; } }
+:root[data-motion="reduced"] .lbar { transition: none; }
+
+/* 5 · Hoạt hình lấp lánh của khung xương chờ tải phải tắt khi người dùng
+   yêu cầu giảm chuyển động — nó là vòng lặp vô hạn. */
+@media (prefers-reduced-motion: reduce) { .skel::after { animation: none; } }
+:root[data-motion="reduced"] .skel::after { animation: none; }
+
+/* 6 · Còn hai chỗ chữ --ground bị hover làm biến mất. Nguyên tắc chung:
+   MỌI phần tử đang ở trạng thái chọn đều giữ nền tối khi rê chuột, không
+   để :hover kéo nền sáng lên dưới lớp chữ sáng. */
+.gg__item.is-on:hover,
+.togglechip[aria-pressed="true"]:hover,
+.item__cmp[aria-pressed="true"]:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ground);
+}
+.gg__item.is-on:hover .gg__itemname { color: var(--ground); }
+
+/* 7 · Sàn 11px cho mọi chữ chức năng còn sót lại ở 10px. */
+.kbd, kbd,
+.togglechip__n,
+.cmdk__foot,
+.ampanel__more,
+.amcat__none,
+.amk__min i,
+.amk__cbot,
+.amrow__min i,
+.amrow__num i,
+.scard__unit,
+.scard__grade,
+.scard--row .scard__meta,
+.isokey__row,
+.maplibregl-ctrl-attrib,
+.maplibregl-ctrl-scale { font-size: var(--fs-2xs) !important; }
+
+/* 8 · Khoảng đệm: con chữ phải có khe hở với viền bao. */
+.seg { padding: 3px; }
+.viewtabs { padding-block: 4px; }
+
+/* 9 · Ngăn bộ lọc: đổi từ max-height sang grid 0fr→1fr.
+   max-height làm trình duyệt tính lại bố cục mỗi khung hình, và luôn phải
+   đoán một con số trần (480px) — nội dung dài hơn thì bị cắt âm thầm.
+   grid-template-rows không có cả hai nhược điểm đó. */
+.filters {
+  flex: none;
+  display: grid;
+  grid-template-rows: 0fr;
+  max-height: none;
+  transition: grid-template-rows var(--t-slow) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.filters > .filters__inner { overflow: hidden; min-height: 0; }
+.filters.is-open { grid-template-rows: 1fr; border-bottom-color: var(--line); }
+.filters.is-open > .filters__inner { overflow-y: auto; max-height: 60vh; }

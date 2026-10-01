@@ -1,0 +1,151 @@
+{
+  "release": {
+    "name": "Property Insight V9 R5 — toàn bộ file thầy",
+    "isPilot": false
+  },
+  "scope": {
+    "records": 407,
+    "recordsWithCoordinates": 400,
+    "uniqueCoordinates": 395,
+    "manualReviewWithoutCoordinates": 7,
+    "trafficObservations": 2370,
+    "trafficObservationDate": "2026-08-29",
+    "currentWardMatchMethods": {
+      "OSM_POINT_IN_POLYGON_ADDRESS_AGREES": 308,
+      "OSM_POINT_IN_POLYGON_SPATIAL_ONLY": 79,
+      "UNRESOLVED": 7,
+      "OSM_POINT_IN_POLYGON_ADDRESS_CONFLICT": 9,
+      "OSM_POINT_IN_POLYGON_LEGACY_ADDRESS_LABEL": 4
+    },
+    "temporaryImageStatuses": {
+      "TEMP_PRIVATE_MAISON_VERIFIED": 268,
+      "NO_SAFE_MAISON_MATCH": 139
+    },
+    "analysisEntities": 395,
+    "scientificReleaseStatus": "SCIENTIFIC_RELEASE_WITH_DECLARED_MISSING",
+    "hospitalRouteValuesMissingAfterThreeAttempts": 2,
+    "metroRouteValuesMissingAfterThreeAttempts": 3,
+    "statisticalRepresentativeness": false
+  },
+  "methodology": {
+    "identity": "Xác định đúng thực thể trước khi chọn tọa độ; 407 dòng nguồn được nối với 395 thực thể phân tích bằng crosswalk R5.",
+    "missing": "Dữ liệu thiếu là null, không thay bằng 0 và không suy đoán.",
+    "rent": "Rent 03/2026 được giữ nguyên đơn vị trong file thầy; chưa chuẩn hóa thành USD/m²/tháng.",
+    "amenities": "Bộ biến nghiên cứu R5 dùng bệnh viện nội trú, diện tích xanh công cộng, metro, xe buýt, mạng đường, mật độ và đa dạng điểm đến. Google chỉ kiểm chứng có mục tiêu; năm tuyến còn bất đồng được để thiếu trong bảng phân tích.",
+    "traffic": "Ảnh chụp traffic-aware tại 08:00, 13:30 và 17:30 ngày 29/08/2026; không phải lịch sử tháng 03/2026 hoặc mức điển hình dài hạn.",
+    "geography": "Bộ lọc quận/huyện là nhãn khu vực lịch sử từ file thầy. Phường/xã hiện hành được gán bằng phép điểm-trong-đa-giác trên ranh giới OSM; trường hợp không có tọa độ chỉ dùng nhãn tách từ địa chỉ và được đánh dấu cần rà soát.",
+    "spatialObservation": "Các biến không gian phản ánh snapshot R5 hiện tại, không được tuyên bố là hiện trạng lịch sử tháng 03/2026."
+  },
+  "metroLine1": [
+    {
+      "id": "L101",
+      "name": "Ben Thanh",
+      "latitude": 10.7707525,
+      "longitude": 106.6976235
+    },
+    {
+      "id": "L102",
+      "name": "Opera House",
+      "latitude": 10.7755113,
+      "longitude": 106.7022619
+    },
+    {
+      "id": "L103",
+      "name": "Ba Son",
+      "latitude": 10.7819867,
+      "longitude": 106.708464
+    },
+    {
+      "id": "L104",
+      "name": "Van Thanh Park",
+      "latitude": 10.7960451,
+      "longitude": 106.7155211
+    },
+    {
+      "id": "L105",
+      "name": "Tan Cang",
+      "latitude": 10.7985812,
+      "longitude": 106.7233239
+    },
+    {
+      "id": "L106",
+      "name": "Thao Dien",
+      "latitude": 10.8004707,
+      "longitude": 106.7336535
+    },
+    {
+      "id": "L107",
+      "name": "An Phu",
+      "latitude": 10.8020845,
+      "longitude": 106.7422533
+    },
+    {
+      "id": "L108",
+      "name": "Rach Chiec",
+      "latitude": 10.8085376,
+      "longitude": 106.7552804
+    },
+    {
+      "id": "L109",
+      "name": "Phuoc Long",
+      "latitude": 10.821417,
+      "longitude": 106.7581973
+    },
+    {
+      "id": "L110",
+      "name": "Binh Thai",
+      "latitude": 10.8326599,
+      "longitude": 106.7639195
+    },
+    {
+      "id": "L111",
+      "name": "Thu Duc",
+      "latitude": 10.846403,
+      "longitude": 106.7716657
+    },
+    {
+      "id": "L112",
+      "name": "High Tech Park",
+      "latitude": 10.8589744,
+      "longitude": 106.7888389
+    },
+    {
+      "id": "L113",
+      "name": "National University",
+      "latitude": 10.8662864,
+      "longitude": 106.8012088
+    },
+    {
+      "id": "L114",
+      "name": "Suoi Tien Terminal",
+      "latitude": 10.8795689,
+      "longitude": 106.81417
+    }
+  ],
+  "sources": {
+    "coordinates": "D:\\Projects\\hcmc-office-rent\\00_Project_Control\\codex_handoffs\\OFFICE-DATASET-003\\v9\\outputs\\release_v9_r5\\teacher_level_research_warehouse_r5.csv",
+    "scientificReleaseManifest": {
+      "path": "D:\\Projects\\hcmc-office-rent\\00_Project_Control\\codex_handoffs\\OFFICE-DATASET-003\\v9\\outputs\\release_v9_r5\\RELEASE_MANIFEST_V9_R5.json",
+      "sha256": "0641af54d744ada9d444dba33b6096a5b33cdafaa17ce2db8d4ef754217373a0",
+      "releaseId": "OFFICE-DATASET-V9-R5-SCIENTIFIC-RELEASE",
+      "status": "SCIENTIFIC_RELEASE_WITH_DECLARED_MISSING"
+    },
+    "traffic": "D:\\Projects\\hcmc-office-rent\\00_Project_Control\\codex_handoffs\\OFFICE-DATASET-003\\outputs\\release_v8_traffic\\traffic_snapshot_v8_1_long.csv",
+    "trafficManifest": "D:\\Projects\\hcmc-office-rent\\00_Project_Control\\codex_handoffs\\OFFICE-DATASET-003\\outputs\\release_v8_traffic\\RELEASE_MANIFEST_TRAFFIC_V8_1.json",
+    "currentWardBoundaries": {
+      "path": "D:\\Projects\\hcmc-office-rent\\website_v9_claude\\public\\claude\\data\\osm_areas.json",
+      "retrievedAt": "2026-08-28T08:04:53.118Z",
+      "license": "Ranh giới hành chính: © những người đóng góp OpenStreetMap, giấy phép ODbL 1.0.",
+      "generator": "OFFICE-UX-PILOT-004 build_areas.mjs qua Overpass API"
+    },
+    "temporaryImages": {
+      "path": "D:\\Projects\\hcmc-office-rent\\website_v9_claude\\public\\claude\\data\\building_image_manifest_v8_2.json",
+      "scope": "Private non-commercial prototype only",
+      "policy": {
+        "selection": "Tên thực thể được đối chiếu trước, sau đó địa chỉ. Không gán ảnh chỉ vì URL gần giống.",
+        "officialRelease": "Không dùng manifest này cho bản công bố chính thức nếu chưa thay ảnh hoặc xác minh quyền sử dụng.",
+        "fallback": "Không đủ bằng chứng thì dùng placeholder mang tên tòa nhà."
+      }
+    }
+  }
+}

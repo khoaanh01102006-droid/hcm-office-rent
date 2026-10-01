@@ -1,0 +1,415 @@
+/* =========================================================================
+   BẢN ĐỒ KỂ CHUYỆN
+
+   Bố cục hai cột: bản đồ dính (sticky) bên trái, các đoạn cuộn bên phải.
+   Dưới 900 px đổi thành một cột — bản đồ dính lên đầu, chữ cuộn dưới nó.
+
+   Cỡ chữ ở đây LỚN HƠN phần còn lại của sản phẩm, có chủ đích. Đây là bề
+   mặt đọc liền mạch chứ không phải bảng điều khiển; đo cho khoảng 62–70 ký
+   tự một dòng, là dải mà nghiên cứu về đọc hiểu vẫn dùng làm chuẩn.
+   ========================================================================= */
+
+body[data-view="story"] .story { display: block; }
+body[data-view="story"] .workspace,
+body[data-view="story"] .tray { display: none; }
+
+/* `overflow: auto` LÀ BẮT BUỘC, không phải tuỳ chọn.
+
+   `.app` đặt `height: 100dvh; overflow: hidden` — khung ứng dụng không cuộn.
+   Mỗi bề mặt toàn màn hình phải TỰ cuộn, giống `.overview`. Thiếu dòng này
+   thì 7.600 px nội dung bị cắt cụt ở mép màn hình và không cuộn được gì cả
+   — trang trông như hỏng hoàn toàn.
+
+   Và `position: sticky` của bản đồ neo vào ĐÂY, vào tổ tiên cuộn gần nhất. */
+.story {
+  display: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  --st-gut: clamp(20px, 4vw, 64px);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* ---- mở đầu ------------------------------------------------------------ */
+/* Trên màn rộng, một cột 78ch căn giữa để lại hai vệt trống mênh mông hai
+   bên và trang trông như chưa nạp xong. Tách làm hai cột: tiêu đề + dẫn
+   nhập bên trái, thông số + gợi ý cuộn bên phải. Dòng chữ vẫn giữ 62ch để
+   đọc được, nhưng KHỐI thì lấp đầy bề rộng. */
+.story__hero {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: clamp(36px, 6vh, 72px) var(--st-gut) clamp(28px, 4vh, 52px);
+  display: grid;
+  gap: clamp(20px, 3vw, 56px);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: end;
+}
+@media (min-width: 1100px) {
+  .story__hero { grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.55fr); }
+  .story__hero > .story__kicker,
+  .story__hero > .story__h1,
+  .story__hero > .story__lede { grid-column: 1; }
+  .story__hero > .story__meta,
+  .story__hero > .story__scrollhint { grid-column: 2; margin-top: 0; }
+}
+.story__kicker {
+  margin: 0 0 var(--s-3);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--accent);
+}
+.story__h1 {
+  margin: 0 0 var(--s-4);
+  font-size: clamp(30px, 4.6vw, 56px);
+  line-height: 1.1; letter-spacing: -0.022em; font-weight: 700;
+  text-wrap: balance;
+}
+.story__lede {
+  margin: 0 0 var(--s-4);
+  font-size: clamp(16px, 1.5vw, 20px); line-height: 1.62; color: var(--ink-2);
+  max-width: 62ch;
+}
+.story__lede b { color: var(--ink); font-weight: 600; }
+.story__meta {
+  margin: 0; padding-top: var(--s-3); border-top: 1px solid var(--hair);
+  font-size: 12px; line-height: 1.7; color: var(--ink-3, var(--ink-2));
+}
+.story__meta b { color: var(--ink-2); }
+
+.story__scrollhint {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: clamp(28px, 5vh, 56px);
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-3, var(--ink-2));
+}
+.story__wheel { animation: st-wheel 1.8s ease-in-out infinite; }
+@keyframes st-wheel {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  55% { transform: translateY(6px); opacity: 0.25; }
+}
+
+/* ---- sân khấu: bản đồ dính + các bước ---------------------------------- */
+/* Bản đồ TRÀN VIỀN, thẻ nội dung NỔI LÊN TRÊN.
+
+   Bố cục cũ nhốt bản đồ trong một cột lưới cạnh cột chữ, nên trên màn rộng
+   bản đồ chỉ được chừng một nửa bề rộng và phần dữ liệu — thứ đáng nhìn
+   nhất — lại nhỏ nhất. Nay hai phần cùng nằm ở ô lưới 1/1 và chồng lên
+   nhau: bản đồ chiếm trọn khung nhìn, thẻ chữ trôi qua ở dải bên phải.
+   Đây là bố cục báo chí dữ liệu vẫn dùng, và lý do là đúng cái này. */
+.story__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0;
+  max-width: none; margin: 0;
+}
+/* Chiều cao ĐO TỪ DOM, không phải 100vh.
+
+   Hộp cuộn bắt đầu DƯỚI thanh trên cùng, nên nó thấp hơn khung nhìn đúng
+   bằng bề cao thanh đó (đo được 54 px). Đặt 100vh thì đáy bản đồ — và chú
+   giải neo vào đáy — tụt xuống dưới mép nhìn thấy. `--story-h` do
+   mountStory đo và đặt, có đo lại khi đổi kích thước cửa sổ. */
+.story__sticky {
+  grid-area: 1 / 1;
+  position: sticky; top: 0;
+  height: var(--story-h, 100svh);
+  display: block;
+}
+/* Khung bao: chú giải phải neo vào mép BẢN ĐỒ, không phải mép ô dính.
+   Ô dính cao 100vh còn bản đồ chỉ 82vh và căn giữa, nên neo vào ô dính sẽ
+   thả chú giải xuống dưới bản đồ — đúng lỗi thấy trong ảnh chụp. */
+.story__frame {
+  position: relative;
+  width: 100%; height: 100%;
+}
+.story__map {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  border-block: 1px solid var(--hair);
+  background: var(--surface-2, #EEF1EF);
+}
+.story__map .maplibregl-ctrl-attrib { font-size: 10px; }
+
+.story__legend {
+  position: absolute; left: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vh, 40px);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  pointer-events: none;
+}
+.story__legend.is-on { opacity: 1; transform: none; }
+.stleg {
+  background: var(--surface); border: 1px solid var(--hair);
+  border-radius: 10px; padding: 10px 12px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.1);
+}
+.stleg__t {
+  display: block; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2);
+  margin-bottom: 7px;
+}
+.stleg ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.stleg li { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--ink); }
+.stleg i { width: 13px; height: 13px; border-radius: 3px; flex: none; }
+
+/* ---- các bước ---------------------------------------------------------- */
+/* Đệm dưới phải đủ để ĐOẠN CUỐI cũng lên tới giữa khung nhìn. Đệm ngắn thì
+   trang chạm đáy trong khi đoạn cuối vẫn nằm dưới dải giữa, và nó không bao
+   giờ trở thành đoạn đang đọc. */
+/* Cùng ô lưới với bản đồ nên nó CHỒNG LÊN. `pointer-events` để trống ở dải
+   giữa các thẻ, nhờ vậy vẫn kéo và phóng được bản đồ ngay dưới chữ. */
+.story__steps {
+  grid-area: 1 / 1;
+  position: relative; z-index: 2;
+  pointer-events: none;
+  width: min(430px, 90vw);
+  margin-left: auto;
+  margin-right: clamp(16px, 3.5vw, 76px);
+  padding-block: 10vh 30vh;
+}
+/* Mỗi bước cao trọn một màn, và thẻ GHIM lại trong bước của nó.
+
+   Bản trước căn giữa thẻ trong một bước cao 78vh, ngắn hơn vùng nhìn 891 px
+   — nên thẻ đang đọc trôi từ y=29 (bị mép trên cắt mất tiêu đề) tới y=653
+   tuỳ đúng vị trí cuộn. Đo được đúng như vậy.
+
+   Ghim thì vị trí đọc đứng yên: thẻ dừng ngay dưới thanh trên cùng suốt
+   bước của nó, rồi bước sau đẩy nó lên. Không bao giờ bị cắt. */
+.ststep { min-height: 100vh; min-height: 100svh; display: block; }
+.ststep__card {
+  position: sticky;
+  top: clamp(20px, 8vh, 84px);
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-radius: var(--r-lg, 14px);
+  padding: clamp(20px, 2.4vw, 30px);
+  /* Bóng đậm hơn bản cũ: thẻ nay nằm TRÊN bản đồ chứ không cạnh bản đồ, nên
+     nó cần tách khỏi nền có hoạ tiết. */
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.08);
+  /* Thẻ chưa tới lượt ẨN HẲN, không phải mờ.
+
+     Vì thẻ được GHIM trong bước của nó, thẻ vừa đọc xong vẫn còn dính ở
+     đúng chỗ cũ cho tới hết bước — nửa mờ thì hai thẻ chồng chữ lên nhau
+     ngay trên bản đồ. Mỗi lúc CHỈ MỘT thẻ, đúng nguyên tắc của bố cục này. */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px) scale(0.985);
+  transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
+}
+.ststep.is-on .ststep__card {
+  opacity: 1; pointer-events: auto; transform: none;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.ststep h2 {
+  margin: 0 0 var(--s-3);
+  font-size: clamp(19px, 1.9vw, 24px); line-height: 1.24;
+  letter-spacing: -0.012em; font-weight: 700;
+}
+.ststep p { margin: 0 0 var(--s-3); font-size: 15px; line-height: 1.68; color: var(--ink-2); }
+.ststep p:last-child { margin-bottom: 0; }
+.ststep b { color: var(--ink); font-weight: 650; }
+.story__note {
+  font-size: 12.5px !important; line-height: 1.65 !important;
+  padding-top: var(--s-3); border-top: 1px solid var(--hair);
+  color: var(--ink-3, var(--ink-2)) !important;
+}
+
+.story__big {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-top: var(--s-4); padding-top: var(--s-4);
+  border-top: 1px solid var(--hair);
+}
+/* Con TRỰC TIẾP, không phải mọi <b> bên trong: chú thích cạnh con số cũng
+   có <b> để nhấn chữ, và nó không được ăn cỡ chữ 66 px của con số. */
+.story__big > b {
+  font-size: clamp(40px, 5.4vw, 66px); line-height: 0.92;
+  font-weight: 700; letter-spacing: -0.03em; color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.story__big > span { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.story__big > span b { font-size: inherit; font-weight: 650; color: var(--ink); }
+
+.story__rank { margin: var(--s-3) 0 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.story__rank li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 7px 0; border-top: 1px solid var(--hair);
+}
+.story__rankn {
+  flex: none; min-width: 34px; text-align: right;
+  font-size: 17px; font-weight: 700; color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.story__rankw { display: grid; gap: 1px; min-width: 0; }
+.story__rankw b { font-size: 13px; font-weight: 600; }
+.story__rankw i { font-size: 11px; font-style: normal; color: var(--ink-2); }
+
+.story__limits { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+.story__limits li { font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+
+/* ---- chân bài ---------------------------------------------------------- */
+.story__foot {
+  max-width: 1600px; margin: 0 auto;
+  display: grid; gap: clamp(16px, 3vw, 56px);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  padding: clamp(28px, 5vh, 56px) var(--st-gut) clamp(56px, 10vh, 110px);
+  border-top: 1px solid var(--hair);
+}
+.story__foot p { margin: 0 0 var(--s-3); font-size: 12.5px; line-height: 1.72; color: var(--ink-2); }
+.story__foot p:last-child { margin-bottom: 0; }
+.story__foot b { color: var(--ink); }
+
+/* ---- một cột ----------------------------------------------------------- */
+/* Dưới 900 px KHÔNG chồng: thẻ che gần hết bản đồ thì chẳng còn gì để nhìn.
+   Trở lại xếp dọc — bản đồ dính ở trên, chữ cuộn bên dưới. */
+@media (max-width: 900px) {
+  .story__stage { grid-template-columns: minmax(0, 1fr); }
+  .story__sticky { grid-area: auto; height: 58vh; height: 58svh; z-index: 1; }
+  .ststep { min-height: auto; }
+  .story__steps {
+    grid-area: auto; width: auto;
+    margin: 0; padding: 6vh var(--st-gut) 26vh;
+  }
+  .ststep { min-height: auto; padding-block: 4vh; }
+  .ststep__card { position: static; }
+  .ststep__card { opacity: 1; pointer-events: auto; transform: none; }
+}
+
+/* ---- không chuyển động ------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .story__wheel { animation: none; }
+  .ststep__card { transition: none; opacity: 1; transform: none; }
+  .story__legend { transition: none; }
+}
+
+/* ---- nút chọn khung giờ ------------------------------------------------ */
+.sttoggle {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin: var(--s-3) 0;
+}
+.sttoggle button {
+  flex: 1 1 0; min-width: 92px;
+  display: grid; gap: 2px; justify-items: start;
+  padding: 9px 11px;
+  background: var(--surface); color: var(--ink-2);
+  border: 1px solid var(--hair); border-radius: 9px;
+  font: inherit; font-size: 12px; font-weight: 600;
+  cursor: pointer; text-align: left;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.sttoggle button i {
+  font-style: normal; font-size: 11px; font-weight: 500;
+  color: var(--ink-3, var(--ink-2)); font-variant-numeric: tabular-nums;
+}
+.sttoggle button:hover { border-color: var(--ink-3, var(--ink-2)); color: var(--ink); }
+.sttoggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Trạng thái đang chọn phải đọc được KHÔNG CHỈ bằng màu: nền đảo + viền đậm,
+   để người không phân biệt được sắc vẫn thấy nút nào đang bật. */
+.sttoggle button[aria-pressed="true"] {
+  background: var(--ink); color: var(--surface); border-color: var(--ink);
+}
+.sttoggle button[aria-pressed="true"] i { color: var(--surface); opacity: 0.75; }
+@media (prefers-reduced-motion: reduce) { .sttoggle button { transition: none; } }
+
+/* Chú giải trên nền bản đồ TỐI: hộp sáng trên nền tối đọc tốt hơn hộp tối
+   trên nền tối, và nó tách hẳn khỏi mảng dữ liệu. */
+.stleg {
+  background: rgba(10, 14, 19, 0.92);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+.stleg__t { color: #93A6B4; }
+.stleg li { color: #E6EDF3; }
+.stleg i { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5); }
+
+/* Lớp tia: nằm TRÊN khung vẽ bản đồ nhưng không nhận chuột — kéo và phóng
+   bản đồ vẫn phải đi xuyên qua nó. */
+.story__flow {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  display: none;
+  z-index: 1;
+}
+
+/* Thanh tỉ lệ trong bảng xếp hạng ga: đọc được thứ hạng mà không cần đọc số. */
+.story__bar {
+  display: block; height: 4px; border-radius: 2px;
+  background: rgba(148, 163, 184, 0.25);
+  margin-top: 3px; overflow: hidden;
+}
+.story__bar u {
+  display: block; height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, #38BDF8, #F0ABFC);
+}
+.story__rank--flow li { align-items: flex-start; }
+.story__rank--flow .story__rankn { min-width: 44px; }
+
+/* Chú giải PHẢI ĐỌC ĐƯỢC. Bản trước 10–11 px trên một bản đồ chiếm cả màn
+   hình — người dùng nói thẳng là "rất nhỏ và đọc vào nhiều lúc chẳng hiểu".
+   Chú giải là chỗ duy nhất giải nghĩa màu; nó nhỏ thì cả bản đồ vô nghĩa. */
+.stleg { padding: 14px 16px; border-radius: 12px; }
+.stleg__t { font-size: 12px; letter-spacing: 0.06em; margin-bottom: 10px; color: #B7C7D4; }
+.stleg ul { gap: 7px; }
+.stleg li { font-size: 14px; gap: 10px; font-weight: 500; }
+.stleg i { width: 20px; height: 14px; border-radius: 3px; }
+
+/* Thanh trượt ngưỡng đi bộ — người đọc tự đặt giả định thay vì nhận giả định
+   của tác giả. Phải TO và rõ: đây là điều khiển chính của bước này. */
+.stslider { margin: var(--s-4) 0 var(--s-3); }
+.stslider label {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  font-size: 13px; color: var(--ink-2); margin-bottom: 8px;
+}
+.stslider label b { font-size: 17px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stslider input[type="range"] {
+  width: 100%; height: 26px; margin: 0; cursor: pointer;
+  accent-color: var(--accent); background: transparent;
+}
+.stslider input[type="range"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.stslider__out {
+  margin: 8px 0 0 !important; font-size: 13px !important; line-height: 1.6 !important;
+  color: var(--ink-2) !important;
+}
+.stslider__out b { color: var(--ink); font-weight: 650; }
+
+/* Ô MÀU trong danh sách dải cao độ. Dùng lại khung `.story__rank` của các
+   bảng xếp hạng, nhưng ô bên trái là MẪU MÀU chứ không phải con số — nên
+   phải bỏ cỡ chữ và cho nó kích thước hình vuông. */
+.story__rank--elev .story__rankn.story__swatch {
+  width: 34px; height: 20px; border-radius: 3px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+}
+
+/* BẢNG NIÊN GIÁM. Số căn phải và dùng chữ số đều bề rộng để cột đọc được
+   theo chiều dọc — so sánh năm này với năm kia là việc mắt làm theo cột. */
+.stbook {
+  width: 100%; margin: var(--s-3) 0 0;
+  border-collapse: collapse; font-variant-numeric: tabular-nums;
+}
+/* Bang phai VUA trong the: the rong 430px tru 2 x 30px dem con 370px, ma
+   sau cot so + cot nhan la min-content ~402px neu de co chu mac dinh. Nen
+   dem va co chu o day duoc siet den muc vua du, khong phai chon cho dep. */
+.stbook th, .stbook td {
+  padding: 6px 2px; border-top: 1px solid var(--hair); text-align: right;
+}
+.stbook tr:first-child th {
+  border-top: 0; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2);
+}
+.stbook th[scope="row"] {
+  text-align: left; font-size: 12px; font-weight: 600;
+  display: grid; gap: 1px; min-width: 92px; padding-right: 6px;
+}
+.stbook th[scope="row"] i {
+  font-size: 10.5px; font-style: normal; font-weight: 400; color: var(--ink-2);
+}
+.stbook td { font-size: 11.5px; color: var(--ink); }
+/* Cột cuối là số mới nhất — đó là cột người đọc tìm, nên nó đậm lên. */
+.stbook td:last-child { font-weight: 700; color: var(--accent); }
+
+/* THANH TỈ LỆ trong danh sách dải cao độ. Dài đúng theo phần trăm của dải,
+   tô đúng màu dải trên bản đồ — nên nó vừa là thước đo vừa là mối nối giữa
+   dòng chữ và mảng màu ngoài kia. Chiều cao 3px để nó là NỀN của hàng chứ
+   không tranh chỗ với con số. */
+.story__rank--elev .stbar {
+  display: block; height: 3px; margin-top: 4px; border-radius: 2px;
+  width: var(--w); min-width: 2px; background: var(--c);
+  opacity: 0.85;
+}
+.story__rank--elev .story__rankw { position: relative; width: 100%; }

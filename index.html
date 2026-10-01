@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="vi" data-theme="light" data-motion="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Property Insight · Văn phòng cho thuê TP.HCM</title>
+<meta name="description" content="Bản nghiên cứu V9 R5 gồm 407 hồ sơ nguồn, 395 thực thể phân tích, các biến không gian đã kiểm định và các giới hạn dữ liệu được công bố rõ ràng.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23171717'/><path d='M11 24V10.5A1.5 1.5 0 0 1 12.5 9h7a1.5 1.5 0 0 1 1.5 1.5V24M9 24h14' fill='none' stroke='%23fafafa' stroke-width='2' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="./vendor/fonts/fonts-editorial.css">
+<link rel="stylesheet" href="./vendor/maplibre/maplibre-gl.css">
+<link rel="stylesheet" href="./src/styles/tokens.css">
+<link rel="stylesheet" href="./src/styles/app.css">
+<link rel="stylesheet" href="./src/styles/views.css">
+<link rel="stylesheet" href="./src/styles/overview.css">
+<link rel="stylesheet" href="./src/styles/editorial.css">
+<link rel="stylesheet" href="./src/styles/skins.css">
+<link rel="stylesheet" href="./src/styles/ux-v82.css">
+<link rel="stylesheet" href="./src/styles/story.css">
+<script>
+  // Đặt chế độ sáng/tối trước khi vẽ khung đầu tiên, tránh nháy nền.
+  try {
+    var t = localStorage.getItem('pi-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) { /* localStorage bị chặn: giữ mặc định sáng */ }
+</script>
+<meta name="robots" content="noindex, nofollow">
+<style>#view-google, [data-base="google-roadmap"] { display: none !important; }</style>
+</head>
+<body data-view="map">
+
+<a class="skip" href="#listscroll">Bỏ qua, tới danh sách tòa nhà</a>
+<a class="skip" href="#filters">Tới bộ lọc</a>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__mark" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M7 20V6.5A1.5 1.5 0 0 1 8.5 5h7A1.5 1.5 0 0 1 17 6.5V20"/><path d="M4 20h16"/><path d="M10.5 9h3M10.5 13h3"/>
+        </svg>
+      </span>
+      <h1 class="topbar__title">Property Insight</h1>
+    </div>
+
+    <span class="topbar__sep" aria-hidden="true"></span>
+
+    <span class="samplenote" title="407 tòa nhà văn phòng với giá niêm yết tháng 03/2026 (gồm phí dịch vụ, chưa VAT). 7 tòa chưa có tọa độ nên chỉ có trong danh sách.">407 tòa nhà · giá niêm yết 03/2026</span>
+
+    <div class="topbar__spacer"></div>
+
+    <div class="viewtabs" role="group" aria-label="Chọn cách xem">
+      <button class="btn" type="button" id="view-map" aria-pressed="true">Bản đồ</button>
+      <button class="btn" type="button" id="view-list" aria-pressed="false">Danh sách</button>
+      <button class="btn" type="button" id="view-overview" aria-pressed="false">Tổng quan</button>
+      <button class="btn" type="button" id="view-market" aria-pressed="false">Biến động</button>
+      <button class="btn" type="button" id="view-story" aria-pressed="false">Kể chuyện</button>
+      <button class="btn" type="button" id="view-google" aria-pressed="false">Google</button>
+    </div>
+
+    <div class="skinpick" id="skinpick" role="radiogroup" aria-label="Chọn giao diện">
+      <span class="label">Giao diện</span>
+      <div class="skinpick__opts" id="skin-opts"></div>
+    </div>
+
+    <div class="topbar__actions">
+      <button class="btn btn--icon topbar__search" type="button" id="btn-search-m"
+        title="Tìm tòa nhà" aria-label="Tìm tòa nhà theo tên hoặc địa chỉ"><span id="ic-search-m"></span></button>
+      <button class="btn btn--icon" type="button" id="btn-motion" aria-pressed="false"
+        title="Giảm chuyển động"
+        aria-label="Bật chế độ giảm chuyển động"><span id="ic-motion"></span></button>
+      <button class="btn btn--icon" type="button" id="btn-theme"
+        title="Đổi chế độ sáng / tối" aria-label="Đổi chế độ sáng tối"><span id="ic-theme"></span></button>
+      <button class="btn" type="button" id="btn-help" aria-label="Hướng dẫn sử dụng">
+        <span id="ic-help"></span><span class="method-label">Hướng dẫn</span>
+      </button>
+      <button class="btn" type="button" id="btn-method">
+        <span id="ic-method"></span><span class="method-label">Phương pháp</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace">
+
+    <!-- Sidebar: danh sách + bộ lọc, phẳng và sát mép, theo mẫu mapcn store-locator -->
+    <aside class="sidebar" aria-label="Danh sách và bộ lọc tòa nhà">
+      <div class="sidebar__head">
+        <div>
+          <h2 class="sidebar__title" id="list-count">—</h2>
+          <p class="sidebar__sub" id="list-sub"></p>
+        </div>
+
+        <button class="searchtrigger" type="button" id="btn-search" aria-haspopup="dialog">
+          <span id="ic-search"></span>
+          <span class="searchtrigger__txt" id="search-label">Tìm tòa nhà theo tên hoặc địa chỉ…</span>
+          <kbd>Ctrl</kbd><kbd>K</kbd>
+        </button>
+
+        <div class="sidebar__tools">
+          <button class="btn btn--outline" type="button" id="btn-filters" aria-expanded="false" aria-controls="filters">
+            <span id="ic-filter"></span>Bộ lọc<span class="filterbadge" id="filter-n" hidden>0</span>
+          </button>
+          <button class="btn" type="button" id="btn-clear" hidden>Xóa lọc</button>
+          <span class="sidebar__spacer"></span>
+          <button class="btn btn--icon" type="button" id="btn-density" aria-pressed="false"
+            title="Đổi giữa thẻ và bảng dày" aria-label="Đổi giữa dạng thẻ và dạng bảng"><span id="ic-density"></span></button>
+          <label class="sr-only" for="sort">Sắp xếp danh sách</label>
+          <select class="sortselect" id="sort"></select>
+        </div>
+      </div>
+
+      <form class="filters" id="filters" aria-label="Bộ lọc tòa nhà">
+        <div class="filters__inner">
+          <!-- CHỌN KHU VỰC — HAI TRỤC SONG SONG, KHÔNG PHẢI CÂY BA TẦNG.
+
+               Đo trên chính bộ dữ liệu: quận cũ → cụm thị trường là phân cấp
+               sạch (0/19 quận nằm trên nhiều cụm), NHƯNG 6 phường mới vắt
+               qua nhiều quận cũ — Gia Định trải Bình Thạnh + Q1, Xuân Hoà
+               trải Q3 + Q2, Xóm Chiếu trải Q1 + Q4…
+
+               Sáp nhập 2025 vẽ lại ranh giới nên hai hệ KHÔNG lồng nhau.
+               Dựng cây "cụm → quận → phường" sẽ là nói dối về hành chính.
+               Vì vậy: hai chế độ chọn, và chỗ vắt chéo được nói ra. -->
+          <section class="region" aria-labelledby="region-title">
+            <div class="region__head">
+              <h3 class="label" id="region-title">Chọn khu vực</h3>
+              <span class="region__summary" id="region-summary">Toàn TP.HCM</span>
+            </div>
+
+            <div class="seg seg--sm region__modes" role="group" aria-label="Chọn cách xác định khu vực">
+              <button type="button" data-region-mode="district" aria-pressed="true">Quận cũ</button>
+              <button type="button" data-region-mode="market" aria-pressed="false">Khu vực</button>
+              <button type="button" data-region-mode="ward" aria-pressed="false">Phường/xã</button>
+            </div>
+
+            <!-- Trục 1: QUẬN CŨ, phẳng. Đây là cách người trong ngành gọi tên
+                 khu vực hằng ngày, nên nó là mặc định. Mười chín mục vẫn đọc
+                 hết được trong một khung cuộn, không cần gói. -->
+            <div class="region__pane" id="region-pane-district">
+              <div class="wardlist" id="f-district"></div>
+              <p class="fgroup__hint">Quận theo ranh giới trước 07/2025, cách thị trường văn phòng vẫn gọi.</p>
+            </div>
+
+            <!-- Trục 1: cụm thị trường, mở ra thành quận cũ bên trong. -->
+            <div class="region__pane" id="region-pane-market" hidden>
+              <div class="mktlist" id="f-market"></div>
+              <p class="fgroup__hint">Bảy khu vực thị trường, mỗi khu gồm vài quận cũ.</p>
+            </div>
+
+            <!-- Trục 2: phường/xã hiện hành, hệ đang có hiệu lực. -->
+            <div class="region__pane" id="region-pane-ward" hidden>
+              <label class="wardsearch" for="f-ward-search">
+                <span id="ic-ward-search" aria-hidden="true"></span>
+                <input id="f-ward-search" type="search" placeholder="Tìm phường/xã…" autocomplete="off">
+              </label>
+              <div class="wardlist" id="f-current-ward"></div>
+              <p class="fgroup__hint" id="ward-filter-note"></p>
+            </div>
+          </section>
+
+          <fieldset class="fgroup">
+            <legend class="label">Hạng tòa nhà</legend>
+            <div class="chipset" id="f-grade"></div>
+          </fieldset>
+
+          <div class="fgroup">
+            <div class="slider">
+              <div class="slider__row">
+                <label class="label" for="f-rent">Giá thuê tối đa</label>
+                <span class="slider__val" id="f-rent-val">—</span>
+              </div>
+              <input type="range" id="f-rent" min="15" max="62" step="0.5" value="62" aria-describedby="f-rent-hint">
+              <p class="fgroup__hint" id="f-rent-hint">Giá niêm yết 03/2026, USD/m²/tháng</p>
+            </div>
+          </div>
+
+          <div class="fgroup">
+            <div class="slider">
+              <div class="slider__row">
+                <label class="label" for="f-metro">Cách ga metro tối đa</label>
+                <span class="slider__val" id="f-metro-val">—</span>
+              </div>
+              <input type="range" id="f-metro" min="100" max="5300" step="100" value="5300" aria-describedby="f-metro-hint">
+              <p class="fgroup__hint" id="f-metro-hint">Đo theo đường thẳng</p>
+            </div>
+          </div>
+
+          <div class="fgroup">
+            <span class="label">Tọa độ</span>
+            <label class="switch">
+              <input type="checkbox" id="f-twosource">
+              <span>Chỉ tòa đã có tọa độ</span>
+            </label>
+          </div>
+        </div>
+      </form>
+
+      <div class="listscroll" id="listscroll" role="list" tabindex="-1"></div>
+    </aside>
+
+    <section class="mapcol" aria-label="Bản đồ các tòa nhà có tọa độ công bố">
+      <div class="mapcol__canvas" id="map"></div>
+
+
+      <!-- Băng thẻ dưới bản đồ. Ba kiểu để so sánh trực tiếp trên dữ liệu
+           thật, thay vì chọn theo ảnh mẫu. -->
+      <div class="filmstrip" id="filmstrip" hidden>
+        <div class="filmstrip__bar">
+          <span class="label" id="strip-count">—</span>
+          <span class="filmstrip__spacer"></span>
+          <span class="label">Kiểu</span>
+          <div class="seg" role="group" aria-label="Chọn kiểu băng thẻ dưới bản đồ">
+            <button type="button" data-strip="cards" aria-pressed="true">Thẻ có ảnh</button>
+            <button type="button" data-strip="rows" aria-pressed="false">Dải gọn</button>
+            <button type="button" data-strip="off" aria-pressed="false">Ẩn</button>
+          </div>
+        </div>
+        <div class="filmstrip__track" id="strip-track" role="list"
+          aria-label="Băng thẻ tòa nhà, cuộn ngang"></div>
+      </div>
+      <!-- =====================================================================
+           BẢNG TIÊU ĐIỂM — MỘT bề mặt cho MỘT tòa nhà.
+
+           Bản trước có HAI tấm thẻ nổi nói về cùng một tòa nhà, cùng lúc,
+           trên cùng một khoảng bản đồ: thẻ xem nhanh 300px ở giữa và bảng
+           tiện ích 348px ở cạnh trái. Cộng lại chúng ăn hết phần bản đồ mà
+           các tuyến đi bộ cần — người dùng bật lớp tiện ích lên rồi không
+           thấy tuyến nào, vì tuyến nằm dưới thẻ.
+
+           Bản này gộp cả hai vào MỘT bảng neo cứng ở cạnh trái, cuộn MỘT
+           lần, và trừ hẳn bề rộng của nó ra khỏi khung camera (xem
+           setViewportPadding trong map.js). Bản đồ vẫn tràn cạnh phía dưới
+           bảng, nhưng không có gì QUAN TRỌNG bị đặt vào chỗ bị che nữa.
+
+           Đây là bố cục của Google Maps, Zillow, Citymapper: một tấm ván
+           neo cạnh, bản đồ đẩy nội dung ra khỏi vùng bị che.
+           ================================================================= -->
+      <aside class="focus" id="focus" hidden aria-label="Tòa nhà đang chọn">
+        <!-- Chỉ hiện khi bảng đã gập: gập xong vẫn phải biết bảng đang nói
+             về tòa nào, nếu không nút mở lại là một nút không rõ mở ra gì. -->
+        <div class="focus__stub" id="focus-stub"></div>
+        <div class="focus__scroll" id="focus-scroll" tabindex="-1">
+          <div class="fbuild" id="focus-building"></div>
+
+          <div class="ampanel" id="amenitybar" hidden>
+            <div class="ampanel__head">
+              <span class="ampanel__title" id="amenity-title">Tiện ích quanh tòa đang chọn</span>
+            </div>
+
+            <div class="ampanel__body" id="amenity-body">
+              <div class="ampanel__cats" id="amenity-cats" role="group"
+                aria-label="Chọn nhóm tiện ích hiện trên bản đồ"></div>
+
+              <div class="amlist__head">
+                <span class="label">Phút đi bộ · <span id="band-tag">giờ thường</span></span>
+                <span class="amlist__count" id="amenity-count"></span>
+              </div>
+              <ol class="amlist" id="amenity-list" aria-label="Địa điểm quanh tòa nhà, xếp theo phút đi bộ"></ol>
+              <p class="ampanel__more" id="amenity-more" hidden></p>
+              <p class="amlist__empty" id="amenity-empty" hidden>Chọn một nhóm tiện ích để hiện trên bản đồ.</p>
+
+              <details class="ampanel__opts">
+                <summary>Tùy chọn hiển thị</summary>
+                <div class="ampanel__ctl">
+                <div class="ampanel__ctlrow">
+                  <span class="label">Khung giờ</span>
+                  <div class="seg seg--sm" role="group" aria-label="Chọn khung giờ tính thời gian đi bộ">
+                    <button type="button" data-band="normal" aria-pressed="true">Giờ thường</button>
+                    <button type="button" data-band="peak" aria-pressed="false" disabled>Cao điểm</button>
+                  </div>
+                </div>
+                <div class="ampanel__ctlrow">
+                  <span class="label">Tuyến đi bộ</span>
+                  <div class="seg seg--sm" role="group" aria-label="Chọn số tuyến đi bộ vẽ trên bản đồ">
+                    <button type="button" data-routes="off" aria-pressed="false">Khi trỏ vào</button>
+                    <button type="button" data-routes="lead" aria-pressed="true">Gần nhất mỗi nhóm</button>
+                    <button type="button" data-routes="all" aria-pressed="false">Tất cả</button>
+                  </div>
+                </div>
+                <div class="ampanel__ctlrow">
+                  <span class="label">Vùng quanh tòa</span>
+                  <div class="seg seg--sm" role="group" aria-label="Chọn cách hiển thị vùng quanh tòa nhà">
+                    <button type="button" data-reach="iso" aria-pressed="false">5 / 10 / 15 phút</button>
+                    <button type="button" data-reach="ring" aria-pressed="true">500 m / 1 km</button>
+                    <button type="button" data-reach="off" aria-pressed="false">Tắt</button>
+                  </div>
+                </div>
+                </div>
+                <p class="ampanel__bandnote" id="band-note"></p>
+              </details>
+
+              <details class="ampanel__why">
+                <summary>Cách đọc</summary>
+                <p class="ampanel__note" id="reach-note">Phút đi bộ tính theo đường đi thật, tốc độ 75 m/phút. Vòng 500 m và 1 km đo theo đường thẳng.</p>
+                <p class="ampanel__note">"Vòng 1,4×" nghĩa là quãng đi bộ dài gấp 1,4 lần khoảng cách đường thẳng. Nguồn: OpenStreetMap.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <button class="focus__fold" type="button" id="amenity-fold"
+          aria-expanded="true" aria-controls="focus-scroll">
+          <span id="ic-amfold" aria-hidden="true"></span>
+          <span class="sr-only">Thu gọn bảng để nhìn bản đồ trống</span>
+        </button>
+      </aside>
+
+      <div class="mapctl mapctl--bl">
+        <!-- LỚP NỀN + CHÚ GIẢI gộp làm một, gập lại mặc định.
+
+             Trước đây là hai thẻ riêng luôn mở, cộng với bảng tiện ích là ba
+             thẻ chồng nhau chiếm hết cạnh trái. Cả hai đều là CÀI ĐẶT: mở
+             khi cần, không phải thứ nhìn liên tục. -->
+        <div class="mapcard rentcard">
+              <!-- CHÚ GIẢI THANG GIÁ.
+  
+                   Đặt TRÊN CÙNG vì nó giải nghĩa thứ chiếm nhiều pixel nhất
+                   trên bản đồ: màu của 407 chấm và của mọi cụm. Thang tính
+                   trên tập đang hiện nên nó phải cập nhật theo bộ lọc. -->
+              <div class="rentkey" id="rentkey" aria-live="polite">
+                <span class="label">Giá niêm yết 03/2026 · màu trên bản đồ</span>
+                <div class="rentkey__hist"><div class="rentkey__bars" id="rentkey-ramp" role="img"></div><span class="rentkey__mark" id="rentkey-mark" hidden aria-hidden="true"></span></div>
+                <div class="rentkey__lb"><span id="rentkey-lo">—</span><span id="rentkey-hi">—</span></div>
+                <span class="rentkey__na"><i aria-hidden="true"></i>chưa có giá</span>
+                <p class="rentkey__note" id="rentkey-note"></p>
+              </div>
+        </div>
+        <details class="mapcard maplayers" id="maplayers">
+          <summary class="maplayers__sum">
+            <span id="ic-layers" aria-hidden="true"></span>
+            <span class="label">Lớp nền &amp; chú giải</span>
+            <span class="maplayers__now" id="base-note"></span>
+          </summary>
+
+          <div class="maplayers__body">
+            <!-- Lối vào bộ chọn khu vực ngay trên bản đồ. KHÔNG nhân bản bộ
+                 chọn: hai bản sao của cùng một bộ lọc là hai nguồn sự thật,
+                 và chúng sẽ lệch nhau. Nút này mở đúng bộ chọn thật. -->
+            <button class="btn btn--outline maplayers__jump" type="button" id="btn-goregion">
+              <span id="ic-goregion" aria-hidden="true"></span>Chọn khu vực…
+            </button>
+
+            <span class="label">Nền bản đồ</span>
+            <div class="basecard__opts" id="base-opts" role="radiogroup" aria-label="Chọn nền bản đồ"></div>
+
+            <!-- LỚP GIAO THÔNG.
+
+                 Metro số 1 một mình là một vệt xanh chạy chéo qua khung mà
+                 không nối vào gì cả. Ba lớp còn lại cho nó một mạng lưới để
+                 thuộc về — và mỗi lớp phải nói rõ TRẠNG THÁI của nó, vì
+                 "đang chạy" với "đang xây" là hai câu trả lời khác hẳn nhau
+                 cho người sắp ký hợp đồng thuê ba năm. -->
+            <div class="ampanel__ctlrow" style="margin-bottom:var(--s-2)">
+              <span class="label">Khu vực</span>
+              <button class="btn btn--outline" type="button" id="btn-areas" aria-pressed="true"
+                style="align-self:flex-start">Ranh giới phường</button>
+            </div>
+
+            <div class="ampanel__ctlrow" style="margin-bottom:var(--s-2)">
+              <span class="label">Giao thông</span>
+              <div class="seg seg--sm" role="group" aria-label="Chọn lớp giao thông hiện trên bản đồ">
+                <button type="button" data-transit="full" aria-pressed="true">Đầy đủ</button>
+                <button type="button" data-transit="metro" aria-pressed="false">Chỉ đường ray</button>
+                <button type="button" data-transit="off" aria-pressed="false">Tắt</button>
+              </div>
+            </div>
+
+
+            <ul class="maplegend__list">
+              <li><i class="sw sw--pin"></i><span>Tòa nhà, màu theo mức giá thuê</span></li>
+              <li><i class="sw sw--clu"></i><span>Nhóm tòa gần nhau: số là số tòa, màu là giá trung vị</span></li>
+              <li><i class="sw sw--metro"></i><span>Metro số 1 (khai thác từ 12/2024)</span></li>
+              <li><i class="sw sw--metro2"></i><span>Metro số 2 (đang xây dựng)</span></li>
+              <li><i class="sw sw--rail"></i><span>Đường sắt Bắc Nam và ga</span></li>
+              <li><i class="sw sw--bus"></i><span>Trạm xe buýt (<span id="bus-n">—</span> trạm trong khung nhìn)</span></li>
+              <li><i class="sw sw--ring"></i><span>Bán kính 500 m và 1 km</span></li>
+              <li><i class="sw sw--cbd"></i><span>Trung tâm (UBND Thành phố, đường Nguyễn Huệ)</span></li>
+              <li><i class="sw sw--ward"></i><span>Ranh giới phường (<span id="ward-n">—</span> phường có tòa nhà)</span></li>
+            </ul>
+
+
+            <div class="isokey" aria-label="Vùng đi bộ theo thời gian">
+              <span class="label" style="margin-bottom:2px">Vùng đi bộ</span>
+              <span class="isokey__row"><i class="isokey__sw isokey__sw--1"></i>trong 5 phút</span>
+              <span class="isokey__row"><i class="isokey__sw isokey__sw--2"></i>trong 10 phút</span>
+              <span class="isokey__row"><i class="isokey__sw isokey__sw--3"></i>trong 15 phút</span>
+            </div>
+
+            <p class="maplegend__note" id="legend-note"></p>
+          </div>
+        </details>
+      </div>
+
+      <div class="tray" id="tray" hidden role="region" aria-label="Khay so sánh">
+        <span class="tray__label">So sánh</span>
+        <div class="tray__items" id="tray-items"></div>
+        <button class="btn btn--primary" type="button" id="btn-compare">Mở bảng so sánh</button>
+        <button class="btn" type="button" id="btn-tray-clear">Bỏ hết</button>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="overview" id="overview" aria-label="Tổng quan 407 tòa nhà" tabindex="-1"></section>
+
+  <section class="marketview" id="marketview" aria-label="Biến động giá chào hai kỳ trên trang rao" tabindex="-1"></section>
+
+  <section class="story" id="storyview" aria-label="Kể chuyện: đi lại bằng giao thông công cộng" tabindex="-1"></section>
+
+  <section class="googleview" id="googleview" aria-label="Tiện ích Google quanh tòa nhà" tabindex="-1"></section>
+</div>
+
+<!-- Bảng lệnh ⌘K -->
+<div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Tìm tòa nhà và lệnh" hidden>
+  <div class="cmdk__field">
+    <span id="ic-cmdk"></span>
+    <label class="sr-only" for="cmdk-input">Tìm tòa nhà hoặc lệnh</label>
+    <input type="text" id="cmdk-input" placeholder="Tìm tòa nhà, khu vực, hoặc gõ một lệnh…"
+      autocomplete="off" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list">
+  </div>
+  <div class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Kết quả"></div>
+  <div class="cmdk__foot">
+    <span><kbd>↑</kbd><kbd>↓</kbd> di chuyển</span>
+    <span><kbd>↵</kbd> chọn</span>
+    <span><kbd>Esc</kbd> đóng</span>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet__head">
+    <h2 class="sheet__title" id="sheet-title">Thông tin tòa nhà</h2>
+    <button class="btn btn--icon" type="button" id="sheet-close" aria-label="Đóng"><span id="ic-close1"></span></button>
+  </div>
+  <div class="sheet__body" id="sheet-body" tabindex="-1"></div>
+</aside>
+
+<section class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title" hidden>
+  <div class="overlay__head">
+    <h2 class="sheet__title" id="overlay-title">So sánh tòa nhà</h2>
+    <button class="btn btn--icon" type="button" id="overlay-close" aria-label="Đóng"><span id="ic-close2"></span></button>
+  </div>
+  <div class="overlay__body" id="overlay-body" tabindex="-1"></div>
+</section>
+
+<div class="sr-only" id="live" role="status" aria-live="polite"></div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

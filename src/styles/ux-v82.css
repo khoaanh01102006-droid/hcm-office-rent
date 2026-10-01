@@ -1,0 +1,660 @@
+/* Property Insight V8.2 — lớp tối ưu quy mô 407 hồ sơ.
+   Giữ nguyên ngôn ngữ hình ảnh Claude; chỉ sửa thứ bậc, mật độ và hành vi. */
+
+:root { --sidebar-w: clamp(25rem, 29vw, 28rem); }
+
+.sidebar__head { padding: var(--s-5) var(--s-5) var(--s-4); gap: var(--s-4); }
+.filters__inner { padding: var(--s-2) var(--s-5) var(--s-5); gap: var(--s-5); }
+.listscroll { padding: var(--s-3); gap: var(--s-2); }
+
+.wardsearch {
+  display: flex; align-items: center; gap: var(--s-2); min-height: 36px;
+  border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface);
+  padding: 0 var(--s-3); color: var(--ink-2);
+}
+.wardsearch:focus-within { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.wardsearch input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: var(--fs-xs); }
+.wardsearch input::placeholder { color: var(--ink-3); }
+.togglechip[hidden] { display: none !important; }
+
+/* Marker: cụm ở xa, chấm ở gần, nhãn theo yêu cầu.
+
+   MÀU MANG NGHĨA GIÁ, KÍCH THƯỚC MANG NGHĨA SỐ LƯỢNG.
+   Bản trước tô mọi chấm và mọi cụm bằng cùng một màu đen, nên ở mức thành
+   phố bản đồ chỉ trả lời được "có bao nhiêu" — thứ ít quan trọng nhất với
+   người đi thuê — còn "ở đâu đắt" thì phải rê từng cái mới biết.
+
+   --mk-fill / --mk-ink do JS gán theo bậc ngũ phân vị, luôn lấy từ cặp
+   --rN / --on-rN nên tương phản chữ trên nền đã được bảo đảm sẵn. */
+.mk { width: 44px; height: 44px; display: grid; place-items: center; overflow: visible; }
+.mk__dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--mk-fill, var(--map-pin));
+  border: 2px solid var(--surface);
+  box-shadow: 0 1px 5px rgba(8, 20, 15, .32);
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+/* Chưa có số giá KHÔNG được tô như một bậc giá. Viền đứt + rỗng ruột là
+   ngôn ngữ "chưa thu thập" dùng thống nhất khắp sản phẩm. */
+.mk__dot--na {
+  background: var(--missing-bg, var(--surface));
+  border: 1.5px dashed var(--missing-border, var(--line-strong));
+  box-shadow: none;
+}
+.mk__label {
+  position: absolute; left: 50%; bottom: calc(50% + 14px); transform: translateX(-50%) translateY(4px);
+  width: max-content; max-width: 220px; padding: 7px 9px; border-radius: var(--r-sm);
+  background: var(--ink); color: var(--ground); box-shadow: var(--shadow);
+  opacity: 0; visibility: hidden; pointer-events: none; text-align: left;
+  transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.mk__label b, .mk__label small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mk__label b { max-width: 202px; font-size: var(--fs-xs); font-weight: 650; }
+.mk__label small { margin-top: 2px; color: color-mix(in srgb, var(--ground) 72%, transparent); font-size: var(--fs-2xs); }
+.mk:hover .mk__label, .mk:focus-visible .mk__label, .mk.is-selected .mk__label {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+/* Rê chuột KHÔNG đổi màu chấm nữa: màu đang mang nghĩa giá, đổi nó là xoá
+   mất thông tin ngay lúc người dùng đang nhìn kỹ nhất. Nổi bằng vòng ngoài. */
+.mk:hover .mk__dot, .mk:focus-visible .mk__dot, .mk.is-selected .mk__dot {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--accent);
+}
+
+.mk__cluster {
+  display: grid; place-items: center;
+  border-radius: var(--r-pill);
+  background: var(--mk-fill, var(--ink));
+  color: var(--mk-ink, var(--ground));
+  border: 2px solid var(--surface);
+  box-shadow: 0 2px 10px rgba(8, 20, 15, .28);
+  font-family: var(--f-mono); font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+/* Bốn cỡ RỜI RẠC. Tỉ lệ liên tục nghe hợp lý nhưng mắt không đọc được chênh
+   lệch đường kính vài pixel, và cụm nhỏ sẽ tụt xuống dưới ngưỡng chạm 24px. */
+.mk--cluster[data-size="sm"] .mk__cluster { min-width: 26px; height: 26px; padding: 0 6px; font-size: 11px; }
+.mk--cluster[data-size="md"] .mk__cluster { min-width: 32px; height: 32px; padding: 0 8px; font-size: 12px; }
+.mk--cluster[data-size="lg"] .mk__cluster { min-width: 38px; height: 38px; padding: 0 9px; font-size: 13px; }
+.mk--cluster[data-size="xl"] .mk__cluster { min-width: 44px; height: 44px; padding: 0 10px; font-size: 14px; }
+.mk__cluster--na {
+  background: var(--missing-bg, var(--surface));
+  background-image: var(--missing-hatch);
+  color: var(--missing-fg, var(--ink-2));
+  border-style: dashed;
+}
+.mk--cluster:hover .mk__cluster, .mk--cluster:focus-visible .mk__cluster {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--accent);
+}
+
+/* ---- Chú giải thang giá ------------------------------------------------
+   Màu chỉ mang nghĩa khi có chú giải. Và vì thang tính trên TẬP ĐANG HIỆN,
+   chú giải phải cập nhật mỗi lần lọc — nếu không nó nói dối về màu. */
+.rentkey { display: flex; flex-direction: column; gap: 5px; }
+.rentkey__ramp { display: flex; }
+.rentkey__ramp i {
+  flex: 1 1 0; min-width: 26px; height: 10px;
+  border: 1px solid var(--line); border-right: 0;
+}
+.rentkey__ramp i:last-child { border-right: 1px solid var(--line); }
+.rentkey__lb {
+  display: flex; justify-content: space-between; gap: var(--s-2);
+  font-family: var(--f-mono); font-size: var(--fs-2xs); color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.rentkey__note { margin: 0; font-size: var(--fs-2xs); color: var(--ink-2); line-height: 1.5; }
+.rentkey__na { display: flex; align-items: center; gap: 6px; font-size: var(--fs-2xs); color: var(--ink-2); }
+.rentkey__na i {
+  width: 12px; height: 12px; border-radius: 50%; flex: none;
+  background: var(--missing-bg, var(--surface));
+  border: 1.5px dashed var(--missing-border, var(--line-strong));
+}
+
+/* Ảnh tạm phải là mỏ neo thị giác, không lấn toàn bộ phần chữ. */
+.item { padding-left: 104px; min-height: 104px; }
+.item__thumb { width: 80px; height: 80px; }
+.item__thumb--none { position: absolute; }
+
+@media (max-width: 1180px) {
+  :root { --sidebar-w: 23rem; }
+}
+
+@media (max-width: 760px) {
+  :root { --sidebar-w: 100%; }
+  .sidebar__head, .filters__inner { padding-inline: var(--s-4); }
+  .region { padding: var(--s-3); }
+  .chipset--region, .chipset--ward { max-height: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk__dot, .mk__label, .mk__cluster { transition: none; }
+}
+:root[data-motion="reduced"] .mk__dot,
+:root[data-motion="reduced"] .mk__label,
+:root[data-motion="reduced"] .mk__cluster { transition: none; }
+
+/* Ký hiệu cụm trong chú giải: cùng hình dạng với thứ nằm trên bản đồ. */
+.sw--clu {
+  width: 18px; height: 12px; border-radius: var(--r-pill);
+  background: var(--r3); border: 1.5px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+/* Thẻ chú giải giá LUÔN HIỆN, không nằm trong thẻ gập.
+
+   Màu là mã hoá CHÍNH của bản đồ giờ đây; giấu chú giải của mã hoá chính
+   sau một cú bấm thì người mới vào chỉ thấy "mấy chấm xanh đậm nhạt" mà
+   không biết đậm nghĩa là gì. Chú giải của lớp phụ (giao thông, ranh giới)
+   thì gập được — chúng là lớp phụ. */
+.rentcard { padding: var(--s-3); width: 288px; max-width: 100%; }
+
+/* =========================================================================
+   BỘ CHỌN KHU VỰC — hai trục song song
+
+   Ở trạng thái nghỉ chỉ còn BẢY dòng cụm, thay cho 67 chip xếp thành tường.
+   Mười chín quận cũ nằm gọn bên trong bảy cụm đó (quan hệ này đo được là
+   sạch); bốn mươi chín phường là trục thứ hai, không phải tầng thứ ba.
+   ========================================================================= */
+.region {
+  display: grid; gap: var(--s-3);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  border-radius: var(--r-md);
+}
+.region__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
+.region__head h3 { margin: 0; }
+.region__summary {
+  flex: none; padding: 3px 8px; border: 1px solid var(--line); border-radius: var(--r-pill);
+  color: var(--ink-2); background: var(--surface); font-size: var(--fs-2xs); font-weight: 600;
+}
+.region__modes { align-self: stretch; }
+.region__modes button { flex: 1 1 0; }
+.region__pane { display: grid; gap: var(--s-2); }
+.region__pane[hidden] { display: none; }
+
+/* ---- Trục 1: cụm, mở ra thành quận cũ ---------------------------------- */
+.mktlist { display: grid; gap: 3px; }
+.mkt { border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); overflow: hidden; }
+.mkt__row { display: flex; align-items: stretch; }
+.mkt__pick {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-2);
+  padding: 8px 10px; border: 0; background: none; cursor: pointer;
+  font-family: var(--f-body); text-align: left; color: var(--ink-2);
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.mkt__pick:hover { background: var(--hover-bg); color: var(--ink); }
+.mkt__pick[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.mkt__name { font-size: var(--fs-sm); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mkt__n {
+  flex: none; font-family: var(--f-mono); font-size: var(--fs-2xs);
+  font-variant-numeric: tabular-nums; color: var(--ink-2);
+}
+.mkt__pick[aria-pressed="true"] .mkt__n { color: inherit; opacity: .82; }
+.mkt__more {
+  flex: none; width: 34px; border: 0; border-left: 1px solid var(--line);
+  background: none; cursor: pointer; color: var(--ink-3);
+  display: grid; place-items: center;
+}
+.mkt__more:hover { background: var(--hover-bg); color: var(--ink); }
+.mkt__chev {
+  width: 0; height: 0;
+  border-left: 4px solid currentColor;
+  border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;
+  transition: transform var(--t-fast) var(--ease);
+}
+.mkt__more[aria-expanded="true"] .mkt__chev { transform: rotate(90deg); }
+.mkt__kids {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.mkt__kids[hidden] { display: none; }
+.togglechip--sm { font-size: var(--fs-2xs); padding: 3px 8px; min-height: 26px; }
+
+/* ---- Trục 2: phường/xã ------------------------------------------------- */
+.wardlist {
+  display: grid; gap: 2px;
+  max-height: 260px; overflow-y: auto;
+  scrollbar-width: thin;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--surface); padding: 3px;
+}
+.wardrow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center; gap: 1px var(--s-2);
+  padding: 6px 8px; border: 0; border-radius: var(--r-sm);
+  background: none; cursor: pointer;
+  font-family: var(--f-body); text-align: left; color: var(--ink-2);
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.wardrow:hover { background: var(--hover-bg); color: var(--ink); }
+.wardrow[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.wardrow__name { grid-area: 1 / 1; font-size: var(--fs-sm); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wardrow__n { grid-area: 1 / 2; font-family: var(--f-mono); font-size: var(--fs-2xs); font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.wardrow[aria-pressed="true"] .wardrow__n { color: inherit; opacity: .82; }
+/* Phường vắt qua nhiều quận cũ: nói ra, không giấu. Đây chính là chỗ người
+   dùng nhầm khi đối chiếu địa chỉ cũ với địa chỉ mới sau sáp nhập 2025. */
+.wardrow__cross {
+  grid-area: 2 / 1 / 3 / -1;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: .02em;
+  color: var(--accent); margin-top: 1px;
+}
+.wardrow[aria-pressed="true"] .wardrow__cross { color: var(--accent-soft); }
+
+/* ---- Huy hiệu bậc giá + thanh vị trí trên thẻ danh sách -----------------
+   Cùng thang màu với bản đồ, nên nhìn chấm đậm ngoài bản đồ là tìm được thẻ
+   đậm trong danh sách. Đây là thứ nối hai bề mặt lại với nhau. */
+.bandchip {
+  display: inline-flex; align-items: center;
+  padding: 2px 7px; border-radius: var(--r-pill);
+  font-family: var(--f-mono); font-size: 10px; font-weight: 600;
+  letter-spacing: .02em; white-space: nowrap;
+  margin-left: var(--s-2);
+}
+.item__price { flex-wrap: wrap; align-items: baseline; gap: 2px var(--s-1, 4px); }
+.item__unit { font-size: var(--fs-2xs); color: var(--ink-2); }
+.item__unit b { font-weight: 600; color: var(--ink); }
+
+/* Thanh VỊ TRÍ, không phải thanh cấu thành: phí dịch vụ và VAT là
+   `not_collected` ở cả 407 hồ sơ nên thanh ba thành phần cũ gợi ý sai rằng
+   có ba thành phần. */
+.posbar {
+  display: block; height: 4px; border-radius: 2px;
+  background: var(--r0); overflow: hidden;
+}
+.posbar__fill { display: block; height: 100%; border-radius: 2px; }
+
+/* "1 lần đo" phải đi kèm con số thời gian lái xe ở mọi chỗ: ba nhãn giờ
+   trong dữ liệu trả về cùng một kết quả, nên con số này là một quan sát
+   lúc 08:04, không phải mức điển hình. Bỏ chú thích đi là để người đọc
+   tưởng đây là thời gian trung bình. */
+.item__when { font-style: normal; font-size: 10px; color: var(--ink-3); }
+
+/* Giải thích thang giá: một dòng hiện, phần dài gập vào. Giới hạn về đơn vị
+   KHÔNG được phép mất — chỉ được phép gập. */
+.rentkey__why > summary {
+  cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: .04em;
+  color: var(--ink-2); padding: 3px 0; min-height: 22px;
+}
+.rentkey__why > summary::-webkit-details-marker { display: none; }
+.rentkey__why > summary::before {
+  content: ''; width: 0; height: 0; border-left: 4px solid currentColor;
+  border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;
+  transition: transform var(--t-fast) var(--ease);
+}
+.rentkey__why[open] > summary::before { transform: rotate(90deg); }
+.rentkey__why > summary:hover { color: var(--ink); }
+.rentkey__why p { margin: 4px 0 0; font-size: var(--fs-2xs); line-height: 1.5; color: var(--ink-2); }
+
+/* Ngăn kéo bộ lọc lúc ĐÓNG phải cao đúng 0.
+
+   `grid-template-rows: 0fr` thu hộp NỘI DUNG về 0, nhưng PADDING của phần
+   tử con vẫn còn — 8px trên + 20px dưới = 28px hở ra dưới thanh công cụ,
+   trông như một hộp bị cắt cụt. `min-height: 0` không chạm tới padding.
+   Nên phải bỏ padding dọc khi đóng. */
+.filters:not(.is-open) > .filters__inner { padding-block: 0; }
+
+/* =========================================================================
+   BẢNG TIÊU ĐIỂM — cờ chất lượng, lái xe, tiện ích gần nhất
+
+   Bấm một chấm trên bản đồ trước đây chỉ làm sáng dòng bên trái. Ba khối
+   dưới đây là thứ trả lời được câu "tòa này thế nào" mà không phải mở thêm
+   một lớp nữa.
+   ========================================================================= */
+
+/* ---- Cờ chất lượng ------------------------------------------------------ */
+.fflags { display: grid; gap: 5px; margin-top: var(--s-3); }
+.fflag {
+  display: flex; align-items: flex-start; gap: 7px;
+  padding: 7px 9px; border-radius: var(--r-sm);
+  font-size: var(--fs-2xs); line-height: 1.45;
+  background: var(--warn-soft); color: var(--warn);
+  border: 1px solid color-mix(in srgb, var(--warn) 28%, transparent);
+}
+.fflag svg { flex: none; margin-top: 1px; }
+.fflag b { font-weight: 650; }
+
+/* ---- Lái xe ------------------------------------------------------------- */
+.fdrive { margin-top: var(--s-4); }
+.fdrive__grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--line); border: 1px solid var(--line); border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.fdrive__cell { background: var(--surface); padding: 8px 10px; display: grid; gap: 1px; }
+.fdrive__lab { font-size: var(--fs-2xs); color: var(--ink-2); }
+.fdrive__val { font-family: var(--f-mono); font-size: 1.05rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.fdrive__val b { font-weight: 600; }
+.fdrive__sub { font-family: var(--f-mono); font-size: 10px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* ---- Tiện ích gần nhất -------------------------------------------------- */
+.famen { margin-top: var(--s-4); }
+.famen__head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-2);
+  padding-bottom: 5px; border-bottom: 1px solid var(--line); margin-bottom: 4px;
+}
+.famen__sum { font-family: var(--f-mono); font-size: var(--fs-2xs); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.famen__sum b { color: var(--ink); font-weight: 600; }
+.famen__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.famen__row {
+  display: grid; grid-template-columns: 22px minmax(0, 1fr) auto;
+  align-items: center; gap: var(--s-2);
+  padding: 6px 2px;
+}
+.famen__row + .famen__row { border-top: 1px solid var(--line); }
+.famen__ic { display: grid; place-items: center; color: var(--ink-2); }
+.famen__who { min-width: 0; display: grid; }
+.famen__who b {
+  font-size: var(--fs-sm); font-weight: 500; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.famen__who i { font-style: normal; font-size: 10px; color: var(--ink-2); }
+.famen__num { text-align: right; display: grid; gap: 0; }
+.famen__num b {
+  font-family: var(--f-mono); font-size: var(--fs-sm); font-weight: 600;
+  color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.famen__num i { font-style: normal; font-family: var(--f-mono); font-size: 10px; color: var(--ink-2); }
+/* Địa điểm đã ngừng hoạt động vẫn là một quan sát, không phải rác — nhưng
+   phải đọc ra ngay là nó không còn dùng được. */
+.famen__row.is-closed .famen__who b { text-decoration: line-through; color: var(--ink-2); }
+.famen__note { margin: var(--s-2) 0 0; font-size: 10px; line-height: 1.5; color: var(--ink-2); }
+.famen--none { margin-top: var(--s-4); }
+
+/* Loại khoảng cách phải đọc ra được ngay: đi bộ theo mạng đường là một
+   chuyện, chim bay là chuyện khác. Nhấn cái có thật bằng màu nhấn. */
+.famen__num i.is-walk { color: var(--accent); font-weight: 600; }
+.famen__who b a { color: inherit; text-decoration: none; }
+.famen__who b a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+/* NHÃN GIÁ KHI PHÓNG GẦN.
+
+   Dưới z15,5 các chấm còn chồng nhau nên 400 nhãn số là mớ rối — đó đúng là
+   vấn đề ban đầu. Từ z15,5 trở lên chúng tách hẳn, và lúc đó con số là thứ
+   có ích nhất. Nên nhãn KHÔNG bị bỏ, nó chỉ đợi đúng lúc.
+
+   Viên giá đặt tuyệt đối và neo giữa chấm, nên bề rộng của nó KHÔNG ảnh
+   hưởng vị trí ghim — đây là bẫy đã làm ghim nhảy khi thu phóng ở bản trước. */
+.mk__price {
+  position: absolute; left: 50%; bottom: 50%;
+  margin-bottom: 11px; transform: translateX(-50%);
+  display: none;
+  padding: 1px 5px; border-radius: var(--r-sm);
+  background: var(--mk-fill, var(--ink));
+  color: var(--mk-ink, var(--ground));
+  border: 1.5px solid var(--surface);
+  font-family: var(--f-mono); font-size: 10px; font-weight: 700;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(8, 20, 15, .3);
+}
+[data-zoomband="near"] .mk:not(.mk--cluster) .mk__price { display: block; }
+/* Khi đã mở nhãn tên đầy đủ thì viên giá là thừa — tên đã kèm giá. */
+.mk:hover .mk__price, .mk:focus-visible .mk__price, .mk.is-selected .mk__price { display: none; }
+
+/* =========================================================================
+   ĐIỀU KHIỂN BẢN ĐỒ CHUYỂN SANG CẠNH PHẢI
+
+   Cạnh trái đã thuộc về bảng tiêu điểm — bảng đó mở ra mỗi lần chọn một tòa
+   nhà, tức đúng lúc người dùng đang muốn nhìn bản đồ nhất. Chồng thêm thẻ
+   lớp nền và chú giải vào cùng cạnh đó là dồn ba lớp lên nhau ngay giữa
+   khung nhìn, và khi mở thẻ "Lớp nền & chú giải" thì nó phủ luôn phần bản
+   đồ đang cần đọc.
+
+   Cạnh phải trống (chỉ có nút phóng to/thu nhỏ ở góc trên), nên chuyển sang
+   đó là hết chồng lấn mà không phải bỏ thứ gì.
+   ========================================================================= */
+.mapctl--bl {
+  left: auto !important;
+  right: var(--s-3);
+  align-items: flex-end;
+  width: min(300px, calc(100% - var(--s-6)));
+}
+/* Thẻ lớp nền mở LÊN TRÊN và có trần chiều cao: mở ra một tấm dài quá màn
+   hình thì lại che đúng thứ vừa gỡ được. */
+.maplayers { max-width: 300px; }
+.maplayers[open] .maplayers__body {
+  max-height: min(56vh, 520px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.rentcard { width: 300px; }
+
+@media (max-width: 900px) {
+  .mapctl--bl { right: var(--s-3); left: var(--s-3) !important; width: auto; align-items: stretch; }
+  .rentcard, .maplayers { width: auto; max-width: none; }
+}
+
+/* =========================================================================
+   CHẾ ĐỘ "DANH SÁCH" TRÊN DESKTOP
+
+   Luật ẩn bản đồ (`body[data-view="list"] .mapcol { visibility: hidden }`)
+   trước đây chỉ nằm TRONG media query ≤900px. Trên desktop, bấm tab "Danh
+   sách" không kích hoạt luật nào cả — nên đúng như người dùng nói, bấm vào
+   không có gì xảy ra.
+
+   Ở đây danh sách chiếm trọn bề ngang: đó mới là lý do tồn tại của một chế
+   độ danh sách riêng — đọc được nhiều dòng cùng lúc, và ở dạng bảng dày thì
+   so sánh được theo cột.
+   ========================================================================= */
+@media (min-width: 901px) {
+  body[data-view="list"] .mapcol { display: none; }
+  body[data-view="list"] .sidebar { width: 100%; border-right: 0; }
+  /* Thẻ dàn thành lưới khi có cả bề ngang — một cột thẻ rộng 1500px là phí
+     chỗ và mắt phải quét quá xa giữa tên và số. */
+  body[data-view="list"] .listscroll {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--s-2);
+    align-content: start;
+  }
+  body[data-view="list"][data-density="table"] .listscroll { display: block; }
+  body[data-view="list"] .filters__inner { max-width: 720px; }
+}
+
+.maplayers__jump { width: 100%; justify-content: center; }
+/* Nháy nhẹ để mắt bắt được khối vừa được cuộn tới. Không dùng animation dài:
+   đây là chỉ dẫn, không phải hiệu ứng. */
+.region.is-flash { box-shadow: 0 0 0 2px var(--accent); }
+:root[data-motion="reduced"] .region.is-flash { box-shadow: 0 0 0 3px var(--accent); }
+
+/* ---- Biểu đồ phân bố trong chú giải giá --------------------------------
+   Ba mươi cột thay cho năm ô màu phẳng. Ô phẳng nói được "có năm bậc" nhưng
+   giấu mất HÌNH DẠNG dữ liệu — mà hình dạng mới là điều đáng nói ở đây: giá
+   lệch phải rất mạnh, trung vị 21,8 trong khi cực đại 70,0. */
+.rentkey__hist { position: relative; height: 42px; }
+.rentkey__bars {
+  display: flex; align-items: flex-end; gap: 1px;
+  height: 100%; width: 100%;
+  border-bottom: 1px solid var(--line-strong);
+}
+.rentkey__bars i { flex: 1 1 0; min-width: 0; border-radius: 1px 1px 0 0; }
+/* Vạch tòa đang chọn: mảnh, màu nhấn, có chấm đầu để bắt mắt ở kích thước nhỏ. */
+.rentkey__mark {
+  position: absolute; top: -3px; bottom: -1px; width: 2px;
+  background: var(--accent); border-radius: 1px; pointer-events: none;
+  transform: translateX(-1px);
+}
+.rentkey__mark::before {
+  content: ''; position: absolute; top: -3px; left: 50%;
+  width: 6px; height: 6px; margin-left: -3px; border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Tên địa điểm là liên kết chỉ đường — phải trông bấm được, không phải chữ trơ. */
+.famen__who b a {
+  color: inherit; text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 2px; text-decoration-thickness: 1px;
+}
+.famen__who b a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+
+/* ---- Bảng chọn khi bấm vào một cụm -------------------------------------
+   Xếp theo giá giảm dần và mang đúng huy hiệu bậc giá của bản đồ, nên ba bề
+   mặt — bản đồ, danh sách, bảng này — nói cùng một ngôn ngữ màu. */
+.cpick { display: grid; gap: var(--s-3); }
+.cpick__head { display: grid; gap: 3px; }
+.cpick__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.cpick__row {
+  width: 100%; display: grid;
+  grid-template-columns: 3.6em minmax(0, 1fr) 4px;
+  align-items: center; gap: var(--s-3);
+  padding: 8px 6px; border: 0; border-radius: var(--r-sm);
+  background: none; cursor: pointer; text-align: left;
+  font-family: var(--f-body);
+  transition: background var(--t-fast) var(--ease);
+}
+.cpick__row:hover { background: var(--hover-bg); }
+.cpick__list li + li .cpick__row { border-top: 1px solid var(--line); border-radius: 0; }
+.cpick__num {
+  font-family: var(--f-mono); font-size: var(--fs-md); font-weight: 600;
+  color: var(--ink); font-variant-numeric: tabular-nums; text-align: right;
+}
+.cpick__who { min-width: 0; display: grid; }
+.cpick__who b {
+  font-size: var(--fs-sm); font-weight: 500; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cpick__who i { font-style: normal; font-size: 10px; color: var(--ink-2); }
+.cpick__band { width: 4px; height: 26px; border-radius: 2px; }
+
+/* ---- Mật độ tiện ích + đa dạng -----------------------------------------
+   Đặt TRƯỚC danh sách "gần nhất" vì đây mới là biến ổn định; danh sách gần
+   nhất giữ lại nhưng xuống hàng phụ. */
+.fdens { margin-top: var(--s-4); }
+.fdens__nums {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--line); border: 1px solid var(--line); border-radius: var(--r-sm);
+  overflow: hidden; margin-bottom: var(--s-3);
+}
+.fdens__n { background: var(--surface); padding: 8px 10px; display: grid; gap: 1px; }
+.fdens__v {
+  font-family: var(--f-mono); font-size: 1.15rem; font-weight: 600;
+  color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.fdens__k { font-size: 10px; color: var(--ink-2); line-height: 1.35; }
+.fdens__k b { color: var(--ink); font-weight: 600; }
+
+.fdens__bars { list-style: none; margin: 0 0 var(--s-2); padding: 0; display: grid; gap: 3px; }
+.fdens__bars li {
+  display: grid; grid-template-columns: 62px minmax(0, 1fr) 2.2em;
+  align-items: center; gap: var(--s-2);
+}
+.fdens__lab { font-size: 10px; color: var(--ink-2); }
+.fdens__track { display: block; height: 7px; background: var(--r0); border-radius: 2px; overflow: hidden; }
+.fdens__track i { display: block; height: 100%; background: var(--r3); border-radius: 2px; }
+.fdens__c {
+  font-family: var(--f-mono); font-size: 10px; text-align: right;
+  color: var(--ink-2); font-variant-numeric: tabular-nums;
+}
+
+/* Chữ phụ trong dòng tiện ích phải ĐẬM LÊN khi rê, không giữ nguyên.
+
+   Nền hover sáng hơn nền thường, nên `--ink-2` trên đó tụt xuống 4,24:1 —
+   dưới ngưỡng WCAG AA 4,5:1 cho chữ nhỏ. Nghịch lý: trạng thái ĐANG ĐƯỢC
+   CHÚ Ý lại là trạng thái khó đọc nhất. Bài học giống hệt lần trước với
+   `opacity`: mọi thay đổi nền đều phải kiểm lại tương phản của chữ trên nó,
+   không được giả định trạng thái thường đã đạt thì hover cũng đạt. */
+.amrow:hover .amrow__who i,
+.amrow.is-hot .amrow__who i,
+.amrow:hover .amrow__detour,
+.amrow.is-hot .amrow__detour { color: var(--ink); }
+.amrow:hover .amrow__who i em,
+.amrow.is-hot .amrow__who i em { color: var(--ink); }
+
+/* ---- Tòa ĐANG CHỌN phải nhận ra ngay giữa 400 chấm ----------------------
+   Trước đây tòa đang chọn chỉ khác ở vòng ngoài mảnh — giữa hàng trăm chấm
+   cùng cỡ thì mắt không tìm ra. Nay nó đổi HÌNH DẠNG, không chỉ đổi màu:
+   to hơn hẳn, có vòng nhấn, và một chấm tâm sáng. Đổi hình dạng đọc được cả
+   khi in đen trắng và với người khó phân biệt màu. */
+.mk.is-selected { z-index: 12; }
+.mk.is-selected .mk__dot {
+  width: 26px; height: 26px;
+  background: var(--accent);
+  border: 3px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--accent), 0 3px 10px rgba(8, 20, 15, .45);
+  transform: none;
+}
+.mk.is-selected .mk__dot::after {
+  content: '';
+  position: absolute; inset: 0; margin: auto;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--surface);
+}
+.mk.is-selected .mk__price {
+  background: var(--accent);
+  color: var(--surface);
+  border-color: var(--surface);
+  display: block;
+  font-weight: 700;
+  margin-bottom: 17px;
+}
+/* Nhịp thở hai lần rồi dừng: đủ để mắt bắt được vị trí mới sau khi camera
+   bay tới, không thành hiệu ứng chạy mãi làm phân tán. */
+@keyframes mkPulse {
+  0%   { box-shadow: 0 0 0 2px var(--accent), 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 2px var(--accent), 0 0 0 14px transparent; }
+  100% { box-shadow: 0 0 0 2px var(--accent), 0 0 0 0 transparent; }
+}
+.mk.is-selected .mk__dot { animation: mkPulse 1.1s ease-out 2; }
+:root[data-motion="reduced"] .mk.is-selected .mk__dot { animation: none; }
+@media (prefers-reduced-motion: reduce) { .mk.is-selected .mk__dot { animation: none; } }
+
+/* Toạ độ bấm được — để người dùng TỰ KIỂM CHỨNG vị trí trên bản đồ khác.
+   Đây là thứ một bộ dữ liệu nghiên cứu phải có: người đọc phải đối chiếu
+   được, không phải tin lời trang này. */
+.fbuild__coord {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2);
+  margin-top: var(--s-2); padding-top: var(--s-2);
+  border-top: 1px dashed var(--line);
+}
+.fbuild__coord a {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: var(--fs-2xs); color: var(--ink-2);
+  text-decoration: none; padding: 3px 7px;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.fbuild__coord a:hover { background: var(--hover-bg); color: var(--ink); border-color: var(--line-strong); }
+.fbuild__coord code { font-family: var(--f-mono); font-size: 10px; }
+.fbuild__coord--none { font-size: var(--fs-2xs); color: var(--ink-2); }
+
+/* Hạ tầng ĐANG XÂY DỰNG phải đọc ra khác hạ tầng đang khai thác.
+   Viền đứt là quy ước sẵn có trong sản phẩm cho "chưa có/chưa xong" — dùng
+   lại nó thay vì phát minh một ngôn ngữ mới. Vẽ Long Thành như một sân bay
+   đang hoạt động sẽ là một tuyên bố sai về hạ tầng. */
+.txk.is-building .txk__pin {
+  border-style: dashed;
+  border-width: 2px;
+  opacity: 0.92;
+}
+.txk.is-building .txk__lab::after {
+  content: ' · đang xây';
+  font-size: 9px;
+  opacity: 0.8;
+}
+
+/* Câu kết luận bằng lời thường, đặt trước thuật ngữ. */
+.fdens__plain { margin: var(--s-2) 0 0; font-size: var(--fs-xs); line-height: 1.6; color: var(--ink-2); }
+.fdens__plain b { color: var(--ink); font-weight: 600; }
+.fdens__why { margin-top: 2px; }
+
+/* Số hiệu tuyến xe buýt — dãy thẻ nhỏ, đọc lướt được như một bảng giờ. */
+.fbus__refs {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin: var(--s-2) 0 0; padding: 0; list-style: none;
+}
+.fbus__refs li {
+  font: 600 10px/1 var(--font-mono, ui-monospace, monospace);
+  padding: 4px 6px; border-radius: 4px;
+  background: var(--chip-bg, rgba(31, 94, 134, 0.1));
+  color: var(--ink); border: 1px solid var(--hair);
+}
+.fbus__refs .fbus__more { background: transparent; color: var(--ink-2); border-style: dashed; }

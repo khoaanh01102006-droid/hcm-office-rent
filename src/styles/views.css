@@ -1,0 +1,298 @@
+/* =========================================================================
+   Hồ sơ tòa nhà · So sánh · Phương pháp — cùng hệ token shadcn với app.css
+   ========================================================================= */
+
+.pf { padding-bottom: var(--s-16); }
+.pf__sec { padding: var(--s-5) var(--s-6); }
+.pf__sec + .pf__sec { border-top: 1px solid var(--line); }
+.pf__sec--lead { background: var(--ground); }
+.pf__sec--evidence { background: var(--ground); }
+
+.pf__sechead { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-4); }
+.pf__sechead h4 { font-size: var(--fs-base); display: flex; align-items: center; gap: var(--s-2); }
+.pf__sechead h4 .ic { color: var(--ink-2); }
+.pf__srcnote { font-size: var(--fs-xs); color: var(--ink-2); margin-left: auto; }
+
+/* Câu định nghĩa — luôn đi cùng con số, không nằm ở chú thích cuối trang.
+   Icon thả nổi, KHÔNG dùng flex, để chữ và <strong> không bị bẻ thành cột. */
+.pf__warn {
+  position: relative; display: block;
+  font-size: var(--fs-xs); color: var(--ink-2); line-height: 1.6;
+  background: var(--ground); border-radius: var(--r-md);
+  padding: var(--s-3) var(--s-4) var(--s-3) 38px; margin-bottom: var(--s-4);
+}
+.pf__warn .ic { color: var(--ink-2); position: absolute; left: var(--s-4); top: 14px; }
+.pf__warn strong { color: var(--ink); font-weight: 600; }
+
+.pf__note { font-size: var(--fs-xs); color: var(--ink-2); line-height: 1.6; margin-top: var(--s-3); }
+.pf__note--status { padding: var(--s-5) var(--s-6) 0; }
+.pf__raw { font-size: var(--fs-2xs); color: var(--ink-2); margin-top: var(--s-3); word-break: break-word; line-height: 1.9; }
+
+code {
+  font-family: var(--f-mono); font-size: 0.9em;
+  background: var(--ground); border-radius: 5px; padding: 2px 6px; color: var(--ink);
+}
+
+/* ---- 1. Nhận diện ------------------------------------------------------- */
+.pf__hero { padding-bottom: var(--s-5); }
+.pf__fig { margin: 0; }
+.pf__fig img { width: 100%; height: 264px; object-fit: cover; background: var(--ground); }
+.pf__fig figcaption {
+  font-size: var(--fs-2xs); line-height: 1.6; color: var(--ink-2);
+  padding: var(--s-2) var(--s-6) 0; display: flex; flex-wrap: wrap; gap: 3px var(--s-3);
+}
+.pf__fig figcaption a { display: inline-flex; align-items: center; gap: 4px; font-weight: 500; text-decoration: underline; }
+.pf__fig--none {
+  height: 180px; display: grid; place-items: center;
+  background-color: var(--missing-bg); background-image: var(--missing-hatch);
+}
+.pf__ident { padding: var(--s-4) var(--s-6) 0; }
+.pf__badges { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: var(--s-3); }
+.pf__name { font-size: var(--fs-2xl); line-height: 1.1; letter-spacing: -0.035em; font-weight: 600; }
+.pf__addr { font-size: var(--fs-sm); color: var(--ink-2); margin-top: 6px; }
+.pf__id { margin-top: var(--s-2); }
+.pf__cta { display: flex; gap: var(--s-2); margin-top: var(--s-4); flex-wrap: wrap; }
+.pf__cta .btn { text-decoration: none; }
+
+/* ---- 2. Giá — tổng trước VAT là con số lớn nhất ------------------------- */
+.pf__pricegrid { display: flex; flex-direction: column; }
+.pricerow {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4);
+  padding: var(--s-3) 0; border-bottom: 1px solid var(--line);
+}
+.pricerow:last-child { border-bottom: 0; }
+.pricerow.has-rule { border-top: 2px solid var(--ink); margin-top: 2px; padding-top: var(--s-3); border-bottom: 0; }
+.pricerow__label { display: flex; flex-direction: column; min-width: 0; }
+.pricerow__label span { font-size: var(--fs-sm); font-weight: 500; }
+.pricerow__label em { font-style: normal; font-size: var(--fs-2xs); color: var(--ink-2); margin-top: 2px; }
+.pricerow__val { display: flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+.pricerow__val strong { font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.02em; }
+.pricerow.is-strong .pricerow__val strong { font-size: var(--fs-2xl); font-weight: 600; letter-spacing: -0.04em; }
+.pricerow.is-strong .pricerow__label span { font-weight: 600; font-size: var(--fs-base); }
+.pricerow__unit { font-size: var(--fs-2xs); color: var(--ink-2); }
+.pf__barwrap { margin-top: var(--s-4); }
+.pf__range { font-size: var(--fs-xs); color: var(--ink-2); margin-top: var(--s-3); line-height: 1.6; }
+.pf__range strong { color: var(--ink); font-weight: 600; }
+.pf__band { margin-top: var(--s-4); }
+/* Bảng giá nhiều nguồn, nhiều thời điểm (01/10/2026) */
+.pf__gia { width: 100%; border-collapse: collapse; margin-top: var(--s-3); font-size: var(--fs-xs); }
+.pf__gia th { text-align: left; font-weight: 500; color: var(--ink-2); font-size: var(--fs-2xs); padding: 6px 6px 6px 0; border-bottom: 1px solid var(--line); }
+.pf__gia td { padding: 8px 6px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.pf__gia .n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pf__gia td.n strong { font-size: var(--fs-sm); font-weight: 600; }
+.pf__gia small { display: block; color: var(--ink-2); font-size: var(--fs-2xs); margin-top: 2px; }
+.pf__gia a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
+.pf__gia tr.is-thay td { background: var(--surface-2, transparent); }
+.pf__ghim { display: flex; flex-direction: column; margin-top: var(--s-2); }
+.pf__ghim li { display: flex; gap: var(--s-3); align-items: baseline; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: var(--fs-xs); }
+.pf__ghim li:last-child { border-bottom: 0; }
+.pf__ghim small { display: block; color: var(--ink-2); font-size: var(--fs-2xs); }
+.pf__ghim a { white-space: nowrap; color: inherit; }
+
+/* ---- 3. Vị trí ---------------------------------------------------------- */
+.pf__dist { display: flex; flex-direction: column; }
+.pf__dist li {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) 0; border-bottom: 1px solid var(--line);
+}
+.pf__dist li:last-child { border-bottom: 0; }
+.pf__distic {
+  color: var(--ink-2); display: grid; place-items: center; width: 28px; height: 28px;
+  background: var(--ground); border-radius: var(--r-sm); flex: none;
+}
+.pf__distlabel { font-size: var(--fs-sm); flex: 1 1 auto; }
+.pf__distval { font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.02em; }
+
+.pf__more { border: 1px solid var(--line); border-radius: var(--r-md); margin-top: var(--s-3); background: var(--surface); overflow: hidden; }
+.pf__more > summary {
+  cursor: pointer; padding: var(--s-2) var(--s-3); font-size: var(--fs-xs); font-weight: 500;
+  list-style: none; display: flex; align-items: center; gap: var(--s-2); min-height: 38px;
+}
+.pf__more > summary::-webkit-details-marker { display: none; }
+.pf__more > summary::before {
+  content: '›'; color: var(--ink-2); font-size: 16px; line-height: 1;
+  transition: transform var(--t-fast) var(--ease); display: inline-block;
+}
+.pf__more[open] > summary::before { transform: rotate(90deg); }
+.pf__more > *:not(summary) { padding: 0 var(--s-3) var(--s-3); }
+
+.pf__dl { display: grid; grid-template-columns: minmax(150px, auto) 1fr; gap: 6px var(--s-4); font-size: var(--fs-xs); }
+.pf__dl dt { color: var(--ink-2); }
+.pf__dl dd { margin: 0; word-break: break-word; }
+.pf__dl--tight { font-size: var(--fs-2xs); grid-template-columns: minmax(112px, auto) 1fr; gap: 5px var(--s-3); }
+
+/* ---- 4. Thông số ------------------------------------------------------- */
+.pf__specs { display: grid; grid-template-columns: repeat(auto-fill, minmax(142px, 1fr)); gap: var(--s-2); }
+.spec { background: var(--ground); border-radius: var(--r-md); padding: var(--s-3); }
+.spec dt { font-size: var(--fs-2xs); color: var(--ink-2); }
+.spec dd { margin: 3px 0 0; font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.02em; }
+.pf__strengths { margin-top: var(--s-5); }
+.pf__strengths h5 { font-size: var(--fs-xs); font-weight: 600; margin-bottom: var(--s-2); }
+.pf__strengths ul { display: flex; flex-direction: column; gap: 5px; }
+.pf__strengths li { display: flex; gap: var(--s-2); align-items: flex-start; font-size: var(--fs-xs); color: var(--ink-2); line-height: 1.6; }
+.pf__strengths li .ic { color: var(--ok); margin-top: 3px; flex: none; }
+
+/* ---- 5. Tiện ích ------------------------------------------------------- */
+.pf__amenities { display: flex; flex-direction: column; gap: var(--s-3); }
+.amg { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+.amg__head { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3); background: var(--ground); }
+.amg__ic {
+  width: 30px; height: 30px; display: grid; place-items: center; border-radius: var(--r-sm);
+  background: var(--surface); color: var(--ink); flex: none; border: 1px solid var(--line);
+}
+.amg__head h5 { font-size: var(--fs-xs); font-weight: 600; }
+.amg__head em { font-style: normal; font-size: var(--fs-2xs); color: var(--ink-2); }
+.amg__n { margin-left: auto; font-size: var(--fs-2xs); color: var(--ink-2); }
+.amg__list { display: flex; flex-direction: column; background: var(--surface); }
+.place {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+  padding: var(--s-2) var(--s-3); border-top: 1px solid var(--line); flex-wrap: wrap;
+}
+.place__main { display: flex; align-items: baseline; gap: var(--s-2); min-width: 0; flex-wrap: wrap; }
+.place__name { font-size: var(--fs-xs); font-weight: 500; text-decoration: none; display: inline-flex; align-items: baseline; gap: 4px; }
+.place__name:hover { text-decoration: underline; }
+.place__type { font-size: var(--fs-2xs); color: var(--ink-2); }
+.place__stats { display: flex; align-items: center; gap: var(--s-4); margin-left: auto; }
+.place__dist, .place__rate { display: inline-flex; align-items: baseline; gap: 5px; font-size: var(--fs-2xs); color: var(--ink-2); cursor: help; }
+.place__dist .ic { align-self: center; }
+.place__dist em, .place__rate em { font-style: normal; }
+.place__rate strong { color: var(--ink); font-size: var(--fs-xs); font-weight: 600; }
+.amg__empty { padding: var(--s-3); display: flex; flex-direction: column; gap: var(--s-2); align-items: flex-start; background: var(--surface); }
+.amg__empty p { font-size: var(--fs-2xs); color: var(--ink-2); line-height: 1.6; }
+.pf__roadmap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: var(--s-3); }
+
+/* ---- 6. Bằng chứng ----------------------------------------------------- */
+.srcgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--s-3); }
+.srccard { border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s-3); background: var(--surface); }
+.srccard.is-picked { box-shadow: inset 3px 0 0 var(--ink); }
+.srccard header { display: flex; align-items: center; gap: var(--s-2); margin-bottom: 4px; flex-wrap: wrap; }
+.srccard__name { font-weight: 600; font-size: var(--fs-xs); }
+.srccard__title { font-size: var(--fs-2xs); color: var(--ink-2); margin-bottom: var(--s-2); }
+.srccard .btn { margin-top: var(--s-3); text-decoration: none; }
+
+/* ---- Phương pháp ------------------------------------------------------- */
+.method__must { display: flex; flex-direction: column; gap: var(--s-2); }
+.method__must li { font-size: var(--fs-xs); line-height: 1.6; padding-left: var(--s-4); position: relative; color: var(--ink-2); }
+.method__must li::before {
+  content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--warn);
+}
+.method__must strong { color: var(--ink); font-weight: 600; }
+.method__steps { display: flex; flex-direction: column; gap: var(--s-3); }
+.method__steps li { display: flex; gap: var(--s-3); align-items: flex-start; }
+.method__steps li > span {
+  flex: none; width: 26px; height: 26px; display: grid; place-items: center;
+  border-radius: var(--r-sm); background: var(--ink); color: var(--ground);
+  font-size: var(--fs-2xs); font-weight: 600;
+}
+.method__steps li > div { font-size: var(--fs-xs); line-height: 1.65; color: var(--ink-2); }
+.method__steps strong { color: var(--ink); font-weight: 600; }
+
+/* =========================================================================
+   So sánh
+   ========================================================================= */
+.cmp { max-width: 1140px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--s-3); }
+.cmp__lead {
+  position: relative; display: block; font-size: var(--fs-xs); color: var(--ink-2);
+  background: var(--ground); border-radius: var(--r-md);
+  padding: var(--s-3) var(--s-4) var(--s-3) 40px; line-height: 1.65;
+}
+.cmp__lead .ic { color: var(--ink-2); position: absolute; left: var(--s-4); top: 14px; }
+
+.cmp__prio { border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-3) var(--s-4); }
+.cmp__prio h4 { font-size: var(--fs-xs); }
+.cmp__prio p { font-size: var(--fs-2xs); color: var(--ink-2); margin: 4px 0 var(--s-3); line-height: 1.6; }
+.cmp__prio strong { color: var(--ink); font-weight: 600; }
+
+.cmp__heads {
+  display: grid; grid-template-columns: 190px repeat(var(--cols), minmax(0, 1fr)); gap: var(--s-2);
+  position: sticky; top: calc(var(--s-6) * -1); z-index: 3; background: var(--surface);
+  padding: var(--s-6) 0 var(--s-2); margin-top: calc(var(--s-6) * -1);
+}
+.cmphead {
+  border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s-2);
+  display: flex; gap: var(--s-2); align-items: center; min-width: 0; background: var(--surface);
+}
+.cmphead img, .cmphead__noimg { width: 36px; height: 36px; border-radius: var(--r-sm); object-fit: cover; flex: none; background: var(--ground); }
+.cmphead__id { min-width: 0; flex: 1 1 auto; }
+.cmphead__id h4 { font-size: var(--fs-xs); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cmphead__id p { font-size: var(--fs-2xs); color: var(--ink-2); display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+
+.cmp__group { border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.cmp__grouphead { padding: var(--s-3) var(--s-4); background: var(--ground); }
+.cmp__grouphead h4 { font-size: var(--fs-xs); }
+.cmp__grouphead p { font-size: var(--fs-2xs); color: var(--ink-2); margin-top: 3px; line-height: 1.6; }
+.cmp__grouphead p .ic { color: var(--ink-2); margin-right: 4px; vertical-align: -2px; }
+.cmp__grouphead strong { color: var(--ink); font-weight: 600; }
+
+.cmp__table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.cmp__table th, .cmp__table td { padding: 7px var(--s-4) 8px; text-align: left; vertical-align: baseline; border-bottom: 1px solid var(--line); }
+.cmp__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.cmp__table tbody th[scope="row"] { width: 190px; }
+.cmp__table tr:last-child th, .cmp__table tr:last-child td { border-bottom: 0; }
+/* Nhãn và đơn vị nằm CÙNG một dòng. Tách hai dòng làm mỗi hàng cao thêm
+   ~18px; nhân với hai mươi hai hàng là gần bốn trăm pixel cuộn thêm, để nói
+   một thứ vốn đọc lướt qua cũng hiểu. */
+.cmp__label { font-size: var(--fs-xs); font-weight: 500; }
+.cmp__unit { font-size: var(--fs-2xs); color: var(--ink-2); margin-left: 5px; }
+.cmp__def { color: var(--ink-2); cursor: help; display: inline-flex; }
+.cmp__val { font-size: var(--fs-base); font-weight: 600; display: block; letter-spacing: -0.02em; }
+
+/* Thanh tỉ lệ — xem chú thích dài trong compare.js. Vẽ lại con số đã có theo
+   chiều dài; KHÔNG đánh dấu ô nào là hơn, vì cao hơn là tốt hay xấu tuỳ hàng. */
+.cmp__bar {
+  display: block; height: 3px; margin-top: 5px;
+  background: var(--line); border-radius: var(--r-pill); overflow: hidden;
+}
+.cmp__bar > i { display: block; height: 100%; background: var(--ink-3); border-radius: inherit; }
+.cmp__table td.is-strong .cmp__bar { height: 5px; }
+.cmp__table td.is-strong .cmp__bar > i { background: var(--ink); }
+.cmp__table tr.is-priority .cmp__bar > i { background: var(--accent); }
+.cmp__sub { font-size: var(--fs-2xs); color: var(--ink-2); display: block; }
+.cmp__table td.is-strong .cmp__val { font-size: var(--fs-xl); letter-spacing: -0.035em; }
+/* Chỉ tiêu do NGƯỜI DÙNG chọn — cách duy nhất được phép làm nổi một hàng. */
+.cmp__table tr.is-priority { background: var(--ground); }
+.cmp__table tr.is-priority th[scope="row"] { box-shadow: inset 3px 0 0 var(--ink); }
+.cmp__foot { padding: var(--s-3) var(--s-4); font-size: var(--fs-2xs); color: var(--ink-2); line-height: 1.6; }
+
+@media (max-width: 900px) {
+  .pf__sec { padding: var(--s-4); }
+  .pf__fig img { height: 190px; }
+  .pf__fig figcaption, .pf__ident { padding-left: var(--s-4); padding-right: var(--s-4); }
+  .pf__name { font-size: var(--fs-xl); }
+
+  /* Mobile: bảng thành thẻ tuần tự, GIỮ nhãn cột trước mỗi giá trị. */
+  .cmp__heads { display: none; }
+  .cmp__table, .cmp__table tbody, .cmp__table tr, .cmp__table th, .cmp__table td { display: block; width: auto; }
+  .cmp__table tbody th[scope="row"] { width: auto; background: var(--ground); }
+  .cmp__table tr { border-bottom: 1px solid var(--line); }
+  .cmp__table td { display: flex; align-items: baseline; gap: var(--s-3); border-bottom: 0; padding: 6px var(--s-4); }
+  .cmp__table td::before {
+    content: attr(data-col); flex: none; width: 46%; font-size: var(--fs-2xs);
+    color: var(--ink-2); line-height: 1.4;
+  }
+  .cmp__table td > * { flex: 1 1 auto; }
+  .cmp__table td.is-strong .cmp__val { font-size: var(--fs-lg); }
+}
+
+/* ---- Nội dung Google trong hồ sơ --------------------------------------
+   Thẻ Places UI Kit dựng trong shadow DOM của Google, nên CSS ở đây chỉ lo
+   KHUNG: chỗ đặt và bề rộng. Màu bên trong đổi bằng CSS custom property mà
+   Google công bố, không phải selector thường. */
+.pf__gg {
+  display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap;
+  padding: var(--s-3); margin-bottom: var(--s-4);
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+  background: var(--surface);
+}
+.pf__ggnote { font-size: var(--fs-2xs); color: var(--ink-3); line-height: 1.5; }
+.pf__ggnote b { color: var(--ink); font-weight: 600; }
+.pf__ggerr {
+  margin: 0; font-size: var(--fs-xs); color: var(--ink); line-height: 1.6;
+  border-left: 2px solid var(--warn); padding-left: var(--s-3);
+}
+.place.has-gg { flex-direction: column; align-items: stretch; gap: var(--s-2); }
+.place__gg { border-top: 1px solid var(--line); padding-top: var(--s-2); }
+gmp-place-details-compact { width: 100%; display: block; }
+.place.has-gg .place__main,
+.place.has-gg .place__stats { width: 100%; margin-left: 0; }

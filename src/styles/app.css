@@ -1,0 +1,745 @@
+/* =========================================================================
+   Property Insight — kiểu dáng ứng dụng, idiom shadcn/ui + mapcn
+   ========================================================================= */
+
+*, *::before, *::after { box-sizing: border-box; border-color: var(--line); }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv11", "ss01";
+  font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3, h4, h5 { margin: 0; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-underline-offset: 3px; }
+button { font: inherit; color: inherit; }
+img { display: block; max-width: 100%; }
+hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
+
+/* Vòng tiêu điểm shadcn: ring 3px mờ + viền đậm. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+.skip {
+  position: absolute; left: var(--s-3); top: -100px; z-index: 999;
+  background: var(--ink); color: var(--ground);
+  padding: var(--s-2) var(--s-4); border-radius: var(--r-md);
+  font-size: var(--fs-xs); font-weight: 500; text-decoration: none; box-shadow: var(--shadow-lg);
+  transition: top var(--t-fast) var(--ease);
+}
+.skip:focus { top: var(--s-3); }
+
+.ic { flex: none; }
+.mono { font-family: var(--f-mono); font-size: 0.92em; }
+
+/* =========================================================================
+   Khung: thanh trên + sidebar phẳng + bản đồ
+   ========================================================================= */
+.app { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; }
+
+.topbar {
+  flex: none; height: var(--topbar-h); display: flex; align-items: center; gap: var(--s-3);
+  padding: 0 var(--s-3); background: var(--surface);
+  border-bottom: 1px solid var(--line); z-index: 40;
+}
+.topbar__brand { display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
+.topbar__mark {
+  width: 26px; height: 26px; border-radius: var(--r-md); flex: none;
+  background: var(--ink); color: var(--ground); display: grid; place-items: center;
+}
+.topbar__title { font-size: var(--fs-sm); font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
+.topbar__spacer { flex: 1 1 auto; }
+.topbar__actions { display: flex; align-items: center; gap: var(--s-1); }
+.topbar__sep { width: 1px; height: 18px; background: var(--line); flex: none; }
+
+/* Ghi chú cỡ mẫu — bắt buộc theo bất biến dữ liệu, luôn hiện, không bao giờ ẩn. */
+.samplenote {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--fs-xs); font-weight: 500; color: var(--warn);
+  background: var(--warn-soft); padding: 3px 9px 3px 7px;
+  border-radius: var(--r-pill); white-space: nowrap; cursor: help;
+}
+.samplenote::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex: none; }
+
+/* ---- Nút, theo biến thể của shadcn ------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 32px; padding: 0 var(--s-3); position: relative;
+  background: transparent; color: var(--ink);
+  border: 1px solid transparent; border-radius: var(--r-md);
+  font-size: var(--fs-xs); font-weight: 500; cursor: pointer; white-space: nowrap;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease);
+}
+.btn:hover { background: var(--hover-bg); }
+.btn--outline { border-color: var(--line); background: var(--surface); box-shadow: var(--shadow-sm); }
+.btn--outline:hover { background: var(--hover-bg); }
+.btn--primary { background: var(--ink); color: var(--ground); box-shadow: var(--shadow-sm); }
+.btn--primary:hover { background: var(--ink); opacity: 0.9; }
+.btn--icon { width: 32px; padding: 0; }
+.btn--lg { height: 36px; font-size: var(--fs-sm); padding: 0 var(--s-4); }
+.btn[aria-pressed="true"] { background: var(--surface-2); color: var(--ink); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+@media (pointer: coarse) {
+  .btn::after { content: ''; position: absolute; inset: 50% auto auto 50%;
+    width: 100%; min-width: var(--touch); height: var(--touch); transform: translate(-50%, -50%); }
+}
+
+/* Phím tắt hiển thị trong nút, kiểu shadcn <kbd>. */
+kbd, .kbd {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; padding: 0 4px;
+  font-family: var(--f-body); font-size: 10px; font-weight: 500;
+  background: var(--ground); color: var(--ink-3);
+  border-radius: 4px; border: 1px solid var(--line);
+}
+
+/* =========================================================================
+   Sidebar — phẳng, sát mép, 21rem (mapcn store-locator dùng 20rem)
+   ========================================================================= */
+.workspace { flex: 1 1 auto; display: flex; min-height: 0; position: relative; }
+
+.sidebar {
+  flex: none; width: var(--sidebar-w); display: flex; flex-direction: column;
+  background: var(--surface); border-right: 1px solid var(--line); min-height: 0;
+}
+
+.sidebar__head { flex: none; padding: var(--s-4) var(--s-4) var(--s-3); display: flex; flex-direction: column; gap: var(--s-3); }
+.sidebar__title { font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.025em; }
+.sidebar__sub { font-size: var(--fs-xs); color: var(--ink-2); margin-top: 2px; }
+.sidebar__sub b { color: var(--ink); font-weight: 600; }
+
+/* Ô tìm kiếm mở bảng lệnh — không phải input thường. Đúng cách shadcn làm. */
+.searchtrigger {
+  display: flex; align-items: center; gap: var(--s-2); width: 100%;
+  height: 36px; padding: 0 var(--s-2) 0 var(--s-3);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
+  color: var(--ink-2); font-size: var(--fs-xs); cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: border-color var(--t-fast) var(--ease);
+}
+.searchtrigger:hover { border-color: var(--accent); }
+.searchtrigger__txt { flex: 1 1 auto; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.sidebar__tools { display: flex; align-items: center; gap: 6px; }
+.sidebar__tools .btn { flex: none; }
+.sidebar__spacer { flex: 1 1 auto; }
+.sortselect {
+  height: 28px; border: 0; background: transparent; color: var(--ink-2);
+  font: inherit; font-size: var(--fs-xs); font-weight: 500; cursor: pointer;
+  padding: 0 2px; border-radius: var(--r-sm); max-width: 168px;
+}
+.sortselect:hover { color: var(--ink); }
+
+.filterbadge {
+  min-width: 17px; height: 17px; padding: 0 5px; border-radius: var(--r-pill);
+  background: var(--ink); color: var(--ground);
+  font-size: 10px; font-weight: 600; display: grid; place-items: center;
+}
+
+/* ---- Ngăn bộ lọc ------------------------------------------------------- */
+.filters { flex: none; overflow: hidden; max-height: 0; transition: max-height var(--t-slow) var(--ease); border-bottom: 1px solid transparent; }
+.filters.is-open { max-height: 480px; overflow-y: auto; border-bottom-color: var(--line); }
+.filters__inner { padding: var(--s-1) var(--s-4) var(--s-4); display: flex; flex-direction: column; gap: var(--s-4); }
+.fgroup { display: flex; flex-direction: column; gap: var(--s-2); border: 0; margin: 0; padding: 0; }
+.fgroup__hint { font-size: var(--fs-2xs); color: var(--ink-2); }
+.label { font-size: var(--fs-xs); font-weight: 500; color: var(--ink); }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 5px; }
+.togglechip {
+  display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 9px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm);
+  font-size: var(--fs-xs); font-weight: 500; color: var(--ink-2); cursor: pointer;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.togglechip:hover { color: var(--ink); border-color: var(--accent); }
+.togglechip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--ground); }
+/* KHÔNG dùng opacity để làm nhạt con số đếm. opacity:0.6 kéo --ink-2 xuống
+   2,83:1 trên nền sáng — dưới ngưỡng WCAG AA 4,5:1 cho chữ nhỏ. Muốn nhạt
+   thì chọn MỘT MÀU nhạt hơn đã đo, đừng làm mờ một màu đã đạt chuẩn:
+   opacity nhân lên cả nền lẫn chữ nên không kiểm soát được kết quả. */
+.togglechip__n { color: var(--ink-2); font-size: 11px; }
+.togglechip[aria-pressed="true"] .togglechip__n { color: inherit; opacity: 0.82; }
+
+.slider__row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-2); }
+.slider__val { font-size: var(--fs-xs); font-weight: 600; }
+/* Thanh trượt cao 32px, và 44px trên thiết bị cảm ứng — vùng chạm là chính
+   phần tử input, không thể mở rộng bằng ::after như với nút. */
+.slider input[type="range"] { width: 100%; accent-color: var(--ink); height: 32px; margin: 0; }
+@media (pointer: coarse) { .slider input[type="range"] { height: var(--touch); } }
+
+.switch { display: flex; align-items: center; gap: var(--s-2); font-size: var(--fs-xs); cursor: pointer; min-height: var(--touch); }
+.switch input { width: 18px; height: 18px; accent-color: var(--ink); flex: none; }
+
+/* ---- Danh sách --------------------------------------------------------- */
+.listscroll {
+  flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain;
+  padding: var(--s-2); display: flex; flex-direction: column; gap: var(--s-1);
+  scrollbar-width: thin;
+}
+
+/* =========================================================================
+   Mục danh sách — mật độ kiểu mapcn: tên + trạng thái, rồi các dòng nhỏ
+   có icon 14px và chữ số dạng bảng.
+   ========================================================================= */
+.item {
+  display: block; width: 100%; text-align: left;
+  background: transparent; border: 1px solid transparent; border-radius: var(--r-md);
+  padding: var(--s-3); position: relative;
+  transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.item:hover { background: var(--hover-bg); }
+/* Nút phủ kín: một nút thật, trong suốt, nằm dưới các điều khiển khác.
+   Sửa lỗi nested-interactive mà axe-core bắt được ở bản trước. */
+.item__open {
+  position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%;
+  border: 0; background: transparent; cursor: pointer; border-radius: var(--r-md);
+  padding: 0; font: inherit; color: transparent;
+}
+.item__open:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.item:has(.item__open:focus-visible) { background: var(--hover-bg); }
+.item.is-active, .item:has([aria-current="true"]) { background: var(--hover-bg); border-color: var(--line); }
+.item.is-active::before {
+  content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 2px;
+  border-radius: 2px; background: var(--ink);
+}
+
+/* Không có ảnh thu nhỏ trong danh sách — giống mapcn store-locator. Toàn bộ
+   chiều ngang dành cho chữ, nên không dòng nào phải xuống hàng. Ảnh xuất hiện
+   ở popup trên bản đồ và ở hồ sơ, nơi nó có đủ chỗ để làm việc. */
+.item__top { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); }
+.item__name {
+  font-size: var(--fs-sm); font-weight: 500; letter-spacing: -0.01em; line-height: 1.35;
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* Giá: con số lớn nhất trong mục, chữ số dạng bảng để các dòng thẳng cột. */
+.item__price { display: flex; align-items: baseline; gap: 5px; margin-top: 6px; white-space: nowrap; }
+.item__num { font-size: var(--fs-xl); font-weight: 600; letter-spacing: -0.035em; line-height: 1; }
+.item__unit { font-size: var(--fs-2xs); color: var(--ink-2); }
+.item__gross { margin-left: auto; font-size: var(--fs-xs); color: var(--ink-2); }
+.item__gross b { color: var(--ink); font-weight: 600; }
+
+.item__rows { display: flex; flex-direction: column; gap: 4px; margin-top: var(--s-2); font-size: var(--fs-xs); color: var(--ink-2); }
+.item__row { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.item__row > span:not(.badge) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item__row .ic { color: var(--ink-2); }
+.item__row b { color: var(--ink); font-weight: 600; }
+.item__bar { margin-top: 7px; }
+
+.item__cmp {
+  position: absolute; z-index: 2; right: var(--s-2); bottom: var(--s-2);
+  width: 26px; height: 26px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--surface); color: var(--ink-2); cursor: pointer;
+  opacity: 0; transition: opacity var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+}
+.item:hover .item__cmp, .item:focus-within .item__cmp, .item__cmp[aria-pressed="true"] { opacity: 1; }
+.item__cmp:hover { background: var(--hover-bg); color: var(--ink); }
+.item__cmp[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--ground); }
+
+/* ---- Bảng dày (chế độ xem thứ hai, mở đường cho quy mô 407 hồ sơ) ------ */
+.tablewrap { flex: 1 1 auto; overflow: auto; }
+.dtable { width: 100%; border-collapse: collapse; font-size: var(--fs-xs); }
+.dtable th, .dtable td { padding: 7px var(--s-3); text-align: left; white-space: nowrap; border-bottom: 1px solid var(--line); }
+.dtable thead th {
+  position: sticky; top: 0; z-index: 1; background: var(--surface);
+  font-size: var(--fs-2xs); font-weight: 500; color: var(--ink-2);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.dtable td.num { text-align: right; font-weight: 600; }
+.dtable tbody tr { cursor: pointer; }
+.dtable tbody tr:hover { background: var(--hover-bg); }
+.dtable tbody tr.is-active { background: var(--hover-bg); }
+
+/* =========================================================================
+   Bản đồ
+   ========================================================================= */
+.mapcol { flex: 1 1 auto; position: relative; min-width: 0; background: var(--map-earth); }
+.mapcol__canvas { position: absolute; inset: 0; }
+
+/* ---- Marker: chấm tròn đơn sắc, không nhãn thường trực (cách của mapcn) - */
+.mk {
+  display: grid; place-items: center; border: 0; padding: 0; cursor: pointer;
+  background: transparent;
+}
+
+
+
+
+
+.mk.is-dim { opacity: 0.32; }
+.mk:focus-visible { outline: none; }
+
+@media (pointer: coarse) { .mk { width: var(--touch); height: var(--touch); } }
+
+/* Tooltip khi rê chuột hoặc khi marker nhận tiêu điểm — chỉ tên, kiểu mapcn. */
+.mktip {
+  position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+  background: var(--ink); color: var(--ground);
+  font-size: var(--fs-2xs); font-weight: 500; line-height: 1.3;
+  padding: 4px 8px; border-radius: var(--r-sm); white-space: nowrap;
+  pointer-events: none; opacity: 0; box-shadow: var(--shadow);
+  transition: opacity var(--t-fast) var(--ease);
+}
+.mk:hover .mktip, .mk:focus-visible .mktip { opacity: 1; }
+.mk.is-selected .mktip { display: none; }
+
+/* ---- Popup gắn với marker --------------------------------------------- */
+.maplibregl-popup-content {
+  background: var(--surface) !important; color: var(--ink) !important;
+  border: 1px solid var(--line); border-radius: var(--r-lg) !important;
+  box-shadow: var(--shadow-lg) !important; padding: var(--s-3) !important;
+  font-family: var(--f-body); min-width: 248px;
+}
+.maplibregl-popup-tip { border-top-color: var(--surface) !important; border-bottom-color: var(--surface) !important; }
+.maplibregl-popup-close-button {
+  right: 4px !important; top: 4px !important; width: 24px; height: 24px;
+  border-radius: var(--r-sm); color: var(--ink-2) !important;
+  font-size: 17px !important; background: transparent !important;
+}
+.maplibregl-popup-close-button:hover { background: var(--hover-bg) !important; color: var(--ink) !important; }
+
+.pop__name { font-size: var(--fs-sm); font-weight: 600; padding-right: 20px; letter-spacing: -0.015em; }
+.pop__addr { font-size: var(--fs-2xs); color: var(--ink-2); margin-top: 2px; }
+.pop__price { display: flex; align-items: baseline; gap: 6px; margin-top: var(--s-3); }
+.pop__num { font-size: var(--fs-xl); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pop__unit { font-size: var(--fs-2xs); color: var(--ink-2); }
+.pop__rows { display: flex; flex-direction: column; gap: 5px; margin-top: var(--s-2); font-size: var(--fs-2xs); color: var(--ink-2); }
+.pop__row { display: flex; align-items: center; gap: 6px; }
+.pop__row b { color: var(--ink); font-weight: 600; }
+.pop__cta { display: flex; gap: 5px; margin-top: var(--s-3); }
+.pop__cta .btn { flex: 1 1 auto; }
+
+/* ---- Điều khiển và chú giải bản đồ ------------------------------------- */
+.mapctl { position: absolute; z-index: 5; display: flex; gap: 6px; }
+.mapctl--tr { top: var(--s-3); right: var(--s-3); }
+.mapctl--bl {
+  left: var(--s-3); bottom: 30px;
+  flex-direction: column; align-items: flex-start; gap: 6px;
+  width: min(380px, calc(100% - var(--s-6)));
+}
+.mapcard {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
+  box-shadow: var(--shadow);
+}
+.maplegend { padding: var(--s-2) var(--s-3); font-size: var(--fs-2xs); width: 100%; }
+.maplegend__title { display: flex; align-items: center; gap: var(--s-2); }
+.maplegend__title .label { font-size: var(--fs-2xs); color: var(--ink-2); }
+.maplegend ul { display: flex; flex-direction: column; gap: 5px; margin-top: 6px; }
+.maplegend li { display: flex; align-items: center; gap: 7px; color: var(--ink-2); line-height: 1.35; }
+.maplegend .sw { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+.sw--base { background: var(--rent-base); }
+.sw--service { background: var(--rent-service); }
+.sw--vat { background: var(--rent-vat); border: 1px solid var(--line); }
+.sw--pin { background: var(--map-pin); border-radius: 50%; }
+.sw--metro { background: var(--map-metro); height: 3px; border-radius: 2px; }
+.sw--ring { border: 1px dashed var(--ink-2); background: transparent; }
+/* Ô chú giải phải mang ĐÚNG ngôn ngữ hình của lớp nó chú giải: tuyến đang
+   xây là nét đứt vì trên bản đồ nó cũng là nét đứt, đường sắt là nét kép vì
+   trên bản đồ nó cũng là nét kép. Một ô màu trơn cho cả ba sẽ buộc người đọc
+   ghi nhớ ba màu — và màu chính là kênh yếu nhất trong số ba. */
+.sw--metro2 {
+  height: 3px; border-radius: 2px; background: transparent;
+  background-image: repeating-linear-gradient(to right,
+    var(--map-metro) 0 4px, transparent 4px 7px);
+  opacity: 0.8;
+}
+.sw--rail {
+  height: 3px; border-radius: 1px; background: var(--ink-2);
+  background-image: repeating-linear-gradient(to right,
+    var(--surface) 0 2px, transparent 2px 5px);
+}
+.sw--bus { background: var(--ink-3); border-radius: 50%; width: 6px; height: 6px; margin: 0 2.5px; }
+.sw--cbd {
+  border: 2px solid var(--ink); border-radius: 50%; background: transparent;
+  width: 11px; height: 11px; position: relative;
+}
+.sw--ward {
+  background: transparent; height: 0; border: 0;
+  border-top: 2px dashed var(--ink-3); border-radius: 0;
+}
+.maplegend__note { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); color: var(--ink-2); line-height: 1.45; display: none; }
+.maplegend.is-open .maplegend__note { display: block; }
+
+.maplibregl-ctrl-group {
+  background: var(--surface) !important; border: 1px solid var(--line) !important;
+  border-radius: var(--r-md) !important; box-shadow: var(--shadow) !important; overflow: hidden;
+}
+.maplibregl-ctrl-group button { width: 30px !important; height: 30px !important; background: transparent !important; }
+.maplibregl-ctrl-group button + button { border-top: 1px solid var(--line) !important; }
+.maplibregl-ctrl-group button span { filter: var(--ctrl-filter, none); }
+:root[data-theme="dark"] .maplibregl-ctrl-group button span { filter: invert(1) brightness(1.4); }
+.maplibregl-ctrl-attrib {
+  background: color-mix(in srgb, var(--surface) 82%, transparent) !important;
+  color: var(--ink-2) !important; font-size: 10px !important;
+  border-radius: var(--r-sm) 0 0 0 !important; padding: 1px 6px !important;
+}
+.maplibregl-ctrl-attrib a { color: var(--ink-2) !important; }
+.maplibregl-ctrl-scale {
+  background: color-mix(in srgb, var(--surface) 70%, transparent) !important;
+  border-color: var(--ink-2) !important; color: var(--ink-2) !important;
+  font-size: 10px !important; font-family: var(--f-body) !important;
+}
+
+/* =========================================================================
+   Khay so sánh
+   ========================================================================= */
+.tray {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: var(--s-4); z-index: 20;
+  display: flex; align-items: center; gap: var(--s-2);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg); padding: 6px 6px 6px var(--s-4); max-width: calc(100% - var(--s-8));
+}
+.tray__label { font-size: var(--fs-2xs); font-weight: 500; color: var(--ink-2); }
+.tray__items { display: flex; gap: 5px; overflow-x: auto; }
+.tray__item {
+  display: inline-flex; align-items: center; gap: 3px; padding: 3px 3px 3px 9px;
+  background: var(--surface-2); border-radius: var(--r-sm);
+  font-size: var(--fs-2xs); font-weight: 500; white-space: nowrap;
+}
+.tray__x { position: relative; display: grid; place-items: center; width: 22px; height: 22px; border: 0;
+  background: transparent; border-radius: 4px; cursor: pointer; color: var(--ink-2); }
+@media (pointer: coarse) {
+  .tray__x::after, .item__cmp::after, #legend-toggle::after {
+    content: ''; position: absolute; inset: 50% auto auto 50%;
+    width: var(--touch); height: var(--touch); transform: translate(-50%, -50%);
+  }
+  .item__cmp, #legend-toggle { position: relative; }
+}
+.tray__x:hover { background: var(--hover-bg); color: var(--ink); }
+
+/* =========================================================================
+   Bảng lệnh (⌘K) — mẫu Command của shadcn
+   ========================================================================= */
+.cmdk {
+  position: fixed; left: 50%; top: 14vh; transform: translateX(-50%) scale(0.98);
+  width: min(560px, calc(100vw - var(--s-8))); z-index: 80;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg); overflow: hidden; opacity: 0; pointer-events: none;
+  transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease-out);
+}
+.cmdk.is-open { opacity: 1; transform: translateX(-50%) scale(1); pointer-events: auto; }
+.cmdk__field { display: flex; align-items: center; gap: var(--s-2); padding: 0 var(--s-4); border-bottom: 1px solid var(--line); }
+.cmdk__field .ic { color: var(--ink-2); }
+.cmdk__field input {
+  flex: 1 1 auto; height: 48px; border: 0; background: transparent; outline: none;
+  font: inherit; font-size: var(--fs-base); color: var(--ink);
+}
+.cmdk__field input::placeholder { color: var(--ink-2); }
+.cmdk__list { max-height: 340px; overflow-y: auto; padding: var(--s-1); }
+.cmdk__group { padding: var(--s-2) var(--s-2) 4px; font-size: var(--fs-2xs); font-weight: 500; color: var(--ink-2); }
+.cmdk__opt {
+  display: flex; align-items: center; gap: var(--s-3); width: 100%; text-align: left;
+  padding: 7px var(--s-2); border: 0; background: transparent; border-radius: var(--r-sm);
+  cursor: pointer; font-size: var(--fs-xs);
+}
+.cmdk__opt[aria-selected="true"], .cmdk__opt:hover { background: var(--hover-bg); }
+.cmdk__opt .ic { color: var(--ink-2); }
+.cmdk__main { flex: 1 1 auto; min-width: 0; }
+.cmdk__nm { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cmdk__meta { font-size: var(--fs-2xs); color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cmdk__right { font-size: var(--fs-2xs); color: var(--ink-2); font-weight: 600; }
+.cmdk__empty { padding: var(--s-6); text-align: center; font-size: var(--fs-xs); color: var(--ink-2); }
+.cmdk__foot { display: flex; gap: var(--s-3); padding: var(--s-2) var(--s-4); border-top: 1px solid var(--line); font-size: 10px; color: var(--ink-2); }
+.cmdk__foot span { display: inline-flex; align-items: center; gap: 4px; }
+
+/* =========================================================================
+   Nguyên tố dữ liệu
+   ========================================================================= */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: var(--fs-2xs); font-weight: 500; line-height: 1.35;
+  padding: 2px 8px; border-radius: var(--r-sm); border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); white-space: nowrap;
+}
+.badge--ok { color: var(--ok); background: var(--ok-soft); border-color: transparent; }
+.badge--warn { color: var(--warn); background: var(--warn-soft); border-color: transparent; }
+.badge--muted { color: var(--ink-2); background: var(--ground); border-color: transparent; }
+/* "Chưa thu thập" có ngôn ngữ riêng: viền đứt + gạch chéo. Không thể nhầm với 0. */
+.badge--missing {
+  color: var(--missing-fg); background-color: var(--missing-bg);
+  background-image: var(--missing-hatch); border: 1px dashed var(--missing-border); cursor: help;
+}
+.badge__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
+
+.grade { font-family: var(--f-body); font-variant-numeric: normal; }
+
+.metro, .fresh { display: inline-flex; align-items: center; gap: 6px; cursor: help; }
+
+/* ---- Thanh cấu thành giá: đơn sắc ba mức ------------------------------- */
+.rentbar__track { display: flex; height: 5px; border-radius: var(--r-pill); overflow: hidden; background: var(--ground); }
+.rentbar__seg { display: block; height: 100%; }
+.rentbar__seg--base { background: var(--rent-base); }
+.rentbar__seg--service { background: var(--rent-service); }
+.rentbar__seg--vat { background: var(--rent-vat); }
+.rentbar__legend { display: flex; flex-wrap: wrap; gap: 5px var(--s-3); margin-top: 6px; }
+.rentbar__key { display: inline-flex; align-items: center; gap: 5px; font-size: var(--fs-2xs); color: var(--ink-2); }
+.rentbar__key .sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+
+/* ---- Dải hai nguồn giá ------------------------------------------------- */
+.band { border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s-3); background: var(--surface); }
+.band--single {
+  font-size: var(--fs-xs); color: var(--ink-2); line-height: 1.5;
+  background-color: var(--missing-bg); background-image: var(--missing-hatch); border-style: dashed;
+}
+.band__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-2); flex-wrap: wrap; }
+.band__title { font-size: var(--fs-2xs); font-weight: 500; color: var(--ink-2); }
+.band__spread { font-size: var(--fs-sm); font-weight: 600; }
+.band__unit { font-weight: 400; font-size: var(--fs-2xs); color: var(--ink-2); }
+.band__spread em { font-style: normal; font-weight: 600; color: var(--warn); margin-left: 6px; font-size: var(--fs-xs); }
+.band--ok .band__spread em { color: var(--ok); }
+.band__track { position: relative; height: 18px; margin: 6px 3px 0; }
+.band__span { position: absolute; top: 8px; height: 2px; border-radius: 2px; background: var(--line); }
+.band__dot {
+  position: absolute; top: 4px; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%;
+  background: var(--surface); box-shadow: inset 0 0 0 2.5px var(--ink-2); cursor: help;
+}
+.band__dot.is-selected { box-shadow: inset 0 0 0 5px var(--ink); }
+.band__rows { margin-top: var(--s-2); display: flex; flex-direction: column; gap: 4px; }
+.band__rows li { display: grid; grid-template-columns: 1fr auto auto auto; gap: var(--s-3); align-items: baseline; font-size: var(--fs-2xs); }
+.band__src { font-weight: 500; color: var(--ink); }
+.band__pick { font-style: normal; font-weight: 400; color: var(--ink-2); margin-left: 5px; }
+.band__num { font-weight: 600; }
+.band__date { color: var(--ink-2); }
+.band__link { display: inline-flex; align-items: center; gap: 3px; font-weight: 500; text-decoration: none; color: var(--ink-2); }
+.band__link:hover { color: var(--ink); text-decoration: underline; }
+
+/* =========================================================================
+   Lớp phủ
+   ========================================================================= */
+.scrim {
+  position: fixed; inset: 0; background: var(--overlay); z-index: 50;
+  opacity: 0; pointer-events: none; transition: opacity var(--t-slow) var(--ease);
+}
+.scrim.is-open { opacity: 1; pointer-events: auto; }
+
+.sheet {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(var(--sheet-w), 100vw);
+  background: var(--surface); z-index: 60; display: flex; flex-direction: column;
+  border-left: 1px solid var(--line); box-shadow: var(--shadow-lg);
+  transform: translateX(100%); transition: transform var(--t-slow) var(--ease-out);
+}
+.sheet.is-open { transform: translateX(0); }
+.sheet__head {
+  flex: none; display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) var(--s-3) var(--s-3) var(--s-5);
+  border-bottom: 1px solid var(--line); background: var(--surface); z-index: 2;
+}
+.sheet__title { font-size: var(--fs-sm); font-weight: 600; flex: 1 1 auto; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: -0.015em; }
+.sheet__body { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; }
+
+.overlay {
+  position: fixed; inset: 0; z-index: 60; background: var(--surface);
+  display: flex; flex-direction: column; opacity: 0; pointer-events: none;
+  transition: opacity var(--t-slow) var(--ease);
+}
+.overlay.is-open { opacity: 1; pointer-events: auto; }
+.overlay__head {
+  flex: none; display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-3) var(--s-4); border-bottom: 1px solid var(--line);
+}
+.overlay__body { flex: 1 1 auto; overflow: auto; padding: var(--s-6) var(--s-4) var(--s-16); }
+
+/* =========================================================================
+   Trạng thái rỗng / đang tải / lỗi
+   ========================================================================= */
+.state { padding: var(--s-10) var(--s-4); text-align: center; color: var(--ink-2); }
+.state__ic {
+  width: 44px; height: 44px; margin: 0 auto var(--s-3); border-radius: var(--r-lg);
+  display: grid; place-items: center; background: var(--ground); color: var(--ink-2);
+}
+.state h4 { font-size: var(--fs-sm); color: var(--ink); margin-bottom: 4px; }
+.state p { font-size: var(--fs-xs); max-width: 34ch; margin: 0 auto; line-height: 1.55; }
+.state .btn { margin-top: var(--s-4); }
+
+.skel { height: 108px; border-radius: var(--r-md); background: var(--ground); position: relative; overflow: hidden; }
+.skel::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface) 60%, transparent), transparent);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+/* =========================================================================
+   Thích ứng
+   ========================================================================= */
+/* ĐIỀU HƯỚNG CHÍNH — phải thấy được trên MỌI cỡ màn.
+
+   Luật cũ ở đây là `display: none` không điều kiện, và chỉ được bật lại
+   trong media query ≤900px dưới dạng thanh đáy. Hệ quả: trên desktop KHÔNG
+   CÓ CÁCH NÀO vào Danh sách, Tổng quan hay Google — ba trong bốn bề mặt của
+   sản phẩm không tới được, trừ khi biết mẹo gõ Ctrl+K.
+
+   Thanh trên còn thừa hơn 800px khoảng trống, nên chỗ thì có; chỉ là luật
+   này giấu mất. Ở màn hẹp nó vẫn chuyển xuống đáy như cũ. */
+.viewtabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+.viewtabs .btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--ground);
+  font-weight: 600;
+}
+
+@media (max-width: 1180px) { :root { --sidebar-w: 19rem; } }
+
+@media (max-width: 900px) {
+  /* 1 · Thanh trên: cho xuống dòng, cao tự do. Một hàng cứng + một dòng chữ
+     nowrap dài hơn màn hình = mọi thứ phía sau bị đẩy ra ngoài. */
+  .topbar {
+    height: auto; min-height: var(--topbar-h);
+    flex-wrap: wrap; align-content: center;
+    padding: 5px var(--s-2); gap: var(--s-2);
+  }
+  .topbar__title { display: none; }
+  .topbar__sep { display: none; }
+  .topbar__spacer { display: none; }
+  /* .skinpick ẩn ở skins.css — tệp đó nạp sau nên luật ở đây không thắng. */
+  /* Ghi chú cỡ mẫu là bất biến dữ liệu — cho nó hàng riêng, không cắt cụt. */
+  .samplenote { order: 9; flex: 0 0 100%; white-space: normal; line-height: 1.35; }
+  .topbar__brand { flex: 1 1 auto; }
+  .topbar__actions { flex: none; margin-left: auto; }
+
+  /* 2 · Điều hướng chính xuống đáy — vùng ngón cái. Góc trên phải của một
+     màn hình 844px là chỗ khó với nhất; điều hướng chính không được ở đó. */
+  .viewtabs {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
+    display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+    gap: 0; padding: 4px var(--s-2) calc(4px + env(safe-area-inset-bottom, 0px));
+    background: var(--surface); border-top: 1px solid var(--line);
+  }
+  .viewtabs .btn { height: var(--touch); border-radius: var(--r-sm); font-size: var(--fs-2xs); }
+  .viewtabs .btn[aria-pressed="true"] { background: var(--ground); color: var(--ink); font-weight: 600; }
+  /* Chừa chỗ cho thanh đáy, nếu không nó đè lên dòng cuối của mọi màn hình. */
+  .workspace, .overview, .googleview { padding-bottom: calc(var(--touch) + 10px); }
+  .workspace { position: relative; }
+  .sidebar { position: absolute; inset: 0; width: 100%; border-right: 0; z-index: 10; }
+  .mapcol { position: absolute; inset: 0; }
+  body[data-view="map"] .sidebar { display: none; }
+  body[data-view="list"] .mapcol { visibility: hidden; }
+  .sheet { width: 100vw; border-left: 0; }
+  .tray { left: var(--s-3); right: var(--s-3); transform: none; max-width: none; }
+  .maplegend { max-width: none; }
+  .mapctl--bl { left: var(--s-3); right: var(--s-3); width: auto; }
+  .overlay__body { padding: var(--s-4) var(--s-3) var(--s-16); }
+}
+
+/* Nút tìm kiếm chỉ có nghĩa trên màn hẹp: ở màn rộng, ô tìm kiếm thật nằm
+   ngay đầu dải danh sách và luôn nhìn thấy. */
+.topbar__search { display: none; }
+@media (max-width: 900px) { .topbar__search { display: inline-flex; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important; scroll-behavior: auto !important;
+  }
+}
+:root[data-motion="reduced"] *, :root[data-motion="reduced"] *::before, :root[data-motion="reduced"] *::after {
+  animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important;
+}
+
+/* Ảnh trong popup — danh sách không còn ảnh thu nhỏ, nên đây là nơi ảnh làm việc. */
+.pop__img {
+  width: calc(100% + var(--s-6)); height: 116px; object-fit: cover;
+  margin: calc(var(--s-3) * -1) calc(var(--s-3) * -1) var(--s-3);
+  border-radius: var(--r-lg) var(--r-lg) 0 0; background: var(--ground);
+}
+
+/* =========================================================================
+   Vùng chạm trên thiết bị cảm ứng
+   Ở con trỏ thô, mọi điều khiển phải đạt tối thiểu 44px chiều cao. Bản trước
+   chỉ mở rộng vùng bấm cho .btn; bộ kiểm thử bật giả lập cảm ứng đã phát hiện
+   phần còn lại vẫn nhỏ hơn ngưỡng.
+   ========================================================================= */
+@media (pointer: coarse) {
+  .searchtrigger { height: var(--touch); }
+  .sortselect { height: var(--touch); }
+  .togglechip { min-height: 38px; padding: 0 var(--s-3); }
+  .togglechip::after {
+    content: ''; position: absolute; inset: 50% auto auto 50%;
+    width: 100%; height: var(--touch); transform: translate(-50%, -50%);
+  }
+  .togglechip { position: relative; }
+  .skip { min-height: var(--touch); display: inline-flex; align-items: center; }
+  .band__link, .place__name { min-height: 32px; display: inline-flex; align-items: center; }
+  .cmdk__opt { min-height: var(--touch); }
+  .pf__more > summary { min-height: var(--touch); }
+  /* Nút phóng to/thu nhỏ do MapLibre dựng — cũng phải đạt ngưỡng chạm. */
+  .maplibregl-ctrl-group button { width: var(--touch) !important; height: var(--touch) !important; }
+}
+
+/* =========================================================================
+   Tiện ích mở từ OpenStreetMap trên bản đồ
+   Đây là tập dữ liệu KHÁC với tiện ích Google Places trong hồ sơ. Nguồn OSM
+   (ODbL) nên được phép vẽ lên bản đồ OSM — Pattern A. Mỗi nhóm có icon
+   riêng, nên màu chỉ là kênh phụ.
+   ========================================================================= */
+/* Ghim tiện ích do editorial.css định nghĩa TOÀN BỘ — xem khối
+   "GHIM TIỆN ÍCH = KÝ HIỆU NHÓM + SỐ PHÚT". Ở đây chỉ giữ ba thứ không
+   thuộc về hình dáng: reset của nút, vùng chạm, và vòng tiêu điểm. */
+.amk { border: 0; padding: 0; background: transparent; cursor: pointer; }
+.amk:focus-visible { outline: none; }
+.amk:focus-visible .amk__dot { box-shadow: 0 0 0 2px var(--amk-disc), 0 0 0 5px var(--accent); }
+@media (pointer: coarse) { .amk { width: var(--touch); height: var(--touch); } }
+
+/* Bảng tiện ích nổi trên bản đồ khi đã chọn một tòa. Bố cục chi tiết
+   nằm ở editorial.css — ở đây chỉ giữ quy tắc ẩn/hiện. */
+.ampanel[hidden] { display: none !important; }
+.amcat {
+  display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 9px;
+  border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface);
+  font-size: var(--fs-2xs); font-weight: 500; color: var(--ink-2); cursor: pointer;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+/* Ký hiệu nhóm thay cho chấm màu. Chấm màu bắt người dùng học "tím = mua
+   sắm" rồi nhớ nó suốt phiên; ký hiệu thì không cần học, và nó là ĐÚNG hình
+   đang nằm trên bản đồ. Màu vẫn còn nhưng đã tụt xuống thành kênh phụ —
+   điều bắt buộc, vì tám màu ở cỡ 12px không phải ai cũng tách được. */
+.amcat__ic { width: 13px; height: 13px; flex: none; display: block; color: var(--amcat-color); }
+.amcat__ic svg { display: block; width: 100%; height: 100%; }
+.amcat[aria-pressed="true"] .amcat__ic { color: #FFFFFF; }
+.amcat.is-none .amcat__ic { color: var(--missing-fg); opacity: 0.55; }
+/* Số phút tới địa điểm gần nhất của nhóm, đặt ngay trên nút.
+
+   KHÔNG dùng opacity để làm nó nhẹ đi. Nút đang bật có nền là màu nhóm, nên
+   chữ trắng ở 72% rơi xuống 3,6–4,5:1 — axe-core bắt đúng tám nút. Sự phụ
+   thuộc ở đây đến từ MẶT CHỮ (mono, giữa một nhãn không phải mono) chứ
+   không từ độ mờ; mặt chữ không đánh đổi với tương phản.
+
+   11px là sàn chữ chức năng của bộ token, 10px nằm dưới sàn đó. */
+.amcat__n {
+  font-family: var(--f-mono); font-size: var(--fs-2xs); font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  margin-left: 2px;
+}
+.amcat:hover { color: var(--ink); }
+.amcat[aria-pressed="true"] { background: var(--amcat-color); border-color: var(--amcat-color); color: #fff; }
+@media (pointer: coarse) { .amcat { height: 34px; } }
+

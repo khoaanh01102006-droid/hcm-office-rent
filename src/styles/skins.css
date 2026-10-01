@@ -1,0 +1,190 @@
+/* =========================================================================
+   BỐN GIAO DIỆN — đổi ngay trong ứng dụng thật, trên dữ liệu thật.
+
+   Mỗi giao diện chỉ định nghĩa lại TOKEN, không đụng vào một dòng bố cục
+   nào. Nhờ vậy đổi giao diện không thể làm hỏng cấu trúc, và thêm giao
+   diện thứ năm chỉ là thêm một khối token.
+
+   Bốn hướng khác nhau thật sự, không phải bốn sắc thái của một hướng:
+
+     Biên tập    Playfair cho tiêu đề, xám lệch xanh lá, góc gần vuông.
+                 Giọng báo cáo thị trường. (mặc định)
+     Tối giản    Một bộ chữ duy nhất, xám trung tính, góc bo tròn, thưa hơn.
+                 Giọng công cụ, không giọng ấn phẩm.
+     Đậm nét     Chữ nặng, tương phản cao, góc vuông tuyệt đối, đặc hơn.
+                 Đọc nhanh, quét nhiều dòng.
+     Giấy ấm     Tông giấy ngà, Playfair cho cả thân bài, mực nâu.
+                 Giọng hồ sơ in ra để mang đi họp.
+
+   RÀNG BUỘC KHÔNG ĐỔI THEO GIAO DIỆN:
+   mọi cặp màu chữ/nền vẫn phải đạt WCAG AA, và trạng thái "chưa thu thập"
+   vẫn giữ viền đứt + gạch chéo ở cả bốn.
+   ========================================================================= */
+
+/* CÒN HAI GIAO DIỆN TRONG BỘ CHỌN — xem SKINS trong main.js.
+   Khối token của "Đậm nét" và "Giấy ấm" ở dưới CỐ Ý giữ lại: chúng đã được
+   đo tương phản đầy đủ, nên bật lại chỉ là thêm một dòng vào SKINS. Bỏ đi
+   thì phải đo lại từ đầu. Không có luật CSS nào chạy khi chưa bật.        */
+
+/* ---- 2 · Tối giản ------------------------------------------------------ */
+:root[data-skin="minimal"] {
+  --ground: #F4F4F5;
+  --surface: #FFFFFF;
+  --surface-2: #FAFAFA;
+  --ink: #18181B;          /* 16,6:1 trên --ground */
+  --ink-2: #52525B;        /*  7,4:1 */
+  --ink-3: #64646E;        /*  5,6:1 */
+  --line: #E4E4E7;
+  --line-strong: #82828C;  /*  3,4:1 — viền điều khiển */
+  --hover-bg: #EFEFF1;
+  --accent: #8A5A12;       /*  4,9:1 */
+  --accent-soft: #FBF5EC;
+  --warn: #9E4B3C;         /*  5,1:1 */
+  --warn-soft: #FBF0EE;
+  --ok: #2C6A4A;
+  --ok-soft: #E9F4EE;
+
+  --r0: #E7E7EA; --on-r0: #18181B;
+  --r1: #C2C2CA; --on-r1: #18181B;
+  --r2: #8E8E9C; --on-r2: #18181B;
+  --r3: #5B5B6B; --on-r3: #FFFFFF;
+  --r4: #2E2E3A; --on-r4: #FFFFFF;
+
+  --rent-base: #18181B; --rent-service: #52525B; --rent-vat: #D4D4D8;
+  --missing-fg: #64646E; --missing-border: #A1A1AA; --missing-bg: #FAFAFA;
+  --missing-hatch: repeating-linear-gradient(
+    -45deg, transparent 0 5px, rgba(82, 82, 91, 0.16) 5px 6px);
+
+  --map-earth: #E6E6E9; --map-green: #DCE4DC; --map-water: #C3D4E0;
+  --map-road: #FFFFFF; --map-road-casing: #D1D1D6;
+  --map-building: #D6D6DB; --map-pin: #18181B; --map-pin-fg: #FFFFFF;
+
+  /* Một bộ chữ duy nhất. Con số vẫn cần đơn cách để cột thẳng hàng. */
+  --f-display: 'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif;
+  --f-body: 'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif;
+
+  --r-sm: 8px; --r-md: 10px; --r-lg: 12px;
+  --ls-label: 0.06em;
+  --fs-h2: clamp(1.4rem, 3vw, 2rem);
+  --fs-hero: clamp(3.5rem, 11vw, 8rem);
+}
+:root[data-skin="minimal"] .ov__thesis,
+:root[data-skin="minimal"] .ov__num { font-style: normal; font-weight: 600; }
+:root[data-skin="minimal"] .label,
+:root[data-skin="minimal"] .ov__sectag,
+:root[data-skin="minimal"] .ov__eyebrow { text-transform: none; }
+:root[data-skin="minimal"] .item { padding: var(--s-4) var(--s-4) var(--s-4) 96px; }
+
+/* ---- 3 · Đậm nét ------------------------------------------------------- */
+:root[data-skin="bold"] {
+  --ground: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-2: #F4F4F4;
+  --ink: #000000;
+  --ink-2: #3A3A3A;        /* 10,9:1 */
+  --ink-3: #565656;        /*  7,2:1 */
+  --line: #C9C9C9;
+  --line-strong: #6E6E6E;  /*  5,0:1 */
+  --hover-bg: #ECECEC;
+  --accent: #8A3F00;       /*  8,1:1 */
+  --accent-soft: #FBEFE6;
+  --warn: #A11B1B;         /*  8,0:1 */
+  --warn-soft: #FBEAEA;
+  --ok: #14562F;
+  --ok-soft: #E5F2EA;
+
+  --r0: #EDEDED; --on-r0: #000000;
+  --r1: #BFBFBF; --on-r1: #000000;
+  --r2: #8A8A8A; --on-r2: #000000;
+  --r3: #4A4A4A; --on-r3: #FFFFFF;
+  --r4: #1A1A1A; --on-r4: #FFFFFF;
+
+  --rent-base: #000000; --rent-service: #565656; --rent-vat: #C9C9C9;
+  --missing-fg: #565656; --missing-border: #6E6E6E; --missing-bg: #F7F7F7;
+  --missing-hatch: repeating-linear-gradient(
+    -45deg, transparent 0 4px, rgba(0, 0, 0, 0.22) 4px 5px);
+
+  --map-earth: #E4E4E4; --map-green: #D5E0D2; --map-water: #B7CEDE;
+  --map-road: #FFFFFF; --map-road-casing: #B0B0B0;
+  --map-building: #CFCFCF; --map-pin: #000000; --map-pin-fg: #FFFFFF;
+
+  --r-sm: 0px; --r-md: 0px; --r-lg: 0px;
+  --ls-label: 0.1em;
+  --fs-sm: 0.86rem; --fs-base: 0.92rem;
+}
+:root[data-skin="bold"] .ov__thesis { font-style: normal; font-weight: 600; }
+:root[data-skin="bold"] .item__name,
+:root[data-skin="bold"] .scard__name,
+:root[data-skin="bold"] .ovtile__n { font-weight: 600; }
+:root[data-skin="bold"] .item__num,
+:root[data-skin="bold"] .mk__price,
+:root[data-skin="bold"] .scard__price { font-weight: 600; }
+:root[data-skin="bold"] .badge { border-width: 1.5px; font-weight: 500; }
+:root[data-skin="bold"] .item { padding-block: var(--s-2); min-height: 88px; }
+
+/* ---- 4 · Giấy ấm ------------------------------------------------------- */
+:root[data-skin="paper"] {
+  --ground: #F3EDE2;
+  --surface: #FAF6EE;
+  --surface-2: #FFFDF8;
+  --ink: #241C12;          /* 14,9:1 trên --ground */
+  --ink-2: #55483A;        /*  6,6:1 */
+  --ink-3: #6E6152;        /*  4,7:1 */
+  --line: #DFD4C2;
+  --line-strong: #8A7C69;  /*  3,3:1 */
+  --hover-bg: #EAE2D4;
+  --accent: #8A5114;       /*  5,4:1 */
+  --accent-soft: #F7EEDF;
+  --warn: #97402C;         /*  5,7:1 */
+  --warn-soft: #F8EBE4;
+  --ok: #3D6238;
+  --ok-soft: #EAF0E5;
+
+  --r0: #E7DECD; --on-r0: #241C12;
+  --r1: #CBB894; --on-r1: #241C12;
+  --r2: #A08A63; --on-r2: #241C12;
+  --r3: #6E5B3A; --on-r3: #FAF6EE;
+  --r4: #40331E; --on-r4: #FAF6EE;
+
+  --rent-base: #241C12; --rent-service: #6E6152; --rent-vat: #D8CCB8;
+  --missing-fg: #6E6152; --missing-border: #A3947E; --missing-bg: #F6F1E7;
+  --missing-hatch: repeating-linear-gradient(
+    -45deg, transparent 0 5px, rgba(85, 72, 58, 0.18) 5px 6px);
+
+  --map-earth: #E9E0CF; --map-green: #D5DDC0; --map-water: #BDCEC9;
+  --map-road: #FDFBF6; --map-road-casing: #D2C6B1;
+  --map-building: #DCD1BC; --map-pin: #241C12; --map-pin-fg: #FAF6EE;
+  --map-metro: #1F6B7A;
+
+  /* Playfair cho cả thân bài — giọng ấn phẩm in. */
+  --f-body: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --r-sm: 2px; --r-md: 3px;
+  --fs-md: 1.03rem; --fs-base: 0.92rem; --fs-sm: 0.87rem;
+}
+/* Playfair có chiều cao chữ thường nhỏ hơn Be Vietnam Pro, nên dòng phải
+   thưa hơn một chút mới dễ đọc ở cỡ nhỏ. */
+:root[data-skin="paper"] body { line-height: 1.68; }
+:root[data-skin="paper"] .item__name,
+:root[data-skin="paper"] .scard__name { font-weight: 600; }
+
+/* =========================================================================
+   Bộ chọn giao diện trên thanh trên cùng
+   ========================================================================= */
+.skinpick { display: flex; align-items: center; gap: 4px; }
+/* Ẩn trên màn hẹp. Luật ẩn PHẢI nằm ở đây chứ không ở app.css: skins.css nạp
+   sau, nên .skinpick{display:flex} ở đây thắng mọi luật cùng độ đặc hiệu bên
+   kia — kể cả luật nằm trong media query. Bộ chọn giao diện là thứ chỉnh một
+   lần, không đáng chiếm một hàng trên màn hình 390px. */
+@media (max-width: 900px) { .skinpick { display: none; } }
+.skinpick__opts { display: flex; gap: 2px; }
+.skinbtn {
+  width: 26px; height: 26px; padding: 0;
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+  cursor: pointer; position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+}
+/* Bốn ô màu = xem trước thật của giao diện đó: nền, mực, nhấn, thang giá. */
+.skinbtn i { display: block; }
+.skinbtn[aria-checked="true"] { outline: 2px solid var(--accent); outline-offset: 1px; }
+.skinbtn:hover { transform: translateY(-1px); }
+@media (pointer: coarse) { .skinbtn { width: var(--touch); height: var(--touch); } }

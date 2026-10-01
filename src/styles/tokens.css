@@ -1,0 +1,316 @@
+/* =========================================================================
+   Property Insight · bản thử 12 tòa pilot — hệ thống thiết kế
+
+   NGÔN NGỮ THIẾT KẾ: biên tập dữ liệu (editorial data product)
+   Thay cho hệ shadcn/mapcn trung tính ở bản trước. Người dùng chỉ đích danh
+   bản mẫu "Chỉ số Văn phòng Sài Gòn" làm chuẩn tham chiếu.
+
+   Bốn hệ quả:
+
+   1. CHỮ SỐ LÀ NHÂN VẬT CHÍNH. Ba bộ chữ, mỗi bộ một vai — tiêu đề mang uy
+      tín của báo cáo thị trường, thân bài thiết kế riêng cho tiếng Việt, con
+      số dùng chữ đơn cách + tabular-nums để các cột số thẳng hàng tuyệt đối.
+
+   2. XÁM LỆCH XANH LÁ, KHÔNG PHẢI XÁM TRUNG TÍNH. Sắc kính công trình.
+      Màu chỉ xuất hiện ở đúng ba chỗ mang nghĩa: thang giá, cảnh báo, thiếu
+      dữ liệu.
+
+   3. THANG GIÁ NĂM BẬC, MỖI BẬC CÓ MÀU CHỮ ĐI KÈM BẮT BUỘC. Cặp --rN /
+      --on-rN không bao giờ tách rời. Sáng: giá cao → màu đậm. Tối: giá cao
+      → màu sáng (đảo chiều, vì nền đã tối).
+
+   4. SÁNG VÀ TỐI LÀ HAI THIẾT KẾ, KHÔNG PHẢI MỘT BẢN ĐẢO NGƯỢC.
+
+   -------------------------------------------------------------------------
+   BỐN TOKEN ĐÃ SỬA SO VỚI BẢN MẪU THAM CHIẾU — đo bằng công thức tương phản
+   WCAG 2.1, không lấy theo mắt:
+
+     --ink-3       #7C8C84 → #63706A   (3,11:1 trên --ground, cần 4,5)
+     --accent      #9E6A1F → #94641D   (4,07:1 trên --ground, cần 4,5)
+     --line-strong #B9C5BF → #799085   (1,56:1, cần 3,0 — viền điều khiển
+                                        là đối tượng đồ hoạ, WCAG 1.4.11)
+     --on-r2       #FAFBFA → #0F1A16   (2,75:1 trên --r2, cần 4,5)
+
+   Token cuối là chỗ chính bản mẫu cảnh báo "dễ hỏng nhất" mà vẫn hỏng. Sửa
+   bằng cách LẬT MÀU CHỮ sang tối (đạt 6,24:1) thay vì làm tối --r2 (chỉ đạt
+   4,54:1) — giữ nguyên khoảng cách thị giác của thang màu, chỉ dời điểm lật
+   chữ từ bậc 2 sang bậc 3.
+
+   Chế độ tối sửa hai token cùng lý do: --ink-3 và --line-strong.
+   ========================================================================= */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Nền và chữ -------------------------------------------------------- */
+  --ground: #EEF1EE;       /* nền trang — xám lệch xanh lá rất nhẹ */
+  --surface: #FAFBFA;      /* nền thẻ, panel, bảng */
+  --surface-2: #FFFFFF;    /* nổi hơn một bậc — hover hàng bảng */
+  --ink: #0F1A16;          /* chữ chính            15,64:1 trên --ground */
+  --ink-2: #47574F;        /* chữ phụ, lede         6,72:1 */
+  --ink-3: #63706A;        /* nhãn, chú thích, trục 4,55:1  ← đã sửa */
+  --line: #D5DDD8;         /* đường kẻ phân cách */
+  --line-strong: #799085;  /* viền có tương tác     3,00:1  ← đã sửa */
+
+  /* ---- Ngữ nghĩa — luôn kèm icon hoặc chữ, không bao giờ chỉ có màu ------ */
+  --accent: #94641D;       /* đồng thau — nhãn mục và vòng focus  ← đã sửa */
+  --accent-soft: #FAF6EE; /* 4,75:1 với --accent — bản mẫu để 4,05 */
+  --warn: #A2543F;         /* đất nung — chỉ số tiêu cực, độ lệch cao */
+  --warn-soft: #FAF1EE;   /* 4,87:1 với --warn — bản mẫu để 4,49, hụt AA */
+  --ok: #2F6B4F;
+  --ok-soft: #E2EFE7;
+  --hover-bg: #E4EAE5;     /* nền khi rê chuột — KHÔNG phải --accent.
+                              shadcn dùng --accent làm nền hover; hệ biên tập
+                              dùng --accent làm màu chữ đồng thau. Trộn hai
+                              nghĩa này là cách nhanh nhất để nút hover ra
+                              màu nâu. */
+
+  /* ---- Thanh cấu thành giá: đơn sắc ba mức, đọc được khi in đen trắng --- */
+  --rent-base: #0F1A16;
+  --rent-service: #47574F;
+  --rent-vat: #C3CDC7;
+
+  /* ---- Thang giá: năm bậc, giá cao → màu đậm ----------------------------- */
+  --r0: #E1E9E5;  --on-r0: #0F1A16;   /* 14,40:1 */
+  --r1: #AECBC2;  --on-r1: #0F1A16;   /* 10,28:1 */
+  --r2: #6FA396;  --on-r2: #0F1A16;   /*  6,24:1  ← đã lật từ chữ sáng */
+  --r3: #3D786B;  --on-r3: #FAFBFA;   /*  4,94:1 */
+  --r4: #164A40;  --on-r4: #FAFBFA;   /*  9,70:1 */
+
+  /* ---- "Chưa thu thập" — trạng thái hạng nhất, có ngôn ngữ riêng --------- */
+  --missing-fg: #63706A;
+  --missing-border: #97A69F;
+  --missing-bg: #F3F6F3;
+  --missing-hatch: repeating-linear-gradient(
+    -45deg, transparent 0 5px, rgba(71, 87, 79, 0.18) 5px 6px);
+
+  /* ---- Bản đồ 2D — cùng gam lệch xanh lá với giao diện ------------------- */
+  --map-earth: #DCE3DD;
+  --map-green: #C7DAC8;
+  --map-water: #B4CCDB;
+  --map-road: #FFFFFF;
+  --map-road-casing: #BFCCC2;
+  --map-building: #CBD5CD;
+  --map-metro: #0079B8;      /* màu chính thức của tuyến, theo thẻ OSM */
+  --map-pin: #0F1A16;
+  --map-pin-fg: #FAFBFA;
+  --map-ring: #47574F;
+
+  /* Đĩa nền của ký hiệu tiện ích — CỐ Ý không đổi theo giao diện hay chế độ
+     sáng/tối. Ký hiệu này phải đọc được trên MỌI nền: bản đồ sáng, bản đồ
+     tối, và cả ảnh vệ tinh. Đĩa tự mang nền của nó, nên tám màu nhóm đều
+     giữ nguyên tỉ lệ tương phản đã đo (5,4:1 đến 7,0:1) ở khắp nơi — kể cả
+     trên bảng nền tối, nơi màu nhóm đặt thẳng lên nền chỉ còn 2,8:1.
+     Đây cũng là lý do ký hiệu trong danh sách dùng chung đúng đĩa này. */
+  --amk-disc: #FFFFFF;
+
+  /* Bề rộng bảng tiêu điểm. Camera đọc lại đúng con số này để trừ ra khỏi
+     khung nhìn — một nguồn sự thật cho cả CSS và JS. */
+  --focus-w: 372px;
+
+  /* ---- Isochrone đi bộ — thang riêng, không tranh chấp với thang giá ----- */
+  --iso-1: #164A40;   /* 5 phút  */
+  --iso-2: #3D786B;   /* 10 phút */
+  --iso-3: #6FA396;   /* 15 phút */
+  --iso-fill-1: rgba(22, 74, 64, 0.13);
+  --iso-fill-2: rgba(61, 120, 107, 0.10);
+  --iso-fill-3: rgba(111, 163, 150, 0.08);
+
+  --shadow: 0 1px 2px rgba(16, 32, 26, .05), 0 8px 24px -12px rgba(16, 32, 26, .18);
+  --shadow-sm: 0 1px 2px rgba(16, 32, 26, .06);
+  --shadow-lg: 0 2px 6px rgba(16, 32, 26, .08), 0 18px 44px -18px rgba(16, 32, 26, .28);
+  --overlay: rgba(15, 26, 22, 0.5);
+
+  /* ---- Chữ: ba bộ, ba vai ----------------------------------------------- */
+  /* MỘT họ chữ cho cả display lẫn thân bài — xem chú thích trong editorial.css.
+     Trỏ lại 'Playfair Display' ở đây là bật lại kiểu hai họ chữ. */
+  --f-display: 'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif;
+  --f-body: 'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', 'SFMono-Regular', ui-monospace, Consolas, monospace;
+
+  /* Thang chữ biên tập */
+  --fs-hero: clamp(4.5rem, 15vw, 11rem);
+  --fs-thesis: clamp(1.35rem, 3.4vw, 2.15rem);
+  --fs-h2: clamp(1.6rem, 3.6vw, 2.4rem);
+  --fs-h3: 1.5rem;
+
+  /* Thang chữ giao diện (sidebar, hồ sơ, điều khiển) */
+  --fs-2xs: 0.6875rem; /* 11 — SÀN. Dưới mức này chữ chức năng khó đọc;
+                          impeccable bắt đúng chỗ này khi token còn 10,4px. */
+  --fs-xs: 0.75rem;    /* 12 — siêu dữ liệu, eyebrow */
+  --fs-sm: 0.82rem;    /* 13,1 — nhãn điều khiển */
+  --fs-base: 0.88rem;  /* 14,1 — số trong bảng, thân bài đặc */
+  --fs-md: 1rem;       /* 16   — thân bài */
+  --fs-lg: 1.15rem;
+  --fs-xl: 1.45rem;
+  --fs-2xl: 1.75rem;
+
+  --ls-label: 0.16em;  /* eyebrow, nhãn mục viết hoa */
+  --ls-stamp: 0.09em;
+
+  /* ---- Khoảng cách (bậc 4) ---------------------------------------------- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px;
+
+  /* ---- Bo góc: gần như vuông. Bản mẫu dùng 2px — giọng biên tập, không
+         phải giọng ứng dụng. -------------------------------------------- */
+  --r-sm: 2px;
+  --r-md: 2px;
+  --r-lg: 3px;
+  --r-pill: 999px;
+
+  /* ---- Chuyển động ------------------------------------------------------ */
+  --t-fast: 150ms;
+  --t-base: 200ms;
+  --t-slow: 300ms;
+  --t-bar: 500ms;      /* thanh xếp hạng — theo bản mẫu tham chiếu */
+  --t-camera: 480ms;   /* dưới trần 500 ms của yêu cầu chấp nhận */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  --touch: 44px;
+
+  /* ---- Bố cục ----------------------------------------------------------- */
+  --sidebar-w: 21rem;
+  --sheet-w: 820px;
+  --topbar-h: 54px;
+  --maxw: 1180px;
+  --pad: clamp(1.15rem, 4vw, 3.5rem);
+}
+
+/* =========================================================================
+   Chế độ tối — thiết kế riêng. Thang giá ĐẢO CHIỀU: giá cao → màu sáng.
+   ========================================================================= */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ground: #0A100E;
+  --surface: #0F1714;
+  --surface-2: #15201C;
+  --ink: #E9EFEB;          /* 16,47:1 */
+  --ink-2: #9CACA5;        /*  8,10:1 */
+  --ink-3: #768981;        /*  4,51:1  ← đã sửa (bản mẫu 4,48 / 4,25 / 3,90) */
+  --line: #233029;
+  --line-strong: #536E60;  /*  3,00:1  ← đã sửa */
+
+  --accent: #D2A05E;       /* 8,17:1 — không cần sửa ở chế độ tối */
+  --accent-soft: #2A2115;
+  --warn: #D2896B;
+  --warn-soft: #2E1F18;
+  --ok: #6FBF95;
+  --ok-soft: #12241A;
+  --hover-bg: #1A2521;
+  --rent-base: #E9EFEB;
+  --rent-service: #7E8F88;
+  --rent-vat: #35443D;
+
+  --r0: #1D2A25;  --on-r0: #E9EFEB;   /* 12,77:1 */
+  --r1: #2E5A50;  --on-r1: #E9EFEB;   /*  6,68:1 */
+  --r2: #468A7A;  --on-r2: #0A100E;   /*  4,73:1 */
+  --r3: #68B5A3;  --on-r3: #0A100E;   /*  7,98:1 */
+  --r4: #9BDCC7;  --on-r4: #0A100E;   /* 12,31:1 */
+
+  --missing-fg: #9CACA5;
+  --missing-border: #4A5C54;
+  --missing-bg: #131C18;
+  --missing-hatch: repeating-linear-gradient(
+    -45deg, transparent 0 5px, rgba(156, 172, 165, 0.16) 5px 6px);
+
+  --map-earth: #0D1512;
+  --map-green: #132019;
+  --map-water: #0C1D28;
+  --map-road: #3A4B44;
+  --map-road-casing: #1B2721;
+  --map-building: #1E2B25;
+  --map-metro: #3AA0DD;
+  --map-pin: #E9EFEB;
+  --map-pin-fg: #0A100E;
+  --map-ring: #9CACA5;
+
+  --iso-1: #9BDCC7;
+  --iso-2: #68B5A3;
+  --iso-3: #468A7A;
+  --iso-fill-1: rgba(155, 220, 199, 0.14);
+  --iso-fill-2: rgba(104, 181, 163, 0.10);
+  --iso-fill-3: rgba(70, 138, 122, 0.08);
+
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -14px rgba(0, 0, 0, .8);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5);
+  --shadow-lg: 0 2px 6px rgba(0, 0, 0, .5), 0 20px 48px -18px rgba(0, 0, 0, .85);
+  --overlay: rgba(0, 0, 0, 0.68);
+}
+
+/* Ba trạng thái, không phải hai: chọn sáng → [data-theme="light"],
+   chọn tối → [data-theme="dark"], để mặc định → không thuộc tính nào và
+   prefers-color-scheme quyết định. Thiếu khối này thì trạng thái thứ ba
+   hiển thị chữ của theme này trên nền của theme kia. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --ground: #0A100E;
+    --surface: #0F1714;
+    --surface-2: #15201C;
+    --ink: #E9EFEB;
+    --ink-2: #9CACA5;
+    --ink-3: #768981;
+    --line: #233029;
+    --line-strong: #536E60;
+
+    --accent: #D2A05E;
+    --accent-soft: #2A2115;
+    --warn: #D2896B;
+    --warn-soft: #2E1F18;
+    --ok: #6FBF95;
+    --ok-soft: #12241A;
+    --hover-bg: #1A2521;
+    --rent-base: #E9EFEB;
+    --rent-service: #7E8F88;
+    --rent-vat: #35443D;
+
+    --r0: #1D2A25;  --on-r0: #E9EFEB;
+    --r1: #2E5A50;  --on-r1: #E9EFEB;
+    --r2: #468A7A;  --on-r2: #0A100E;
+    --r3: #68B5A3;  --on-r3: #0A100E;
+    --r4: #9BDCC7;  --on-r4: #0A100E;
+
+    --missing-fg: #9CACA5;
+    --missing-border: #4A5C54;
+    --missing-bg: #131C18;
+    --missing-hatch: repeating-linear-gradient(
+      -45deg, transparent 0 5px, rgba(156, 172, 165, 0.16) 5px 6px);
+
+    --map-earth: #0D1512;
+    --map-green: #101A14;
+    --map-water: #0B161B;
+    --map-road: #2A3833;
+    --map-road-casing: #16211D;
+    --map-building: #18231F;
+    --map-metro: #3AA0DD;
+    --map-pin: #E9EFEB;
+    --map-pin-fg: #0A100E;
+    --map-ring: #9CACA5;
+
+    --iso-1: #9BDCC7;
+    --iso-2: #68B5A3;
+    --iso-3: #468A7A;
+    --iso-fill-1: rgba(155, 220, 199, 0.14);
+    --iso-fill-2: rgba(104, 181, 163, 0.10);
+    --iso-fill-3: rgba(70, 138, 122, 0.08);
+
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -14px rgba(0, 0, 0, .8);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5);
+    --shadow-lg: 0 2px 6px rgba(0, 0, 0, .5), 0 20px 48px -18px rgba(0, 0, 0, .85);
+    --overlay: rgba(0, 0, 0, 0.68);
+  }
+}
+
+/* Giảm chuyển động: theo hệ điều hành, và theo công tắc trong giao diện.
+   Camera bản đồ xử lý riêng trong map.js (flyTo → jumpTo); hoạt hình nét
+   đứt của đường đi bộ xử lý riêng trong cùng tệp. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-fast: 0ms; --t-base: 0ms; --t-slow: 0ms; --t-bar: 0ms; --t-camera: 0ms; }
+}
+:root[data-motion="reduced"] {
+  --t-fast: 0ms; --t-base: 0ms; --t-slow: 0ms; --t-bar: 0ms; --t-camera: 0ms;
+}
