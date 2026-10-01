@@ -211,12 +211,14 @@ const RENT_ONRAMP = ['--on-r0', '--on-r1', '--on-r2', '--on-r3', '--on-r4'];
 
 /* Tên năm bậc. Con số "7,9" một mình không cho biết rẻ hay đắt; tên bậc thì
    cho biết ngay. Dùng CHUNG giữa bản đồ, danh sách và chú giải. */
+/* 01/10 chủ dự án hỏi "đắt nhất mà sao có cả chục tòa": nhãn cũ "đắt nhất"/"rẻ nhất" đọc như bậc nhất, trong khi đó là
+   NHÓM 20%. Nay ghi rõ "20% ...". */
 export const RENT_BANDS = [
-  { key: 0, label: 'nhóm rẻ nhất', short: 'rẻ nhất' },
-  { key: 1, label: 'nhóm giá thấp', short: 'giá thấp' },
-  { key: 2, label: 'nhóm giữa', short: 'giữa' },
-  { key: 3, label: 'nhóm giá cao', short: 'giá cao' },
-  { key: 4, label: 'nhóm đắt nhất', short: 'đắt nhất' },
+  { key: 0, label: 'nhóm 20% rẻ nhất', short: '20% rẻ nhất' },
+  { key: 1, label: 'nhóm 20% giá thấp', short: 'giá thấp' },
+  { key: 2, label: 'nhóm 20% giá giữa', short: 'giá giữa' },
+  { key: 3, label: 'nhóm 20% giá cao', short: 'giá cao' },
+  { key: 4, label: 'nhóm 20% đắt nhất', short: '20% đắt nhất' },
 ];
 
 /* THANG NGŨ PHÂN VỊ — hàm thuần, DÙNG CHUNG cho bản đồ và danh sách.
@@ -244,11 +246,15 @@ export function rentScaleOf(list) {
     },
     /* Vị trí phần trăm trong tập đang hiện — "rẻ hơn 96% số tòa" là khung
        quy chiếu mà con số trần không có. */
-    pctBelow: (v) => {
+    pctBelow: (v) => {          // % số tòa có giá THẤP HƠN v (tức tòa này đắt hơn chừng ấy %)
       if (v == null || !Number.isFinite(v)) return null;
       let i = 0;
       while (i < vals.length && vals[i] < v) i++;
-      return Math.round((i / vals.length) * 100);
+      return Math.floor((i / vals.length) * 100);   // làm tròn XUỐNG: 406/407 không được thành '100%'
+    },
+    pctAbove: (v) => {          // % số tòa có giá CAO HƠN v (tức tòa này rẻ hơn chừng ấy %)
+      if (v == null || !Number.isFinite(v)) return null;
+      return Math.floor((vals.filter((x) => x > v).length / vals.length) * 100);
     },
   };
 }

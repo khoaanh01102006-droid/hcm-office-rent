@@ -39,6 +39,13 @@ body[data-view="overview"] .tray { display: none; }
 .ovxn__ca p { font-size: var(--fs-xs); line-height: 1.55; margin: 0 0 6px; }
 .ovxn__so, .ovxn__da { color: var(--ink-2); }
 .ovxn__hoi { font-weight: 600; margin-bottom: 0 !important; }
+/* Biến động: khối phạm vi */
+.ovpv { margin: var(--s-4) 0; padding: var(--s-4); border: 1px solid var(--line); border-left: 3px solid var(--r5, #b45309); background: var(--ground); }
+.ovpv__tieude { font-size: var(--fs-sm, 15px); margin: 0 0 var(--s-2); }
+.ovpv__ds { margin: 0; padding-left: 18px; font-size: var(--fs-xs); line-height: 1.6; }
+.ovpv__ds li { margin-bottom: 4px; }
+.ovpv__nho { display: block; color: var(--ink-2); font-weight: 400; font-size: var(--fs-2xs); }
+.ovtable tfoot th, .ovtable tfoot td { font-weight: 600; border-top: 2px solid var(--line); }
 /* Lưu ý: tòa mang tên khác trên trang rao */
 .ovly { margin-top: var(--s-5, 24px); overflow-x: auto; }
 .ovly__tieude { font-size: var(--fs-sm, 15px); margin: 0 0 4px; }
@@ -566,7 +573,10 @@ gmp-place-details { width: 100%; display: block; }
 }
 
 /* Biến động giá chào (QĐ 189): cùng khung "báo cáo" với Tổng quan, bật tắt như các bề mặt khác. */
-.marketview { display: none; overflow: auto; background: var(--ground); }
+.marketview, .notesview { display: none; overflow: auto; background: var(--ground); }
+body[data-view="notes"] .notesview { display: block; }
+body[data-view="notes"] .workspace,
+body[data-view="notes"] .tray { display: none; }
 body[data-view="market"] .marketview { display: block; }
 body[data-view="market"] .workspace,
 body[data-view="market"] .tray { display: none; }
@@ -574,3 +584,34 @@ body[data-view="market"] .tray { display: none; }
 /* Tòa nhà 3D trong màn hình Google (QĐ 189). */
 .gg__3d { margin-top: var(--s-6); display: flex; flex-direction: column; gap: var(--s-3); align-items: flex-start; }
 .gg__3dview { width: 100%; height: 460px; border: 1px solid var(--line); border-radius: var(--r-md, 8px); overflow: hidden; }
+
+/* ---- Biểu đồ trang Tổng quan và Biến động (01/10): thanh HTML/CSS, màu lấy từ thang giá ---- */
+.ovchart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--s-4); margin-top: var(--s-3); }
+.ovchart { margin: 0; padding: var(--s-4); background: var(--ground); border: 1px solid var(--line); border-radius: var(--r-sm); min-width: 0; }
+.ovchart figcaption { display: flex; flex-direction: column; gap: 2px; margin-bottom: var(--s-3); font-size: var(--fs-xs); }
+.ovchart figcaption strong { font-size: var(--fs-sm); }
+.ovchart figcaption span { color: var(--ink-2); line-height: 1.5; }
+.ovchart__cols { display: flex; align-items: stretch; gap: 3px; height: 170px; }
+.ovchart__col { flex: 1 1 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; min-width: 0; }
+.ovchart__bar { width: 100%; background: var(--r2); border-radius: 2px 2px 0 0; min-height: 1px; }
+.ovchart__col.is-med .ovchart__bar { background: var(--r4); outline: 2px solid var(--accent); outline-offset: 1px; }
+.ovchart__n { font-size: var(--fs-2xs); color: var(--ink-2); line-height: 1.2; margin-bottom: 2px; }
+.ovchart__x { font-size: 10px; color: var(--ink-2); margin-top: 4px; white-space: nowrap; }
+.ovchart__truc { font-size: var(--fs-2xs); color: var(--ink-2); margin: var(--s-2) 0 0; }
+.ovbox { display: flex; flex-direction: column; gap: var(--s-3); }
+.ovbox__dong { display: grid; grid-template-columns: 64px 1fr 44px; align-items: center; gap: var(--s-2); }
+.ovbox__nhan { font-size: var(--fs-xs); font-weight: 600; display: flex; flex-direction: column; line-height: 1.2; }
+.ovbox__nhan small { font-weight: 400; color: var(--ink-2); font-size: var(--fs-2xs); }
+.ovbox__truc { position: relative; height: 22px; }
+.ovbox__ria { position: absolute; top: 10px; height: 2px; background: var(--ink-2); opacity: .55; }
+.ovbox__hop { position: absolute; top: 3px; height: 16px; background: var(--r2); border: 1px solid var(--r4); border-radius: 2px; }
+.ovbox__md { position: absolute; top: 0; width: 3px; height: 22px; background: var(--ink); transform: translateX(-1px); }
+.ovbox__so { font-size: var(--fs-xs); font-variant-numeric: tabular-nums; text-align: right; }
+.ovbars { display: flex; flex-direction: column; gap: 6px; }
+.ovbars__dong { display: grid; grid-template-columns: 140px 1fr 76px; align-items: center; gap: var(--s-2); font-size: var(--fs-xs); }
+.ovbars__nhan { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ovbars__truc { height: 12px; background: var(--hover-bg, #E4EAE5); border-radius: 2px; }
+.ovbars__thanh { display: block; height: 100%; background: var(--r3); border-radius: 2px; }
+.ovbars__so { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.ovbars__thanh--giam { background: var(--r1); border: 1px solid var(--r3); }
+.ovbars__thanh--tang { background: var(--r4); }

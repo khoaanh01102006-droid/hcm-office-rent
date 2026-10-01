@@ -14,6 +14,7 @@ import { renderProfile } from './views/profile.js';
 import { renderCompare } from './views/compare.js';
 import { renderOverview } from './views/overview.js';
 import { renderMarket } from './views/market.js';
+import { renderNotes } from './views/notes.js';
 import { storyShell, mountStory, resizeStory } from './views/story.js';
 import { googleShell, startGoogle, enrichProfileWithGoogle } from './views/google.js';
 import { renderMethod } from './views/method.js';
@@ -61,6 +62,7 @@ const state = {
   routeMode: 'lead',
   band: 'normal',     // normal | peak — khung giờ tính thời gian đi bộ        // ring | iso | off — cách hiển thị vùng quanh tòa
   ovMetric: 'gross',    // đại lượng tô màu lưới ô trang tổng quan
+  ovLoc: null,          // ô quận/hạng đang lọc bảng danh sách ở trang tổng quan ({ kieu, giaTri })
   focusFor: null,      // tòa nhà bảng tiêu điểm đang dựng cho
   strip: 'off',         // cards | rows | off — băng thẻ dưới bản đồ.
                         // Mặc định TẮT: nó lặp lại đúng tập tòa nhà mà dải bên
@@ -1495,12 +1497,12 @@ function setView(v) {
   $('#view-overview').setAttribute('aria-pressed', String(v === 'overview'));
   $('#view-market').setAttribute('aria-pressed', String(v === 'market'));
   $('#view-story').setAttribute('aria-pressed', String(v === 'story'));
-  $('#view-google').setAttribute('aria-pressed', String(v === 'google'));
+  $('#view-notes').setAttribute('aria-pressed', String(v === 'notes'));
   if (v === 'map') setTimeout(() => { map?.resize(); syncMapPadding(); }, 40);
   if (v === 'overview') paintOverview();
   if (v === 'market') paintMarket();
   if (v === 'story') paintStory();
-  if (v === 'google') paintGoogle();
+  if (v === 'notes') paintNotes();
 }
 
 /* Trang tổng quan — bề mặt 'báo cáo'. Vẽ lại khi vào, khi đổi đại lượng tô
@@ -1558,6 +1560,12 @@ async function docCauHinhGoogle() {
   return cfg;
 }
 
+/* Lưu ý (01/10): ca chờ thầy xác nhận, tòa mang tên khác trên trang rao, tòa chưa có vị trí. Dữ liệu đã nạp lúc mở trang. */
+function paintNotes() {
+  if (document.body.dataset.view !== 'notes') return;
+  $('#notesview').innerHTML = renderNotes(state.canXacNhan, state.data.buildings);
+}
+
 /* Biến động giá chào: nạp dữ liệu KHI VÀO lần đầu (tệp nhỏ, không cần lúc mở trang). */
 async function paintMarket() {
   if (document.body.dataset.view !== 'market') return;
@@ -1579,7 +1587,7 @@ function paintOverview() {
   // nên nó ném `buildings.filter is not a function` ngay dòng đầu và trang
   // Tổng quan CHƯA TỪNG vẽ được lần nào. Lỗi không lộ ra vì trang trống
   // trông giống như trang đang tải.
-  $('#overview').innerHTML = renderOverview(state.data.buildings, state.canXacNhan);
+  $('#overview').innerHTML = renderOverview(state.data.buildings, state.canXacNhan, state.ovLoc);
 }
 
 function resetFilters() {
@@ -1639,13 +1647,24 @@ function wireEvents() {
   $('#view-overview').addEventListener('click', () => setView('overview'));
   $('#view-market').addEventListener('click', () => setView('market'));
   $('#view-story').addEventListener('click', () => setView('story'));
-  $('#view-google').addEventListener('click', () => setView('google'));
+  $('#view-notes').addEventListener('click', () => setView('notes'));
 
   // Lưới ô và bảng của trang tổng quan: bấm một tòa thì chọn tòa đó ở mọi
   // bề mặt, đúng như bấm marker trên bản đồ hay mục trong danh sách.
   $('#overview').addEventListener('click', (e) => {
     const m = e.target.closest('[data-metric]');
     if (m) { state.ovMetric = m.dataset.metric; paintOverview(); return; }
+    // 01/10: bấm ô quận/hạng thì bảng danh sách lọc theo ô đó; bấm lại ô đang chọn hoặc nút "Xem lại" thì bỏ lọc.
+    const o = e.target.closest('[data-ovloc]');
+    if (o) {
+      const moi = { kieu: o.dataset.ovloc, giaTri: o.dataset.ovval };
+      const dang = state.ovLoc && state.ovLoc.kieu === moi.kieu && state.ovLoc.giaTri === moi.giaTri;
+      state.ovLoc = dang ? null : moi;
+      paintOverview();
+      if (state.ovLoc) $('#ov-danh-sach')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (e.target.closest('[data-ovclear]')) { state.ovLoc = null; paintOverview(); return; }
     const t = e.target.closest('[data-ovid]');
     if (t) selectBuilding(t.dataset.ovid, { fly: false });
   });
@@ -2067,20 +2086,21 @@ function rentBandChip(b) {
   if (!sc || !isPresent(b.baseRent)) return '<span class="item__unit">USD/m²/tháng</span>';
   const k = sc.bucket(b.baseRent.value);
   if (k < 0) return '<span class="item__unit">USD/m²/tháng</span>';
-  const pct = sc.pctBelow(b.baseRent.value);
   const band = RENT_BANDS[k];
   return `<span class="bandchip" style="background:var(--r${k});color:var(--on-r${k})"
-    title="Giá ${esc(money(b.baseRent.value))}: ${esc(band.label)} trong ${sc.n} tòa đang hiện">${esc(band.short)}</span>
-    <span class="item__unit">${rentPosPhrase(pct, sc.n)}</span>`;
+    title="Giá ${esc(money(b.baseRent.value))}: thuộc ${esc(band.label)} trong ${sc.n} tòa đang hiện">${esc(band.short)}</span>
+    <span class="item__unit">${rentPosPhrase(b.baseRent.value, sc)}</span>`;
 }
 
-/* Ở hai đầu thang, "rẻ hơn 0%" và "rẻ hơn 100%" đọc ngược với điều muốn nói.
-   Nói thẳng ra thì rõ hơn một con số phần trăm ở biên. */
-function rentPosPhrase(pct, n) {
-  // Ở hai đầu thang, huy hiệu ĐÃ nói "rẻ nhất"/"đắt nhất" rồi. Lặp lại chữ
-  // đó trong câu bên cạnh là hai lần nói cùng một điều trên cùng một dòng.
-  if (pct <= 0 || pct >= 99) return `trong ${n} tòa đang hiện`;
-  return `rẻ hơn ${pct}% số tòa`;
+/* Câu vị trí giá. 01/10 sửa lỗi NGƯỢC NGHĨA: bản trước ghi "rẻ hơn X% số tòa" với X = % số tòa có giá THẤP hơn, tức tòa đó
+   thật ra ĐẮT hơn X%. Nay: nửa dưới nói "rẻ hơn" (theo % tòa giá cao hơn), nửa trên nói "đắt hơn" (theo % tòa giá thấp hơn);
+   chỉ tòa có đúng giá thấp nhất hoặc cao nhất mới được gọi "rẻ nhất"/"đắt nhất". */
+function rentPosPhrase(v, sc) {
+  if (v <= sc.min) return `rẻ nhất trong ${sc.n} tòa đang hiện`;
+  if (v >= sc.max) return `đắt nhất trong ${sc.n} tòa đang hiện`;
+  const toaReHon = sc.pctBelow(v);   // % tòa có giá thấp hơn tòa này
+  const toaDatHon = sc.pctAbove(v);  // % tòa có giá cao hơn tòa này
+  return toaReHon >= 50 ? `đắt hơn ${toaReHon}% số tòa` : `rẻ hơn ${toaDatHon}% số tòa`;
 }
 
 /* Thanh VỊ TRÍ TRONG BIÊN ĐỘ, thay cho thanh cấu thành giá.
