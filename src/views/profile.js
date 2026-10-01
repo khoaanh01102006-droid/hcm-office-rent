@@ -23,6 +23,8 @@ export const COORD_METHOD = {
   AUDIT_20261001_TEACHER_FILE: 'Kiểm lại 01/10/2026: theo tọa độ bộ dữ liệu, đã đối chiếu trang rao hoặc Google Maps',
   AUDIT_20261001_OSM: 'Kiểm lại 01/10/2026: theo khu đất của tòa trên OpenStreetMap',
   AUDIT_20261001_TEACHER_MANUAL: 'Tọa độ thầy đã kiểm tay (đối chiếu Google Maps và OpenStreetMap)',
+  AUDIT_20261001_RESTORED_PUBLISHED: 'Kiểm lại 01/10/2026: giữ tọa độ đã công bố, trùng ghim trang rao',
+  AUDIT_20261001_NO_DURABLE_COORDINATE: 'Đã xác định đúng tòa (01/10/2026) nhưng chưa có tọa độ đủ tin cậy',
   AUDIT_20261001_LISTING_PAGE: 'Kiểm lại 01/10/2026: theo bản đồ trên trang rao của chính tòa',
   AUDIT_20261001_ADDRESS_ONLY: 'Kiểm lại địa chỉ 01/10/2026; tọa độ giữ nguyên',
   HOLD_V8_MANUAL_REVIEW: 'Chưa xác định',

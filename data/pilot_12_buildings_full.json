@@ -709,10 +709,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/diamond-plaza/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/diamond-plaza/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-toa-nha-diamond-plaza.html"
     ],
     "selectedPlaceId": "ChIJp83_akYvdTERQPc8HKgEAkM",
     "selectedPlaceName": "eSmart - Diamond Plaza",
@@ -977,10 +979,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-1-toa-nha-friendship.html"
+     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-1-toa-nha-friendship.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/friendship-tower/"
     ],
     "selectedPlaceId": "ChIJM0cNkP8vdTERMqLyQMpUDBY",
     "selectedPlaceName": "Friendship Tower",
@@ -1508,8 +1512,15 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/me-linh-point-tower/",
+     "https://saigonoffice.com.vn/toa-nha-melinh-point.html",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-toa-nha-me-linh-point-tower.html"
+    ],
     "selectedPlaceId": "ChIJIzoYIUQvdTERBLTeKsZzWJI",
     "selectedPlaceName": "Tòa nhà Mê Linh Point",
     "selectedPlaceAddress": "2 Ngô Đức Kế, Sài Gòn, Hồ Chí Minh 70000",
@@ -3246,10 +3257,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/sun-wah-tower/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/sun-wah-tower/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-toa-nha-sunwah.html"
     ],
     "selectedPlaceId": "ChIJoyMK3EYvdTEROXX3TeC-ICc",
     "selectedPlaceName": "Tòa nhà SunWah",
@@ -3514,10 +3527,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/toa-nha-the-nexus-quan-1-cho-thue-van-phong.html"
+     "https://saigonoffice.com.vn/toa-nha-the-nexus-quan-1-cho-thue-van-phong.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/the-nexus-tower/"
     ],
     "selectedPlaceId": "ChIJ66JRE94vdTERIgHUjZIaZAE",
     "selectedPlaceName": "The Nexus",
@@ -4593,10 +4608,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/toa-nha-the-mett-thu-thiem-cho-thue-van-phong.html"
+     "https://saigonoffice.com.vn/toa-nha-the-mett-thu-thiem-cho-thue-van-phong.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-2/the-mett/"
     ],
     "selectedPlaceId": "ChIJIcR4YS0vdTERSN26ywuFnYQ",
     "selectedPlaceName": "The METT - Grade A Office Building",
@@ -5130,8 +5147,12 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-7-toa-nha-phu-my-hung.html"
+    ],
     "selectedPlaceId": "ChIJ6fDvRgAvdTEREKMtrVsFDEg",
     "selectedPlaceName": "Tòa nhà Phú Mỹ Hưng Tower - Office Saigon",
     "selectedPlaceAddress": "8 Hoàng Văn Thái, Khu đô thị Phú Mỹ Hưng, Tân Mỹ, Hồ Chí Minh 70000",
@@ -5792,10 +5813,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-binh-thanh-toa-nha-opal.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-binh-thanh-toa-nha-opal.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/opal-tower/"
     ],
     "selectedPlaceId": "ChIJ_dJg_dopdTERUXfvXtp7kDE",
     "selectedPlaceName": "Opal Tower",
@@ -8997,10 +9020,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/mb-sunny-tower/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/mb-sunny-tower/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-tai-mb-sunny-tower.html"
     ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
@@ -9537,10 +9562,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-tai-petro-vietnam-tower.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-tai-petro-vietnam-tower.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/petrovietnam-tower/"
     ],
     "selectedPlaceId": "ChIJQ6W2aEsvdTER2qZkQMrX5Ns",
     "selectedPlaceName": "Tòa nhà PetroVietnam Tower",
@@ -12218,10 +12245,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-1-toa-nha-the-landmark.html"
+     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-1-toa-nha-the-landmark.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/the-landmark-tower/"
     ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
@@ -12486,10 +12515,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/toa-nha-the-waterfront-saigon-cho-thue-van-phong-quan-1.html"
+     "https://saigonoffice.com.vn/toa-nha-the-waterfront-saigon-cho-thue-van-phong-quan-1.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/the-waterfront-saigon/"
     ],
     "selectedPlaceId": "ChIJT6Dc4U4vdTERc1qmr_s_S1I",
     "selectedPlaceName": "Tòa nhà The Waterfront Saigon - Office Saigon",
@@ -15441,8 +15472,14 @@
     "releaseLimitation": "Named Google Place; coordinate may represent entrance or label point within the building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/toa-nha-hm-town/",
+     "https://saigonoffice.com.vn/toa-nha-hm-town-nguyen-thi-minh-khai-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": "ChIJRUaiswcvdTER5F0gaBYzkIE",
     "selectedPlaceName": "Tòa nhà HM Town",
     "selectedPlaceAddress": "Fl 14, HM Tower, 412 Nguyễn Thị Minh Khai, Bàn Cờ, Hồ Chí Minh 700000",
@@ -17047,8 +17084,14 @@
     "releaseLimitation": "Named Google Place; coordinate may represent entrance or label point within the building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-4/etown-central/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-tai-etown-central-quan-4.html"
+    ],
     "selectedPlaceId": "ChIJe0RsVwAvdTERfGD-Z55SY-M",
     "selectedPlaceName": "E.town Central",
     "selectedPlaceAddress": "11 Đoàn Văn Bơ, Xóm Chiếu, Hồ Chí Minh 700000",
@@ -19455,10 +19498,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/toa-nha-the-678-cho-thue-van-phong-phuong-tan-my.html"
+     "https://saigonoffice.com.vn/toa-nha-the-678-cho-thue-van-phong-phuong-tan-my.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-7/the-678-tower/"
     ],
     "selectedPlaceId": "ChIJQbyt4TEldTERbH5o2wgJkMs",
     "selectedPlaceName": "The 678 Building",
@@ -20919,8 +20964,14 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/centre-point-tower/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-centre-point-quan-phu-nhuan.html"
+    ],
     "selectedPlaceId": "ChIJCTYdFwApdTERJ2TbyDhz8qs",
     "selectedPlaceName": "Tòa nhà Centre Point Tower - Office Saigon",
     "selectedPlaceAddress": "106 Đ. Nguyễn Văn Trỗi, Phú Nhuận, Hồ Chí Minh",
@@ -21048,10 +21099,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-cong-hoa-garden.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-cong-hoa-garden.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/toa-nha-cong-hoa-garden/"
     ],
     "selectedPlaceId": "ChIJG5iz4fEpdTERzB0HBOTaLTI",
     "selectedPlaceName": "Tòa nhà Cộng Hòa Garden - Office Saigon",
@@ -21315,8 +21368,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/etown-building/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-etown-1.html"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -21579,8 +21638,14 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/etown-2/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-etown-2.html"
+    ],
     "selectedPlaceId": "ChIJN3S6FVApdTERiiA4wLDRHmg",
     "selectedPlaceName": "Etown 2",
     "selectedPlaceAddress": "364 Cộng Hòa, Tân Bình, Hồ Chí Minh 70000",
@@ -21843,8 +21908,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/etown-3/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-etown-3.html"
+    ],
     "selectedPlaceId": "ChIJkz2CKFApdTERsn4ub314OJI",
     "selectedPlaceName": "Etown 3, 364 Cộng Hòa",
     "selectedPlaceAddress": "Etown 3, 364 Cộng Hòa, Tân Bình, Hồ Chí Minh",
@@ -22107,8 +22178,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/etown-5/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-etown-5.html"
+    ],
     "selectedPlaceId": "ChIJXVbfH_ApdTERemd791cgaeU",
     "selectedPlaceName": "e.town 5",
     "selectedPlaceAddress": "Etown, 364 Cộng Hòa, street, Tân Bình, Hồ Chí Minh 70000",
@@ -22371,8 +22448,14 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/etown-6/",
+     "https://saigonoffice.com.vn/toa-nha-etown-6-cong-hoa-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": "ChIJUS5UbQApdTERgsIsidJshnI",
     "selectedPlaceName": "Tòa nhà Etown 6 - Office Saigon",
     "selectedPlaceAddress": "364 Cộng Hòa, Street 13 Ward, Tân Bình, Hồ Chí Minh 70000",
@@ -23437,8 +23520,12 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/huyen-binh-chanh/toa-nha-194-south-tower/"
+    ],
     "selectedPlaceId": "ChIJ4xuciz4udTERnJ8rlh2f7bY",
     "selectedPlaceName": "194 South Tower",
     "selectedPlaceAddress": "B17-11 QL50, Bình Hưng, Hồ Chí Minh",
@@ -23701,8 +23788,12 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 1,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/binh-chanh/sisc-building/"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -23967,8 +24058,14 @@
     "releaseLimitation": "Google classifies this named POI as a real-estate agency because the label includes Office Saigon. It is accepted as a broker-named building label supported by exact building name/address and independent identity evidence, not as a surveyed footprint centroid.",
     "manualReviewReason": null,
     "sourceRecordCount": 6,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/194-golden-building/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-binh-thanh-toa-nha-194-golden-building.html"
+    ],
     "selectedPlaceId": "ChIJn5n7AKUodTER-lsBT95x-3U",
     "selectedPlaceName": "Toà nhà 194 Golden Building - Office Saigon",
     "selectedPlaceAddress": "473 Điện Biên Phủ, Thạnh Mỹ Tây, Hồ Chí Minh 700000",
@@ -25037,10 +25134,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-binh-thanh-toa-nha-bcons-tower-ii.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-binh-thanh-toa-nha-bcons-tower-ii.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/toa-nha-bcons-2/"
     ],
     "selectedPlaceId": "ChIJEa515UApdTER-o91N4qjbCk",
     "selectedPlaceName": "Bcons Tower II",
@@ -25843,10 +25942,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/toa-nha-dat-xanh-group-cho-thue-van-phong.html"
+     "https://saigonoffice.com.vn/toa-nha-dat-xanh-group-cho-thue-van-phong.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/dat-xanh-group-tower/"
     ],
     "selectedPlaceId": "ChIJS-u-SjsNoDERPEDjGEjZPeM",
     "selectedPlaceName": "Đất Xanh Homes",
@@ -26642,10 +26743,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 1,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-binh-thanh-tai-dreamplex-building.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-binh-thanh-tai-dreamplex-building.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/toa-nha-dreamplex/"
     ],
     "selectedPlaceId": "ChIJdROXRo0pdTERlJxBACj5xV8",
     "selectedPlaceName": "Tòa nhà Dreamplex 195 Điện Biên Phủ, Phường Gia Định, TP. Hồ Chí Minh.",
@@ -27171,11 +27274,14 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
      "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/thanh-my-building/",
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/vietoffice-nguyen-van-dau/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/vietoffice-nguyen-van-dau/",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/gic-nguyen-van-dau/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-binh-thanh-toa-nha-gic-nguyen-van-dau.html"
     ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
@@ -27970,8 +28076,12 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 1,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/hm-square-building/"
+    ],
     "selectedPlaceId": "ChIJyVLYAJ4pdTERq1WcQVthbvg",
     "selectedPlaceName": "Tòa nhà HM Square Building - Office Saigon",
     "selectedPlaceAddress": "24A Phan Đăng Lưu, Gia Định, Hồ Chí Minh",
@@ -29697,8 +29807,12 @@
     "releaseLimitation": "Google labels the POI as M.O.R.E Office Vietnam rather than the historical building name. The coordinate is the verified N1 site/label point, not a surveyed footprint centroid.",
     "manualReviewReason": null,
     "sourceRecordCount": 6,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://saigonoffice.com.vn/toa-nha-more-n1-dien-bien-phu-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": "ChIJPSLaGSwpdTER9Wm0Gp9gtkE",
     "selectedPlaceName": "M.O.R.E Office Vietnam",
     "selectedPlaceAddress": "N 1 Điện Biên Phủ, Thạnh Mỹ Tây, Hồ Chí Minh",
@@ -29962,10 +30076,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/toa-nha-metro-tower-cho-thue-van-phong.html"
+     "https://saigonoffice.com.vn/toa-nha-metro-tower-cho-thue-van-phong.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/toa-nha-metro/"
     ],
     "selectedPlaceId": "ChIJxcCfOIkpdTER0rr71l8trb0",
     "selectedPlaceName": "Metro Tower",
@@ -31547,8 +31663,14 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/toa-nha-thao-dien/",
+     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-binh-thanh-toa-nha-thao-dien.html"
+    ],
     "selectedPlaceId": "ChIJjYu7f5kpdTERhoclM0jUZow",
     "selectedPlaceName": "Toà nhà Thảo Điền building - Office Saigon",
     "selectedPlaceAddress": "25 Hoàng Hoa Thám, Gia Định, Hồ Chí Minh 70000",
@@ -32877,10 +32999,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-thuy-loi-4-205-binh-thanh.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-thuy-loi-4-205-binh-thanh.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/toa-nha-thuy-loi/"
     ],
     "selectedPlaceId": "ChIJ598H8ZcpdTER7l_YDylRGVw",
     "selectedPlaceName": "Thuỷ Lợi 4 - Nice Office",
@@ -33684,8 +33808,14 @@
     "releaseLimitation": "Điểm geocode của địa chỉ; không chứng minh chính xác tâm hoặc footprint của tòa nhà.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-18hbt/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-18hbt-quan-1.html"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -33948,8 +34078,12 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/2bis-nguyen-thi-minh-khai/"
+    ],
     "selectedPlaceId": "ChIJlVZMPAApdTERMefkjVl0y3o",
     "selectedPlaceName": "Tòa nhà 2Bis Nguyễn Thị Minh Khai - Office Saigon",
     "selectedPlaceAddress": "Hẻm 2bis Nguyễn Thị Minh Khai, Sài Gòn, Hồ Chí Minh",
@@ -34988,13 +35122,13 @@
     "knownAliases": [
      "Anh Minh Tower"
     ],
-    "nameChangeNote": null,
-    "address": "55 Sương Nguyệt Ánh, Phường Bến Thành, (Quận 1) TP.HCM",
+    "nameChangeNote": "Bản trước ghép nhầm sang toà Khanh Minh (55 Sương Nguyệt Ánh) vì tên gần giống.",
+    "address": "56 Nguyễn Đình Chiểu, Phường Tân Định, (Quận 1) TP.HCM",
     "district": "District 1",
     "legacyDistrict": "District 1",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
-    "currentWard": "Phường Bến Thành",
-    "currentWardOsmId": "r19260503",
+    "currentWard": null,
+    "currentWardOsmId": null,
     "currentWardMatchMethod": "OSM_POINT_IN_POLYGON_ADDRESS_AGREES",
     "currentWardAddressLabel": "Phường Bến Thành",
     "currentWardAddressAgrees": true,
@@ -35012,13 +35146,13 @@
     "basements": null,
     "elevators": null,
     "floorPlateM2": null,
-    "latitude": 10.7719202,
-    "longitude": 106.6893278,
+    "latitude": null,
+    "longitude": null,
     "coordinateKey": "10.7719202,106.6893278",
-    "coordinateSource": "GOOGLE_GEOCODE_VERIFIED_MULTI_SOURCE_ADDRESS_FALLBACK",
-    "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_ADDRESS_POINT_LIMITED",
-    "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
+    "coordinateSource": "AUDIT_20261001_NO_DURABLE_COORDINATE",
+    "coordinateVerified": false,
+    "coordinateStatus": "AUDIT_20261001_NO_DURABLE_COORDINATE",
+    "entityReviewStatus": "AUDIT_20261001_RESOLVED",
     "releaseLimitation": "Điểm geocode của địa chỉ; không chứng minh chính xác tâm hoặc footprint của tòa nhà.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
@@ -35027,13 +35161,13 @@
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-khanh-minh/",
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-toa-nha-khanh-minh.html"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-anh-minh/",
+     "https://saigonoffice.com.vn/toa-nha-serepok-quan-1-cho-thue-van-phong.html"
     ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
-    "googleMapsCoordinateUrl": "https://www.google.com/maps/search/?api=1&query=10.7719202,106.6893278",
+    "googleMapsCoordinateUrl": null,
     "googleMapsSatelliteUrl": "https://www.google.com/maps/@?api=1&map_action=map&center=10.7719202,106.6893278&zoom=20&basemap=satellite",
     "duplicateOfTeacherNo": null,
     "relationshipNote": null,
@@ -35056,14 +35190,14 @@
     "availableAreaRaw": null,
     "availableAreaMinM2": null,
     "availableAreaMaxM2": null,
-    "nearestMetro": "Ben Thanh",
-    "distanceMetroM": 916.455977403,
-    "metroWalkingDistanceM": 1084.29521461,
+    "nearestMetro": null,
+    "distanceMetroM": null,
+    "metroWalkingDistanceM": null,
     "metroWalkingDurationS": null,
-    "distanceCbdM": 1368.65321836,
+    "distanceCbdM": null,
     "cbdDrivingDistanceM": null,
     "cbdDrivingDurationStaticS": null,
-    "distanceAirportM": 6203.74145387,
+    "distanceAirportM": null,
     "airportDrivingDistanceM": null,
     "airportDrivingDurationStaticS": null,
     "priceCrosscheckStatus": "UNRESOLVED_COMPONENTS",
@@ -35088,144 +35222,8 @@
      }
     ],
     "trafficObservationDate": "2026-08-29",
-    "trafficSnapshots": [
-     {
-      "windowLabel": "morning",
-      "scheduledTimeLocal": "08:00",
-      "targetDatetimeLocal": "2026-08-29T08:00:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "cbd",
-      "destinationName": "Ho Chi Minh City People's Committee headquarters",
-      "distanceM": 1955,
-      "durationTrafficS": 500.0,
-      "durationStaticS": 537.0,
-      "congestionRatio": 0.931098696461825,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "midday",
-      "scheduledTimeLocal": "13:30",
-      "targetDatetimeLocal": "2026-08-29T13:30:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "cbd",
-      "destinationName": "Ho Chi Minh City People's Committee headquarters",
-      "distanceM": 1955,
-      "durationTrafficS": 500.0,
-      "durationStaticS": 537.0,
-      "congestionRatio": 0.931098696461825,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "evening",
-      "scheduledTimeLocal": "17:30",
-      "targetDatetimeLocal": "2026-08-29T17:30:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "cbd",
-      "destinationName": "Ho Chi Minh City People's Committee headquarters",
-      "distanceM": 1955,
-      "durationTrafficS": 500.0,
-      "durationStaticS": 537.0,
-      "congestionRatio": 0.931098696461825,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "morning",
-      "scheduledTimeLocal": "08:00",
-      "targetDatetimeLocal": "2026-08-29T08:00:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "airport",
-      "destinationName": "Tan Son Nhat Domestic Terminal",
-      "distanceM": 7182,
-      "durationTrafficS": 1441.0,
-      "durationStaticS": 1432.0,
-      "congestionRatio": 1.0062849162011174,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "midday",
-      "scheduledTimeLocal": "13:30",
-      "targetDatetimeLocal": "2026-08-29T13:30:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "airport",
-      "destinationName": "Tan Son Nhat Domestic Terminal",
-      "distanceM": 7182,
-      "durationTrafficS": 1441.0,
-      "durationStaticS": 1432.0,
-      "congestionRatio": 1.0062849162011174,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "evening",
-      "scheduledTimeLocal": "17:30",
-      "targetDatetimeLocal": "2026-08-29T17:30:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "airport",
-      "destinationName": "Tan Son Nhat Domestic Terminal",
-      "distanceM": 7182,
-      "durationTrafficS": 1441.0,
-      "durationStaticS": 1432.0,
-      "congestionRatio": 1.0062849162011174,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     }
-    ],
-    "r5Spatial": {
-     "releaseId": "OFFICE-DATASET-V9-R5-SCIENTIFIC-RELEASE",
-     "analysisEntityId": "OFFICE-ENTITY-T0138",
-     "representativeTeacherNo": 138,
-     "crosswalkMappingType": "STANDARD_SOURCE_ROW",
-     "featureReleaseStatus": "COMPUTED_FROM_UNIQUE_LOCATION",
-     "observationSemantics": "CURRENT_OSM_OVERTURE_SNAPSHOT_NOT_HISTORICAL_2026_03",
-     "qaStatus": "PASS",
-     "qaFlags": null,
-     "networkSnapDistanceM": 38.2130290598,
-     "networkSnapPolicy": "NEAREST_WALK_NETWORK_NODE",
-     "neighboringOfficeNla1000M": 242835.64,
-     "hospital": {
-      "releaseDistanceM": 405.52210616,
-      "openNetworkDistanceM": 405.52210616,
-      "canonicalId": "inpatient_hospital:2E90F27B8548FA09D406",
-      "name": "Bệnh Viện Mắt Sài Gòn",
-      "geodesicSupportM": 186.402223354,
-      "evidenceStatus": "CORE_ELIGIBLE_NAMED_HOSPITAL",
-      "routeReleaseStatus": "AUTOMATIC_QA_PASS_NOT_EXTERNALLY_ROUTE_CHECKED"
-     },
-     "green": {
-      "publicAreaShare800M": 0.127356966093,
-      "publicAreaM2800M": 255655.231846
-     },
-     "metro": {
-      "releaseDistanceM": 1084.29521461,
-      "openNetworkDistanceM": 1084.29521461,
-      "stationRef": "L101",
-      "stationName": "Ben Thanh",
-      "geodesicSupportM": 916.455977403,
-      "routeReleaseStatus": "AUTOMATIC_QA_PASS_NOT_EXTERNALLY_ROUTE_CHECKED"
-     },
-     "busStopClusterCount800M": 47,
-     "intersectionCount800M": 1149,
-     "intersectionDensity800M": 572.384742468,
-     "dailyDestinationCount800M": 440,
-     "dailyDestinationDensity800M": 219.189979709,
-     "amenityMixShannon800M": 0.993821268761,
-     "warehouseCounts": {
-      "cafe800M": 115,
-      "restaurant800M": 269,
-      "convenienceStore800M": 38,
-      "supermarketMarket800M": 18
-     }
-    }
+    "trafficSnapshots": [],
+    "r5Spatial": {}
    },
    "pilotEnrichment": {
     "buildingId": "TCH2_EB0058663CFE",
@@ -36895,8 +36893,12 @@
     "releaseLimitation": "Address geocode fallback; represents the verified address, not an independently named building Place.",
     "manualReviewReason": null,
     "sourceRecordCount": 1,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-toa-nha-central-park-nguyen-du.html"
+    ],
     "selectedPlaceId": "ChIJpxuqVDkvdTERU0GnuaNvvy8",
     "selectedPlaceName": null,
     "selectedPlaceAddress": "119 Nguyễn Du, Bến Thành, Hồ Chí Minh, Việt Nam",
@@ -37430,10 +37432,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 1,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-tai-toa-nha-city-view-commercial-office-building.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-tai-toa-nha-city-view-commercial-office-building.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/city-view/"
     ],
     "selectedPlaceId": "ChIJSXRd9DUvdTERFqvfzwfTas8",
     "selectedPlaceName": "Cityview",
@@ -39027,10 +39031,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-tai-empire-tower.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-tai-empire-tower.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/empire-tower/"
     ],
     "selectedPlaceId": "ChIJK1qSi-gvdTERE7hW8MX9bXo",
     "selectedPlaceName": "Tòa nhà Empire Tower",
@@ -40105,8 +40111,12 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 1,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-phu-nhuan-toa-nha-ha-phan.html"
+    ],
     "selectedPlaceId": "ChIJA_dM0iIvdTERml_BVCOPEPY",
     "selectedPlaceName": "Ha Phan Building",
     "selectedPlaceAddress": "17-19 Tôn Thất Tùng, Bến Thành, Hồ Chí Minh 70000",
@@ -40369,8 +40379,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-hai-ha/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-hai-ha-building.html"
+    ],
     "selectedPlaceId": "ChIJZYM_NTUvdTERH-TKu-mDBmw",
     "selectedPlaceName": "Tòa nhà Hải Hà",
     "selectedPlaceAddress": "217 Nguyễn Văn Thủ, Tân Định, Hồ Chí Minh",
@@ -44374,8 +44390,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-miss-ao-dai/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-toa-nha-miss-ao-dai.html"
+    ],
     "selectedPlaceId": "ChIJvYa0LWgvdTER1KsLI7OYSs0",
     "selectedPlaceName": "Miss Áo Dài Building - 21 Nguyễn Trung Ngạn, Quận 1, HCM",
     "selectedPlaceAddress": "Room 903, Floor 9, 21 Nguyễn Trung Ngạn, Sài Gòn, Hồ Chí Minh 700000",
@@ -47877,10 +47899,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/samco-building/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/samco-building/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-samco-building.html"
     ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
@@ -48145,10 +48169,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-satra-dong-khoi-quan-1.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-satra-dong-khoi-quan-1.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/satra-building/"
     ],
     "selectedPlaceId": "ChIJGfMMjEYvdTERf8edjA-ylgg",
     "selectedPlaceName": null,
@@ -53772,7 +53798,7 @@
      "Metrolink An Phu"
     ],
     "nameChangeNote": null,
-    "address": "1 Song Hành, Phường An Khánh, TP.HCM",
+    "address": "01 Song Hành, Xa lộ Hà Nội, Phường Bình Trưng, (Quận 2) TP.HCM",
     "district": "District 2",
     "legacyDistrict": "District 2",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -53795,22 +53821,28 @@
     "basements": null,
     "elevators": null,
     "floorPlateM2": null,
-    "latitude": 10.793539,
-    "longitude": 106.7594497,
+    "latitude": 10.801442,
+    "longitude": 106.7471458,
     "coordinateKey": "10.8014420,106.7471458",
-    "coordinateSource": "AUDIT_20261001_TEACHER_FILE",
+    "coordinateSource": "AUDIT_20261001_RESTORED_PUBLISHED",
     "coordinateVerified": true,
-    "coordinateStatus": "AUDIT_20261001_TEACHER_FILE",
+    "coordinateStatus": "AUDIT_20261001_RESTORED_PUBLISHED",
     "entityReviewStatus": "AUDIT_20261001_RESOLVED",
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-2/metro-link-an-phu/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-metrolink-an-phu-phuong-an-khanh.html"
+    ],
     "selectedPlaceId": "ChIJsV2ZFzQndTERfVo-kzsZWQA",
     "selectedPlaceName": "Tòa nhà Metrolink An Phú - Office Saigon",
     "selectedPlaceAddress": "1 Song Hành, An Khánh, Hồ Chí Minh",
-    "googleMapsCoordinateUrl": "https://www.google.com/maps/search/?api=1&query=10.793539,106.7594497",
+    "googleMapsCoordinateUrl": "https://www.google.com/maps/search/?api=1&query=10.801442,106.7471458",
     "googleMapsSatelliteUrl": "https://www.google.com/maps/@?api=1&map_action=map&center=10.8014420,106.7471458&zoom=20&basemap=satellite",
     "duplicateOfTeacherNo": null,
     "relationshipNote": null,
@@ -53833,14 +53865,14 @@
     "availableAreaRaw": null,
     "availableAreaMinM2": null,
     "availableAreaMaxM2": null,
-    "nearestMetro": "Rach Chiec",
-    "distanceMetroM": 1728.824,
+    "nearestMetro": "An Phu",
+    "distanceMetroM": 539.136,
     "metroWalkingDistanceM": null,
     "metroWalkingDurationS": null,
-    "distanceCbdM": 6665.588,
+    "distanceCbdM": 5756.353,
     "cbdDrivingDistanceM": null,
     "cbdDrivingDurationStaticS": null,
-    "distanceAirportM": 11190.374,
+    "distanceAirportM": 9690.149,
     "airportDrivingDistanceM": null,
     "airportDrivingDurationStaticS": null,
     "priceCrosscheckStatus": "UNRESOLVED_COMPONENTS",
@@ -54468,8 +54500,12 @@
     "releaseLimitation": "Named Google Place; the pin may represent an entrance or label point within the verified building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-2/toa-nha-bao-phu-nu/"
+    ],
     "selectedPlaceId": "ChIJ50c9vhAmdTERZVAuIBovyk8",
     "selectedPlaceName": "Tòa nhà Báo Phụ Nữ - Office Saigon",
     "selectedPlaceAddress": "20 Nguyễn Đăng Giai, An Khánh, Hồ Chí Minh",
@@ -56345,10 +56381,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 6,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/le-bao-minh-tower/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/le-bao-minh-tower/",
+     "https://saigonoffice.com.vn/toa-nha-le-bao-minh-cho-thue-van-phong.html"
     ],
     "selectedPlaceId": "ChIJHUgLJDEvdTERI6Vhfeeo3Vc",
     "selectedPlaceName": "Tòa nhà Lê Bảo Minh Building - Office Saigon",
@@ -56880,8 +56918,12 @@
     "releaseLimitation": "Named Google Place; the pin may represent an entrance or label point within the verified building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/agrex-tower/"
+    ],
     "selectedPlaceId": "ChIJ71ETZDovdTERVzoBxkKlurg",
     "selectedPlaceName": "Tòa nhà Agrex Tower - Office Saigon",
     "selectedPlaceAddress": "58 Võ Văn Tần, Xuân Hòa, Hồ Chí Minh",
@@ -57685,8 +57727,12 @@
     "releaseLimitation": "Named Google Place; coordinate may represent entrance or label point within the building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 1,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/an-phu-plaza/"
+    ],
     "selectedPlaceId": "ChIJ8WCA2CQvdTERXJzTRgQ7bdU",
     "selectedPlaceName": "Tòa nhà An Phú Plaza - Office Saigon",
     "selectedPlaceAddress": "117-119 Lý Chính Thắng, Xuân Hòa, Hồ Chí Minh 70000",
@@ -58619,8 +58665,12 @@
     "releaseLimitation": "Named Google Place; the pin may represent an entrance or label point within the verified building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 4,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/scid-building/"
+    ],
     "selectedPlaceId": "ChIJA-Y4yTEvdTERnOxsMisIvJo",
     "selectedPlaceName": "Tòa nhà SCID Building - Office Saigon",
     "selectedPlaceAddress": "253 Điện Biên Phủ, Xuân Hòa, Hồ Chí Minh 700000",
@@ -61022,8 +61072,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/estar-building/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-3-toa-nha-estar-building.html"
+    ],
     "selectedPlaceId": "ChIJY965OTsvdTERcTxMWFHVraA",
     "selectedPlaceName": "Tòa Nhà Estar Building",
     "selectedPlaceAddress": "Estar Building, 147 - 149 Võ Văn Tần, Xuân Hòa, Hồ Chí Minh 700000",
@@ -64482,10 +64538,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/toa-nha-147-hai-ba-trung/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/toa-nha-147-hai-ba-trung/",
+     "https://saigonoffice.com.vn/toa-nha-lmak-the-signature-quan-3-cho-thue-van-phong.html"
     ],
     "selectedPlaceId": "ChIJ6XucufovdTERoW4QD5P8VU4",
     "selectedPlaceName": "L'MAK THE SIGNATURE",
@@ -69295,10 +69353,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 8,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/toa-nha-pjico/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/toa-nha-pjico/",
+     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-3-tai-toa-nha-pjico-building.html"
     ],
     "selectedPlaceId": "ChIJiZP4fzEvdTERAXDNo_1r7_U",
     "selectedPlaceName": "PJICO HCM",
@@ -72392,8 +72452,12 @@
     "releaseLimitation": "Named Google Place; the pin may represent an entrance or label point within the verified building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-4/copac-square/"
+    ],
     "selectedPlaceId": "ChIJu9xiBAAvdTER--5l0nocfew",
     "selectedPlaceName": "COPAC SQUARE",
     "selectedPlaceAddress": "Copac Square, 12 Tôn Đản, Xóm Chiếu, Hồ Chí Minh 700000",
@@ -72656,8 +72720,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-4/cao-oc-dinh-le/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-4-toa-nha-dinh-le-building.html"
+    ],
     "selectedPlaceId": "ChIJJTIE0msvdTERzyP7HZqU5RY",
     "selectedPlaceName": "Cao ốc Đinh Lễ",
     "selectedPlaceAddress": "1 Đinh Lễ, Xóm Chiếu, Hồ Chí Minh 700000",
@@ -74527,10 +74597,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-tai-toa-nha-saigon-bus-quan-5.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-tai-toa-nha-saigon-bus-quan-5.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-5/saigonbus-building/"
     ],
     "selectedPlaceId": "ChIJv3RUoRwvdTERx3GvHrb-h-w",
     "selectedPlaceName": "Tòa Nhà SAIGONBUS",
@@ -75338,8 +75410,14 @@
     "releaseLimitation": "Named Google Place; the pin may represent an entrance or label point within the verified building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-7/dai-minh-convention/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-dai-minh-convention-quan-7.html"
+    ],
     "selectedPlaceId": "ChIJ33BMxokvdTERMxN5Qa0m_AM",
     "selectedPlaceName": "Dai Minh Convention Tower",
     "selectedPlaceAddress": "77 Hoàng Văn Thái, Khu đô thị Phú Mỹ Hưng, Tân Mỹ, Hồ Chí Minh",
@@ -77209,8 +77287,14 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-7/toa-nha-phu-ma-duong/",
+     "https://saigonoffice.com.vn/toa-nha-phu-ma-duong-quan-7-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": "ChIJI5Nnj80vdTERMyDdT3hPDLo",
     "selectedPlaceName": "Tòa nhà Phú Mã Dương building - Office Saigon",
     "selectedPlaceAddress": "85 Hoàng Văn Thái, Khu đô thị Phú Mỹ Hưng, Tân Mỹ, Hồ Chí Minh 700000",
@@ -77601,7 +77685,8 @@
      "maisonoffice.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-7/toa-nha-hanh-chanh-ttc/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-7/toa-nha-hanh-chanh-ttc/",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-7/tan-thuan-ttc/"
     ],
     "selectedPlaceId": "ChIJqwEy5oUldTER9s201DYU2TE",
     "selectedPlaceName": null,
@@ -80921,10 +81006,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-10-toa-nha-trung-nam.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-10-toa-nha-trung-nam.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-10/toa-nha-trung-nam/"
     ],
     "selectedPlaceId": "ChIJ-Qdt7cIudTERVWjN9zLfN30",
     "selectedPlaceName": "TRUNGNAM",
@@ -81581,8 +81668,14 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-11/lu-gia-plaza/",
+     "https://saigonoffice.com.vn/toa-nha-lu-gia-plaza-cho-thue-van-phong-phuong-phu-tho.html"
+    ],
     "selectedPlaceId": "ChIJH0hzc8AudTERUesBy17QX0o",
     "selectedPlaceName": "Tòa nhà Lữ Gia Plaza - Office Saigon",
     "selectedPlaceAddress": "70 Đ. Lữ Gia, Phú Thọ, Hồ Chí Minh",
@@ -82382,10 +82475,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-cityland-quan-go-vap.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-cityland-quan-go-vap.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-go-vap/cityland-tower/"
     ],
     "selectedPlaceId": "ChIJo6oJnhkpdTERHyFm-q-Rlhs",
     "selectedPlaceName": "Cityland Tower",
@@ -83454,8 +83549,14 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-7/toa-nha-pv-gas/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-pv-gas-huyen-nha-be.html"
+    ],
     "selectedPlaceId": "ChIJbzYP0ugvdTERwLgypt9E_qg",
     "selectedPlaceName": "Tòa nhà PV Gas Tower - Office Saigon",
     "selectedPlaceAddress": "673 Nguyễn Hữu Thọ, Nhà Bè, Hồ Chí Minh",
@@ -83718,8 +83819,14 @@
     "releaseLimitation": "Address geocode fallback; represents the verified address, not an independently named building Place.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/toa-nha-3-bees/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-phu-nhuan-toa-nha-3-bees.html"
+    ],
     "selectedPlaceId": "ChIJL0gk0y4pdTER0phX7QL5bcQ",
     "selectedPlaceName": null,
     "selectedPlaceAddress": "281 Đ. Nguyễn Văn Trỗi, Phú Nhuận, Hồ Chí Minh, Việt Nam",
@@ -85183,8 +85290,12 @@
     "releaseLimitation": "Address-geocode fallback; locates the independently verified address but is not an independently named building Place.",
     "manualReviewReason": null,
     "sourceRecordCount": 3,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/toa-nha-ha-phan-2/"
+    ],
     "selectedPlaceId": "ChIJDYUSdNoodTERJ63UQZALgwA",
     "selectedPlaceName": null,
     "selectedPlaceAddress": "Ha Phan Building, 5 Phan Xích Long, Cầu Kiệu, Hồ Chí Minh, Việt Nam",
@@ -85712,10 +85823,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 1,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/lmak-68-phan-dang-luu/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/lmak-68-phan-dang-luu/",
+     "https://saigonoffice.com.vn/toa-nha-lmak-68-phan-dang-luu-quan-phu-nhuan-cho-thue-van-phong.html"
     ],
     "selectedPlaceId": "ChIJESkIJEWuAi0Rerf_pyGshR8",
     "selectedPlaceName": "L'MAK 68",
@@ -86113,8 +86226,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/lmak-orchard-park-view/",
+     "https://saigonoffice.com.vn/toa-nha-l-mak-orchard-park-view-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": "ChIJ6-nuBSEpdTERZ6eUqqMXjMM",
     "selectedPlaceName": "Orchard Park View",
     "selectedPlaceAddress": "Orchard Park View, 130 Hồng Hà, Đức Nhuận, Hồ Chí Minh 700000",
@@ -88798,10 +88917,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 1,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-phu-nhuan-tai-sonata-building.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-phu-nhuan-tai-sonata-building.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/sonata-building/"
     ],
     "selectedPlaceId": "ChIJCeyHbykpdTERdp8-nIke0Mw",
     "selectedPlaceName": "Tòa nhà Sonata Building",
@@ -91055,10 +91176,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 1,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-blue-sky-office.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-blue-sky-office.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/blue-sky-tower/"
     ],
     "selectedPlaceId": "ChIJZU24E7spdTERLU7PJxFYR0k",
     "selectedPlaceName": "Tòa nhà Blue Sky Tower - Office Saigon",
@@ -91322,8 +91445,12 @@
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 6,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/toa-nha-waseco/"
+    ],
     "selectedPlaceId": "ChIJr8MGSwApdTERGAMZPiTPkCE",
     "selectedPlaceName": "Tòa nhà WASECO Building - Office Saigon",
     "selectedPlaceAddress": "10 Đ. Phổ Quang, Tân Sơn Hòa, Hồ Chí Minh 72100",
@@ -91850,8 +91977,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 6,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/menas-mall/",
+     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-tan-binh-toa-nha-ct-plaza.html"
+    ],
     "selectedPlaceId": "ChIJtZ1Rn-YpdTERNxH3_Ua4H-E",
     "selectedPlaceName": "Menas Mall Saigon Airport",
     "selectedPlaceAddress": "60A Trường Sơn, Tân Sơn Hòa, Hồ Chí Minh 70000",
@@ -92114,8 +92247,12 @@
     "releaseLimitation": "Address geocode fallback; represents the verified address, not an independently named building Place.",
     "manualReviewReason": null,
     "sourceRecordCount": 1,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/toa-nha-ct-in/"
+    ],
     "selectedPlaceId": "ChIJxePkrjYpdTERVIs6djC15CU",
     "selectedPlaceName": null,
     "selectedPlaceAddress": "435 Đ. Hoàng Văn Thụ, Tân Sơn Nhất, Hồ Chí Minh, Việt Nam",
@@ -93055,8 +93192,14 @@
     "releaseLimitation": "Named Google Place; coordinate may represent entrance or label point within the building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 1,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/hado-airport-building/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-hado-airport.html"
+    ],
     "selectedPlaceId": "ChIJjyqicxgpdTER6HWhTCA6hfc",
     "selectedPlaceName": "Tòa nhà Hado Airport Building - Office Saigon",
     "selectedPlaceAddress": "2 Hồng Hà, Tân Sơn Hòa, Hồ Chí Minh 700000",
@@ -95593,7 +95736,8 @@
      "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/h-space-tower/",
      "https://saigonoffice.com.vn/toa-nha-cuu-long-office-quan-tan-binh-cho-thue-van-phong.html",
      "https://saigonoffice.com.vn/toa-nha-airport-quan-tan-binh-cho-thue-van-phong.html",
-     "https://saigonoffice.com.vn/toa-nha-delas-cho-thue-van-phong-quan-tan-binh.html"
+     "https://saigonoffice.com.vn/toa-nha-delas-cho-thue-van-phong-quan-tan-binh.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/mg-office-cuu-long/"
     ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
@@ -97593,10 +97737,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 3,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/ocean-tower/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/ocean-tower/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-moc-gia-cong-hoa-quan-tan-binh.html"
     ],
     "selectedPlaceId": "ChIJE8cfSAApdTER1TrqOJRrJNs",
     "selectedPlaceName": "Mộc Gia Cộng Hòa",
@@ -98386,10 +98532,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-tai-pico-plaza.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-tai-pico-plaza.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/pico-plaza/"
     ],
     "selectedPlaceId": "ChIJ7SQG5SApdTERLbNkTf6Uqvw",
     "selectedPlaceName": "Tòa nhà Pico Plaza - Office Saigon",
@@ -100535,10 +100683,13 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
-     "maisonoffice.vn"
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/sohobiz-e/"
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/sohobiz-e/",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/sohobiz-office/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-toa-nha-sohobiz-office-quan-tan-binh.html"
     ],
     "selectedPlaceId": "ChIJJT0AqiUpdTERgwjfFLXiMSQ",
     "selectedPlaceName": "Tòa nhà Sohobiz Building - Office Saigon",
@@ -100803,10 +100954,12 @@
     "manualReviewReason": null,
     "sourceRecordCount": 2,
     "identitySourceDomains": [
+     "maisonoffice.vn",
      "saigonoffice.com.vn"
     ],
     "identitySourceUrls": [
-     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-sumikura.html"
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-sumikura.html",
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/toa-nha-sumikura/"
     ],
     "selectedPlaceId": "ChIJQWDQnjcpdTER2xG2B1y96X4",
     "selectedPlaceName": "SK Sumikura Tower",
@@ -103055,8 +103208,12 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 1,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/tp-thu-duc/toa-nha-gigamall/"
+    ],
     "selectedPlaceId": "ChIJ951RcRopdTERn8dxXCbA7ss",
     "selectedPlaceName": "Gigamall",
     "selectedPlaceAddress": "240 - 242 Đ. Phạm Văn Đồng, Hiệp Bình, Hồ Chí Minh 700000",
