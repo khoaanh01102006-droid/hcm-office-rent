@@ -39,6 +39,15 @@ body[data-view="overview"] .tray { display: none; }
 .ovxn__ca p { font-size: var(--fs-xs); line-height: 1.55; margin: 0 0 6px; }
 .ovxn__so, .ovxn__da { color: var(--ink-2); }
 .ovxn__hoi { font-weight: 600; margin-bottom: 0 !important; }
+/* Lưu ý: tòa mang tên khác trên trang rao */
+.ovly { margin-top: var(--s-5, 24px); overflow-x: auto; }
+.ovly__tieude { font-size: var(--fs-sm, 15px); margin: 0 0 4px; }
+.ovly__mo { font-size: var(--fs-xs); color: var(--ink-2); margin: 0 0 var(--s-3); line-height: 1.55; }
+.ovly__bang { width: 100%; border-collapse: collapse; font-size: var(--fs-xs); min-width: 640px; }
+.ovly__bang th { text-align: left; font-weight: 600; color: var(--ink-2); border-bottom: 1px solid var(--line); padding: 6px 8px; }
+.ovly__bang td { border-bottom: 1px solid var(--line); padding: 8px; vertical-align: top; line-height: 1.5; }
+.ovly__nhan { display: inline-block; font-size: var(--fs-2xs); padding: 1px 6px; border: 1px solid var(--line); margin-right: 4px; }
+.ovly__nhan--chua { border-color: var(--r5, #b45309); color: var(--r5, #b45309); }
 
 .ov__head { display: flex; flex-direction: column; gap: var(--s-2); max-width: 62ch; }
 .ov__sectag {

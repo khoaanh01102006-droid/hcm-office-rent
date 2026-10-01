@@ -2431,19 +2431,19 @@
     "knownAliases": [
      "Saigon Centre Phase 2"
     ],
-    "nameChangeNote": null,
-    "address": "65 Lê Lợi Phường Sài Gòn TP.HCM",
+    "nameChangeNote": "Trang rao gọi Saigon Centre Tower 2.",
+    "address": "92-94 Nam Kỳ Khởi Nghĩa, Phường Sài Gòn, (Quận 1) TP.HCM",
     "district": "District 1",
     "legacyDistrict": "District 1",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
     "currentWard": "Phường Sài Gòn",
     "currentWardOsmId": "r19260504",
-    "currentWardMatchMethod": "OSM_POINT_IN_POLYGON_ADDRESS_AGREES",
+    "currentWardMatchMethod": "POINT_IN_POLYGON_AFTER_AUDIT_20261001",
     "currentWardAddressLabel": "Phường Sài Gòn",
     "currentWardAddressAgrees": true,
     "currentWardAddressStatus": "AGREES",
     "currentWardBoundaryDistanceM": 16.503447897848016,
-    "currentWardNearBoundary": true,
+    "currentWardNearBoundary": false,
     "currentWardAsOf": "2026-08-28T08:04:53.118Z",
     "currentWardNeedsReview": false,
     "currentWardNote": "Gán bằng phép điểm-trong-đa-giác trên ranh giới OSM; nhãn địa chỉ được giữ riêng để phát hiện tên cũ hoặc bất đồng.",
@@ -2455,22 +2455,28 @@
     "basements": null,
     "elevators": null,
     "floorPlateM2": null,
-    "latitude": 10.7728667,
-    "longitude": 106.7005254,
+    "latitude": 10.7737064,
+    "longitude": 106.7010509,
     "coordinateKey": "10.7728667,106.7005254",
-    "coordinateSource": "GOOGLE_PLACE_IDENTITY_MATCH",
+    "coordinateSource": "AUDIT_20261001_LISTING_PAGE",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_GOOGLE_PLACE_IDENTITY",
-    "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
+    "coordinateStatus": "AUDIT_20261001_LISTING_PAGE",
+    "entityReviewStatus": "AUDIT_20261001_RESOLVED",
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 3,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/saigon-centre-2/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-tai-saigon-centre-tower-2-quan-1.html"
+    ],
     "selectedPlaceId": "ChIJDwjwYQAvdTER6knHjb7saMk",
     "selectedPlaceName": "Saigon Centre Tower 2",
     "selectedPlaceAddress": "65 Lê Lợi, Sài Gòn, Hồ Chí Minh 70000",
-    "googleMapsCoordinateUrl": "https://www.google.com/maps/search/?api=1&query=10.7728667,106.7005254",
+    "googleMapsCoordinateUrl": "https://www.google.com/maps/search/?api=1&query=10.7737064,106.7010509",
     "googleMapsSatelliteUrl": "https://www.google.com/maps/@?api=1&map_action=map&center=10.7728667,106.7005254&zoom=20&basemap=satellite",
     "duplicateOfTeacherNo": null,
     "relationshipNote": null,
@@ -2494,13 +2500,13 @@
     "availableAreaMinM2": null,
     "availableAreaMaxM2": null,
     "nearestMetro": "Opera House",
-    "distanceMetroM": 348.772397394,
-    "metroWalkingDistanceM": 418.359290928,
+    "distanceMetroM": 240.37,
+    "metroWalkingDistanceM": null,
     "metroWalkingDurationS": null,
-    "distanceCbdM": 413.711582539,
+    "distanceCbdM": 320.605,
     "cbdDrivingDistanceM": null,
     "cbdDrivingDurationStaticS": null,
-    "distanceAirportM": 6818.20424364,
+    "distanceAirportM": 6782.23,
     "airportDrivingDistanceM": null,
     "airportDrivingDurationStaticS": null,
     "priceCrosscheckStatus": "UNRESOLVED_COMPONENTS",
@@ -2525,144 +2531,8 @@
      }
     ],
     "trafficObservationDate": "2026-08-29",
-    "trafficSnapshots": [
-     {
-      "windowLabel": "morning",
-      "scheduledTimeLocal": "08:00",
-      "targetDatetimeLocal": "2026-08-29T08:00:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "cbd",
-      "destinationName": "Ho Chi Minh City People's Committee headquarters",
-      "distanceM": 870,
-      "durationTrafficS": 201.0,
-      "durationStaticS": 279.0,
-      "congestionRatio": 0.7204301075268817,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "midday",
-      "scheduledTimeLocal": "13:30",
-      "targetDatetimeLocal": "2026-08-29T13:30:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "cbd",
-      "destinationName": "Ho Chi Minh City People's Committee headquarters",
-      "distanceM": 870,
-      "durationTrafficS": 201.0,
-      "durationStaticS": 279.0,
-      "congestionRatio": 0.7204301075268817,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "evening",
-      "scheduledTimeLocal": "17:30",
-      "targetDatetimeLocal": "2026-08-29T17:30:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "cbd",
-      "destinationName": "Ho Chi Minh City People's Committee headquarters",
-      "distanceM": 870,
-      "durationTrafficS": 201.0,
-      "durationStaticS": 279.0,
-      "congestionRatio": 0.7204301075268817,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "morning",
-      "scheduledTimeLocal": "08:00",
-      "targetDatetimeLocal": "2026-08-29T08:00:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "airport",
-      "destinationName": "Tan Son Nhat Domestic Terminal",
-      "distanceM": 7272,
-      "durationTrafficS": 1351.0,
-      "durationStaticS": 1491.0,
-      "congestionRatio": 0.9061032863849764,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "midday",
-      "scheduledTimeLocal": "13:30",
-      "targetDatetimeLocal": "2026-08-29T13:30:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "airport",
-      "destinationName": "Tan Son Nhat Domestic Terminal",
-      "distanceM": 7272,
-      "durationTrafficS": 1351.0,
-      "durationStaticS": 1491.0,
-      "congestionRatio": 0.9061032863849764,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     },
-     {
-      "windowLabel": "evening",
-      "scheduledTimeLocal": "17:30",
-      "targetDatetimeLocal": "2026-08-29T17:30:00+07:00",
-      "requestedAtUtc": "2026-08-29T01:04:57.809118+00:00",
-      "destinationId": "airport",
-      "destinationName": "Tan Son Nhat Domestic Terminal",
-      "distanceM": 7272,
-      "durationTrafficS": 1351.0,
-      "durationStaticS": 1491.0,
-      "congestionRatio": 0.9061032863849765,
-      "condition": "ROUTE_EXISTS",
-      "sourceApi": "Google Routes API ComputeRouteMatrix",
-      "semanticNote": "Live request made near the named local-time window; not March 2026 history"
-     }
-    ],
-    "r5Spatial": {
-     "releaseId": "OFFICE-DATASET-V9-R5-SCIENTIFIC-RELEASE",
-     "analysisEntityId": "OFFICE-ENTITY-T0010",
-     "representativeTeacherNo": 10,
-     "crosswalkMappingType": "STANDARD_SOURCE_ROW",
-     "featureReleaseStatus": "COMPUTED_FROM_UNIQUE_LOCATION",
-     "observationSemantics": "CURRENT_OSM_OVERTURE_SNAPSHOT_NOT_HISTORICAL_2026_03",
-     "qaStatus": "PASS",
-     "qaFlags": null,
-     "networkSnapDistanceM": 25.520171029,
-     "networkSnapPolicy": "NEAREST_WALK_NETWORK_NODE",
-     "neighboringOfficeNla1000M": 641566.18,
-     "hospital": {
-      "releaseDistanceM": 212.278111212,
-      "openNetworkDistanceM": 212.278111212,
-      "canonicalId": "inpatient_hospital:D0A32176A55EE53E2513",
-      "name": "Bệnh viện Nhân dân Gia Định - cơ sở 2",
-      "geodesicSupportM": 132.401581891,
-      "evidenceStatus": "CORE_ELIGIBLE_NAMED_HOSPITAL",
-      "routeReleaseStatus": "AUTOMATIC_QA_PASS_NOT_EXTERNALLY_ROUTE_CHECKED"
-     },
-     "green": {
-      "publicAreaShare800M": 0.0897287784281,
-      "publicAreaM2800M": 180120.745304
-     },
-     "metro": {
-      "releaseDistanceM": 418.359290928,
-      "openNetworkDistanceM": 418.359290928,
-      "stationRef": "L102",
-      "stationName": "Opera House",
-      "geodesicSupportM": 348.772397394,
-      "routeReleaseStatus": "AUTOMATIC_QA_PASS_NOT_EXTERNALLY_ROUTE_CHECKED"
-     },
-     "busStopClusterCount800M": 64,
-     "intersectionCount800M": 1157,
-     "intersectionDensity800M": 576.370014826,
-     "dailyDestinationCount800M": 559,
-     "dailyDestinationDensity800M": 278.47090604,
-     "amenityMixShannon800M": 1.03529821288,
-     "warehouseCounts": {
-      "cafe800M": 193,
-      "restaurant800M": 299,
-      "convenienceStore800M": 42,
-      "supermarketMarket800M": 25
-     }
-    }
+    "trafficSnapshots": [],
+    "r5Spatial": {}
    },
    "pilotEnrichment": {
     "buildingId": "TCH2_9DD3586351F2",
@@ -6324,8 +6194,8 @@
     "knownAliases": [
      "V-Ikon Building"
     ],
-    "nameChangeNote": null,
-    "address": "",
+    "nameChangeNote": "Trang rao nay gọi Saigon Co.op Tower (cùng 131 Điện Biên Phủ).",
+    "address": "131 Điện Biên Phủ, Phường Gia Định, (Quận Bình Thạnh) TP.HCM",
     "district": "Binh Thanh",
     "legacyDistrict": "Binh Thanh",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -6353,13 +6223,19 @@
     "coordinateKey": "10.7969436,106.7031434",
     "coordinateSource": "TEACHER_HUMAN_REVIEWED_COORDINATE_RETAINED",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_TEACHER_REVIEWED",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-binh-thanh/saigon-coop-tower/",
+     "https://saigonoffice.com.vn/toa-nha-whiskycognac-quan-binh-thanh-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -32515,7 +32391,7 @@
      "The Hyco4 Tower"
     ],
     "nameChangeNote": null,
-    "address": "",
+    "address": "205 Nguyễn Xí, Phường Bình Thạnh, (Quận Bình Thạnh) TP.HCM",
     "district": "Binh Thanh",
     "legacyDistrict": "Binh Thanh",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -32543,13 +32419,17 @@
     "coordinateKey": "10.8156382,106.7072145",
     "coordinateSource": "TEACHER_HUMAN_REVIEWED_COORDINATE_RETAINED",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_TEACHER_REVIEWED",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "vanphongsg.com"
+    ],
+    "identitySourceUrls": [
+     "https://vanphongsg.com/van-phong-cho-thue/the-hyco4-tower-944.html"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -38558,8 +38438,8 @@
     "knownAliases": [
      "Do Thanh"
     ],
-    "nameChangeNote": null,
-    "address": "",
+    "nameChangeNote": "Trang rao gọi Tòa nhà Yersin (cùng 30-32 Yersin).",
+    "address": "30-32 Yersin, Phường Bến Thành, (Quận 1) TP.HCM",
     "district": "District 1",
     "legacyDistrict": "District 1",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -38587,13 +38467,19 @@
     "coordinateKey": "10.7656070,106.6984106",
     "coordinateSource": "GOOGLE_PLACE_IDENTITY_MATCH",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_GOOGLE_PLACE_IDENTITY",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-yersin/",
+     "https://saigonoffice.com.vn/toa-nha-yersin-quan-1-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": "ChIJNeZ9DwAvdTERn27UHrPF7GU",
     "selectedPlaceName": "Tòa nhà Đô Thành",
     "selectedPlaceAddress": "30 Yersin, Bến Thành, Hồ Chí Minh",
@@ -38822,8 +38708,8 @@
     "knownAliases": [
      "Dong Nai Brick Building"
     ],
-    "nameChangeNote": null,
-    "address": "",
+    "nameChangeNote": "Trang rao gọi Tuildonai (thương hiệu của Công ty Gạch ngói Đồng Nai).",
+    "address": "119 Điện Biên Phủ, Phường Tân Định, (Quận 1) TP.HCM",
     "district": "District 1",
     "legacyDistrict": "District 1",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -38856,8 +38742,14 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-tuildonai/",
+     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-1-toa-nha-tuildonai.html"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -42040,7 +41932,7 @@
      "HPL Building"
     ],
     "nameChangeNote": null,
-    "address": "",
+    "address": "60 Nguyễn Văn Thủ, Phường Tân Định, (Quận 1) TP.HCM",
     "district": "District 1",
     "legacyDistrict": "District 1",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -42073,8 +41965,15 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/hp-building/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-toa-nha-hp-office.html",
+     "https://saigonoffice.com.vn/toa-nha-hp-office.html"
+    ],
     "selectedPlaceId": "ChIJdTNOo8oodTER5Oxz_RsWfWc",
     "selectedPlaceName": "HPL",
     "selectedPlaceAddress": "HPL, 60 Nguyễn Văn Thủ, Tân Định, Hồ Chí Minh 700000",
@@ -44717,8 +44616,8 @@
     "knownAliases": [
      "MTL Office Building"
     ],
-    "nameChangeNote": null,
-    "address": "",
+    "nameChangeNote": "MTL là chữ tắt của Mai Thị Lựu; trang rao gọi Halo Building.",
+    "address": "104 Mai Thị Lựu, Phường Tân Định, (Quận 1) TP.HCM",
     "district": "District 1",
     "legacyDistrict": "District 1",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -44746,13 +44645,19 @@
     "coordinateKey": "10.7922268,106.6981219",
     "coordinateSource": "TEACHER_HUMAN_REVIEWED_COORDINATE_RETAINED",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_TEACHER_REVIEWED",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-halo/",
+     "https://saigonoffice.com.vn/cho-thue-van-phong-quan-1-toa-nha-halo.html"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -49704,7 +49609,7 @@
      "PPM Building",
      "12-12Bis Trần Quang Khải"
     ],
-    "nameChangeNote": null,
+    "nameChangeNote": "Trang rao nay gọi PPM Trần Quang Khải.",
     "address": "12-12Bis Trần Quang Khải, Phường Tân Định, TP.HCM",
     "district": "District 1",
     "legacyDistrict": "District 1",
@@ -49738,8 +49643,14 @@
     "releaseLimitation": "Named Google Place; the pin may represent an entrance or label point within the verified building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/ppm-tran-quang-khai/",
+     "https://saigonoffice.com.vn/toa-nha-ppm-tran-quang-khai-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": "ChIJyXqLD-QpdTERjNQSml0JbC4",
     "selectedPlaceName": "PPM Building by PPMVN",
     "selectedPlaceAddress": "12-12 Bis Trần Quang Khải, Tân Định, Hồ Chí Minh 700000",
@@ -53265,8 +53176,14 @@
     "releaseLimitation": "Named Google Place; the pin may represent an entrance or label point within the verified building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-1/toa-nha-wmc/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-1-wmc-building.html"
+    ],
     "selectedPlaceId": "ChIJccj0BhcvdTERzBh-LaxsSEA",
     "selectedPlaceName": "WMC Tower",
     "selectedPlaceAddress": "102A-B-C, Cống Quỳnh, Bến Thành, Hồ Chí Minh 700000",
@@ -60401,8 +60318,12 @@
     "releaseLimitation": "Address-geocode fallback; locates the independently verified address but is not an independently named building Place.",
     "manualReviewReason": null,
     "sourceRecordCount": 3,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "meoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://meoffice.vn/van-phong-cho-thue/deli-office-cu-xa-do-thanh-10-duong-so-1-cu-xa-do-thanh-quan-3/"
+    ],
     "selectedPlaceId": "ChIJY4ycASQvdTERX3xODcEnbas",
     "selectedPlaceName": null,
     "selectedPlaceAddress": "10 Số 1, Cư xá Đô Thành, Bàn Cờ, Hồ Chí Minh 700000, Việt Nam",
@@ -66806,8 +66727,8 @@
     "knownAliases": [
      "OIIC Building"
     ],
-    "nameChangeNote": null,
-    "address": "",
+    "nameChangeNote": "Trang rao cùng chỗ gọi HML Office (248-250 Nguyễn Đình Chiểu).",
+    "address": "250 Nguyễn Đình Chiểu, Phường Xuân Hòa, (Quận 3) TP.HCM",
     "district": "District 3",
     "legacyDistrict": "District 3",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -66835,13 +66756,19 @@
     "coordinateKey": "10.7772987,106.6887341",
     "coordinateSource": "GOOGLE_PLACE_IDENTITY_MATCH",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_GOOGLE_PLACE_IDENTITY",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/proffice-building/",
+     "https://saigonoffice.com.vn/toa-nha-hml-office-nguyen-dinh-chieu-cho-thue-van-phong.html"
+    ],
     "selectedPlaceId": "ChIJV4qOyDovdTERZhwu6QT-OBQ",
     "selectedPlaceName": "Tòa Nhà OIIC",
     "selectedPlaceAddress": "250 Đường Nguyễn Đình Chiểu, Xuân Hòa, Hồ Chí Minh",
@@ -68395,7 +68322,7 @@
      "Pax Sky 2",
      "Pax Sky Phạm Ngọc Thạch"
     ],
-    "nameChangeNote": "Tên chuẩn lấy từ các trang đã vượt kiểm tra tên + số nhà + tên đường.",
+    "nameChangeNote": "Trang Maison đặt tên Bảo Minh Building (Chứng khoán Bảo Minh thuê tầng 3); toà là Pax Sky 2.",
     "address": "34A Phạm Ngọc Thạch, Phường Xuân Hòa, TP.HCM",
     "district": "District 3",
     "legacyDistrict": "District 3",
@@ -68429,8 +68356,12 @@
     "releaseLimitation": "Address-geocode fallback; locates the independently verified address but is not an independently named building Place.",
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-3/axsky-pham-ngoc-thach/"
+    ],
     "selectedPlaceId": "ChIJ69Je9zMvdTER7yUeKAsRQkk",
     "selectedPlaceName": null,
     "selectedPlaceAddress": "34 A Phạm Ngọc Thạch, Xuân Hòa, Hồ Chí Minh, Việt Nam",
@@ -78090,7 +78021,7 @@
      "Vincom Nam Long"
     ],
     "nameChangeNote": null,
-    "address": "",
+    "address": "71 Trần Trọng Cung, Phường Tân Thuận, (Quận 7) TP.HCM",
     "district": "District 7",
     "legacyDistrict": "District 7",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -78118,13 +78049,17 @@
     "coordinateKey": "10.7440185,106.7326323",
     "coordinateSource": "GOOGLE_PLACE_IDENTITY_MATCH",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_GOOGLE_PLACE_IDENTITY",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "vincom.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://vincom.com.vn/vincom-nam-long"
+    ],
     "selectedPlaceId": "ChIJl-XZAiwldTER-yT-AZlpEsc",
     "selectedPlaceName": "Vincom+ Nam Long",
     "selectedPlaceAddress": "Trần Trọng Cung/71 P, Khu dân Cư Nam Long, Tân Thuận, Hồ Chí Minh 72909",
@@ -78885,7 +78820,7 @@
      "SCS Internet Building"
     ],
     "nameChangeNote": "Tên chuẩn lấy từ các trang đã vượt kiểm tra tên + số nhà + tên đường.",
-    "address": "Lot T2-4, D1 Street",
+    "address": "Lô T2-4, đường D1, Khu Công nghệ cao, Phường Tăng Nhơn Phú, (Thủ Đức) TP.HCM",
     "district": "District 9",
     "legacyDistrict": "District 9",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -78913,13 +78848,19 @@
     "coordinateKey": "10.8494448,106.7997398",
     "coordinateSource": "GOOGLE_PLACE_BROKER_NAMED_WITH_ADDRESS_CORROBORATION",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_BROKER_PLACE_ADDRESS_CORROBORATED",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 4,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/tp-thu-duc/scs-building/",
+     "https://saigonoffice.com.vn/toa-nha-scs-cho-thue-van-phong-phuong-tang-nhon-phu.html"
+    ],
     "selectedPlaceId": "ChIJo2qCVEcndTER-9Cc475eqBA",
     "selectedPlaceName": "Sacom Chip Sang ( SCS Building )",
     "selectedPlaceAddress": "Lô T2-4, Đ. D1, Tăng Nhơn Phú, Hồ Chí Minh 70000",
@@ -89890,13 +89831,13 @@
    "building": {
     "id": "TCH2_0D33BDC44B0A",
     "teacherNo": 350,
-    "name": "CÔNG TY CỔ PHẦN IN THANH NIÊN",
+    "name": "L'MAK The Venture",
     "nameOriginal": "Thanh Nien Printing JS Co.",
     "knownAliases": [
      "Thanh Nien Printing JS Co."
     ],
-    "nameChangeNote": "Tên chuẩn lấy từ các trang đã vượt kiểm tra tên + số nhà + tên đường.",
-    "address": "62 Trần Huy Liệu",
+    "nameChangeNote": "File thầy ghi 'Thanh Nien Printing JS Co.'; toà nay là L'MAK The Venture (tên cũ Betrimex, In Thanh Niên).",
+    "address": "62 Trần Huy Liệu, Phường Phú Nhuận, (Quận Phú Nhuận) TP.HCM",
     "district": "Phu Nhuan",
     "legacyDistrict": "Phu Nhuan",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -89924,13 +89865,19 @@
     "coordinateKey": "10.7932969,106.6781238",
     "coordinateSource": "GOOGLE_PLACE_NAMED_ENTITY",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_V8_QA_PASS",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "P4_PASS_PROPOSED_FOR_RELEASE",
     "releaseLimitation": "Named Google Place; coordinate may represent entrance or label point within the building/site.",
     "manualReviewReason": null,
     "sourceRecordCount": 4,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/lmak-the-venture/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-phu-nhuan-toa-nha-lmak-the-venture-phuong-phu-nhuan.html"
+    ],
     "selectedPlaceId": "ChIJp_eoodUodTER-LY-TMS1iko",
     "selectedPlaceName": "Công Ty Cp In Thanh Niên",
     "selectedPlaceAddress": "62 Đ. Trần Huy Liệu, Phú Nhuận, Hồ Chí Minh",
@@ -90422,8 +90369,8 @@
     "knownAliases": [
      "Vimadeco Building"
     ],
-    "nameChangeNote": "Tên chuẩn lấy từ các trang đã vượt kiểm tra tên + số nhà + tên đường.",
-    "address": "163 Nguyễn Văn Trỗi",
+    "nameChangeNote": "Trang rao gọi VIMC Building (VIMC là tên mới của Vinalines).",
+    "address": "163 Nguyễn Văn Trỗi, Phường Phú Nhuận, (Quận Phú Nhuận) TP.HCM",
     "district": "Phu Nhuan",
     "legacyDistrict": "Phu Nhuan",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -90451,13 +90398,17 @@
     "coordinateKey": "10.7956354,106.6750504",
     "coordinateSource": "GOOGLE_PLACE_BROKER_NAMED_WITH_ADDRESS_CORROBORATION",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_BROKER_PLACE_ADDRESS_CORROBORATED",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": "POI do đơn vị môi giới/tư vấn tạo; tên và địa chỉ đã đối chiếu, nhưng không được coi là pin chính thức của chủ sở hữu.",
     "manualReviewReason": null,
     "sourceRecordCount": 3,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-phu-nhuan/vimc-building/"
+    ],
     "selectedPlaceId": "ChIJqzwIHCopdTEROokY_k4bZZg",
     "selectedPlaceName": "Tòa Nhà Vimadeco Building - Office Saigon",
     "selectedPlaceAddress": "163 Đ. Nguyễn Văn Trỗi, Phú Nhuận, Hồ Chí Minh",
@@ -90987,8 +90938,12 @@
     "releaseLimitation": null,
     "manualReviewReason": null,
     "sourceRecordCount": 2,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "connectland.vn"
+    ],
+    "identitySourceUrls": [
+     "https://connectland.vn/cho-thue-toa-nha-goc-2-mat-tien-226-duong-le-van-sy-phuong-1-quan-tan-binh-dt-9-8x20-6m-1-ham-1-tret-1-lung-6-lau-dtsd-1413m2"
+    ],
     "selectedPlaceId": "ChIJq6pzSCwpdTER8VTKkA0TYko",
     "selectedPlaceName": "226, 7 Đ. Lê Văn Sỹ",
     "selectedPlaceAddress": "226, 7 Đ. Lê Văn Sỹ, Tân Sơn Hòa, Hồ Chí Minh",
@@ -96318,8 +96273,8 @@
     "knownAliases": [
      "MG Pham Van Bach"
     ],
-    "nameChangeNote": "Tên chuẩn lấy từ các trang đã vượt kiểm tra tên + số nhà + tên đường.",
-    "address": "345 Phạm Văn Bạch, Ho Chi Minh City",
+    "nameChangeNote": "Trang rao gọi TP Building.",
+    "address": "345 Phạm Văn Bạch, Phường Tân Sơn, (Quận Tân Bình) TP.HCM",
     "district": "Tan Binh",
     "legacyDistrict": "Tan Binh",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -96347,13 +96302,17 @@
     "coordinateKey": "10.8212220,106.6385381",
     "coordinateSource": "GOOGLE_GEOCODE_VERIFIED_MULTI_SOURCE_ADDRESS_FALLBACK",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_ADDRESS_POINT_LIMITED",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": "Điểm geocode của địa chỉ; không chứng minh chính xác tâm hoặc footprint của tòa nhà.",
     "manualReviewReason": null,
     "sourceRecordCount": 3,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/tp-building/"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -101704,8 +101663,8 @@
     "knownAliases": [
      "TPA Building"
     ],
-    "nameChangeNote": "Tên chuẩn lấy từ các trang đã vượt kiểm tra tên + số nhà + tên đường.",
-    "address": "24 Trường Sơn",
+    "nameChangeNote": "Trang rao gọi Hồng Anh Japan Building.",
+    "address": "24 Trường Sơn, Phường Tân Sơn Hòa, (Quận Tân Bình) TP.HCM",
     "district": "Tan Binh",
     "legacyDistrict": "Tan Binh",
     "legacyDistrictSemantics": "Nhãn quận/huyện lịch sử trong file thầy; không phải cấp hành chính hiện hành.",
@@ -101733,13 +101692,19 @@
     "coordinateKey": "10.8085358,106.6650720",
     "coordinateSource": "GOOGLE_GEOCODE_VERIFIED_MULTI_SOURCE_ADDRESS_FALLBACK",
     "coordinateVerified": true,
-    "coordinateStatus": "PUBLISHED_ADDRESS_POINT_LIMITED",
+    "coordinateStatus": "AUDIT_20261001_ADDRESS_ONLY",
     "entityReviewStatus": "VISUAL_SCREENING_PASS_NO_OBVIOUS_WATER_OR_OPEN_GROUND",
     "releaseLimitation": "Điểm geocode của địa chỉ; không chứng minh chính xác tâm hoặc footprint của tòa nhà.",
     "manualReviewReason": null,
     "sourceRecordCount": 4,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "maisonoffice.vn",
+     "saigonoffice.com.vn"
+    ],
+    "identitySourceUrls": [
+     "https://maisonoffice.vn/cho-thue-van-phong-tphcm/quan-tan-binh/toa-nha-hong-anh-japan/",
+     "https://saigonoffice.com.vn/van-phong-cho-thue-quan-tan-binh-toa-nha-hong-anh-japan.html"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,
@@ -103858,8 +103823,12 @@
     "releaseLimitation": "Campus location is known; Tower B remains unpublished until a tower-specific source or visual verification proves its footprint.",
     "manualReviewReason": null,
     "sourceRecordCount": 0,
-    "identitySourceDomains": [],
-    "identitySourceUrls": [],
+    "identitySourceDomains": [
+     "officesaigon.vn"
+    ],
+    "identitySourceUrls": [
+     "https://www.officesaigon.vn/toa-nha-pih-building.html"
+    ],
     "selectedPlaceId": null,
     "selectedPlaceName": null,
     "selectedPlaceAddress": null,

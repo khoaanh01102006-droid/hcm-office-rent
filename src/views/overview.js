@@ -68,8 +68,28 @@ export function renderOverview(buildings, canXacNhan) {
         <div class="ov__stat"><span class="v">02</span><span class="k">Khoảng cách tới metro, trung tâm và sân bay đo theo đường thẳng; thời gian đi bộ đo theo đường thật.</span></div>
         <div class="ov__stat"><span class="v">03</span><span class="k">Thời gian lái xe có xét giao thông là một lần đo lúc 08:04 ngày 29/08/2026.</span></div>
       </div>
+      ${luuYBlock(canXacNhan)}
     </section>
   </div>`;
+}
+
+/* Lưu ý (01/10): tòa có trang rao cùng số nhà nhưng mang tên khác. Đã tra web từng cặp; ghi rõ cặp nào đã ghép giá.
+   Dữ liệu: atlas/06_PHAN_TICH/kich_ban/n34_can_thay_xac_nhan.py (LUU_Y). */
+function luuYBlock(d) {
+  const ds = d?.luu_y || [];
+  if (!ds.length) return '';
+  return `<div class="ovly" id="luu-y-ten-khac">
+        <h4 class="ovly__tieude">Tòa mang tên khác trên trang rao</h4>
+        <p class="ovly__mo">Cùng số nhà nhưng trang rao dùng tên khác. Cặp nào web và giá cùng xác nhận là một tòa thì đã lấy giá trang rao.</p>
+        <table class="ovly__bang">
+          <thead><tr><th scope="col">STT</th><th scope="col">Tên trong bộ dữ liệu</th><th scope="col">Tên trên trang rao</th>
+            <th scope="col">Địa chỉ</th><th scope="col">Ghi chú</th></tr></thead>
+          <tbody>${ds.map((x) => `<tr>
+            <td>${esc(x.stt)}</td><td>${esc(x.ten)}</td><td>${esc(x.ten_trang)}</td><td>${esc(x.dia_chi)}</td>
+            <td><span class="ovly__nhan ovly__nhan--${x.da_ghep ? 'co' : 'chua'}">${x.da_ghep ? 'Đã ghép' : 'Chưa ghép'}</span> ${esc(x.ghi_chu)}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>`;
 }
 
 /* Cần thầy xác nhận (01/10): chỉ những ca đã thử đủ cách mà vẫn còn hai khả năng, hoặc lỗi nằm ở chính bộ dữ liệu.
