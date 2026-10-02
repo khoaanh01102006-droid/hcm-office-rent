@@ -152,7 +152,34 @@ function bieuDoGiaTheoHang(buildings) {
   return `<figure class="ovchart">
     <figcaption><strong>${esc(NHAN.giaTieuDe)} theo hạng</strong><span>Vạch đậm là trung vị (số bên phải); hộp là khoảng giữa 50% số tòa; đường mảnh là thấp nhất đến cao nhất. Trục từ ${lo} đến ${hi} USD/m²/tháng.</span></figcaption>
     <div class="ovbox" role="img" aria-label="${esc(NHAN.giaTieuDe)} trung vị theo hạng: ${esc(hang.map((h) => `${h.length === 1 ? `Hạng ${h}` : h} ${money(median(theoHang[h].slice().sort((a, b) => a - b)))}`).join('; '))}">${dong}</div>
+    ${nguonHang(buildings)}
   </figure>`;
+}
+
+/* Hạng lấy từ đâu (02/10, chủ dự án hỏi "phân hạng này lấy từ đâu, giá rẻ và nguyên căn là cái gì"). Mọi số đếm từ dữ liệu. */
+function nguonHang(buildings) {
+  if (!DAY_DU) {
+    return `<p class="ovchart__truc">Hạng theo bộ dữ liệu 407 tòa; nguồn dữ liệu chưa công bố tiêu chí phân hạng.</p>`;
+  }
+  const coGia = buildings.filter((b) => isPresent(b.baseRent));
+  const dem = (f) => coGia.filter(f).length;
+  const thay = dem((b) => b.laToa407 && b.grade);
+  const maison = dem((b) => !b.laToa407 && b.grade && b.gradeSource !== 'Saigon Office');
+  const saigon = dem((b) => !b.laToa407 && b.grade && b.gradeSource === 'Saigon Office');
+  const khong = dem((b) => !b.grade);
+  const laGiaRe = (b) => (b.gradeOther || []).some((h) => /giá rẻ/i.test(h.normalize('NFC')));
+  const giaReCoMaison = coGia.filter((b) => laGiaRe(b) && b.gradeSource === 'Maison Office');
+  const giaReC = giaReCoMaison.filter((b) => b.grade === 'C').length;
+  return `<div class="ovchart__nguon">
+      <p><strong>Hạng lấy từ ba nguồn, không cùng một tiêu chí.</strong> ${thay} tòa của bộ 407 tòa: hạng theo bộ dữ liệu (nguồn chưa
+        công bố tiêu chí). ${maison} tòa khác: hạng do Maison Office ghi (A, B, C). ${saigon} tòa: hạng do Saigon Office ghi. Tòa có ở cả
+        hai trang rao mà hai trang xếp khác nhau thì lấy hạng chữ cái, ưu tiên Maison Office. ${khong} tòa có giá nhưng trang rao không
+        ghi hạng, không có trong biểu đồ.</p>
+      <p><strong>"Giá rẻ" và "Nguyên căn" không phải hạng.</strong> Đây là hai nhóm riêng của Saigon Office, đặt ngang hàng với hạng
+        A, B, C trên trang ấy. <em>Giá rẻ</em> là phân khúc giá thấp do trang rao tự xếp, không công bố ngưỡng giá
+        ${giaReCoMaison.length ? `(${giaReC}/${giaReCoMaison.length} tòa Saigon Office ghi "giá rẻ" mà cũng có trang Maison Office thì Maison xếp hạng C)` : ''}.
+        <em>Nguyên căn</em> là cho thuê cả tòa nhà hoặc cả căn biệt thự, nhà phố, giá tính trên tổng diện tích.</p>
+    </div>`;
 }
 
 function bieuDoNlaTheoQuan(buildings, quanCua) {

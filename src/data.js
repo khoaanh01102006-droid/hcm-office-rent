@@ -208,6 +208,9 @@ function buildModel(rec, payload) {
     lechToaDoBenM: b.lechToaDoBenM ?? null,
     ghimNghi: b.ghimNghi || null,
     tenKhac: b.tenKhac || null,
+    // bản đầy đủ (02/10): hạng lấy từ trang rao nào, trang kia ghi gì
+    gradeSource: b.gradeSource || null,
+    gradeOther: b.gradeOther || null,
     baseRentMin: field(b.baseRentMin, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw }),
     baseRentMax: field(b.baseRentMax, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw }),
     serviceCharge: field(b.serviceCharge, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.serviceChargeRaw, definition: 'Phí dịch vụ do nguồn niêm yết công bố.' }),

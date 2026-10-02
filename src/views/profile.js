@@ -136,9 +136,13 @@ function hangTrangRao(b) {
     <div class="pf__sechead"><h4>${icon('layers', { size: 15 })} Thông tin trên trang rao</h4>
       <span class="pf__srcnote">Maison Office, Saigon Office</span></div>
     <div class="pf__pricegrid">
-      <div class="pricerow"><div class="pricerow__label"><span>Hạng tòa nhà</span><em>theo trang rao</em></div>
+      <div class="pricerow"><div class="pricerow__label"><span>Hạng tòa nhà</span><em>${b.gradeSource ? `theo ${esc(b.gradeSource)}` : 'theo trang rao'}</em></div>
         <div class="pricerow__val">${b.gradeLabel ? `<strong>${esc(b.gradeLabel)}</strong>` : missingChip(FieldState.NOT_COLLECTED, 'Trang rao không ghi hạng.')}</div></div>
+      ${b.gradeOther?.length ? `<div class="pricerow"><div class="pricerow__label"><span>Trang rao khác ghi</span><em>không cùng tiêu chí</em></div>
+        <div class="pricerow__val">${esc(b.gradeOther.join(' · '))}</div></div>` : ''}
     </div>
+    ${[b.gradeLabel, ...(b.gradeOther || [])].some((h) => /giá rẻ|nguyên căn/i.test((h || '').normalize('NFC')))
+      ? `<p class="pf__note">"Giá rẻ" và "nguyên căn" là hai nhóm riêng của Saigon Office, không phải hạng: giá rẻ là phân khúc giá thấp do trang rao tự xếp (không công bố ngưỡng); nguyên căn là cho thuê cả tòa hoặc cả căn biệt thự, nhà phố.</p>` : ''}
   </section>`;
 }
 
