@@ -100,7 +100,7 @@ export function renderOverview(buildings, canXacNhan, loc = null) {
         <div class="ov__stat"><span class="v">02</span><span class="k">Tỷ lệ lấp đầy và hạng lấy nguyên từ bộ dữ liệu; nguồn chưa ghi lấp đầy là diện tích đang sử dụng hay đã ký thuê, cũng chưa ghi tiêu chí phân hạng.</span></div>
         <div class="ov__stat"><span class="v">03</span><span class="k">Khoảng cách tới metro, trung tâm và sân bay đo theo đường thẳng; thời gian đi bộ đo theo đường thật trên bản đồ OpenStreetMap.</span></div>
         <div class="ov__stat"><span class="v">04</span><span class="k">Thời gian lái xe có xét giao thông là một lần đo lúc 08:04 ngày 29/08/2026, có ở ${coGiaoThong}/${so407} tòa của bộ dữ liệu; các tòa sửa vị trí ngày 01/10/2026 chưa đo lại.</span></div>
-        ${DAY_DU ? `<div class="ov__stat"><span class="v">05</span><span class="k">${buildings.length - so407} tòa ngoài bộ 407 lấy từ trang rao: vị trí là ghim Google Maps (chỉ hiện trên nền Google, phải lấy lại trước 30 ngày), chưa có NLA, lấp đầy và số đo quanh tòa. Kho trang rao giữ nguyên như đã thu, nên có lẫn vài tin không phải tòa văn phòng thông thường (nhà xưởng trong khu công nghiệp, biệt thự, cho thuê nguyên căn).</span></div>` : ''}
+        ${DAY_DU ? `<div class="ov__stat"><span class="v">05</span><span class="k">${buildings.length - so407} tòa ngoài bộ 407 lấy từ trang rao: vị trí là ghim Google Maps trên trang rao (lấy 30/09–02/10/2026), chưa có NLA, lấp đầy và số đo quanh tòa. Đã loại 3 tin nhà xưởng, kho, đất khu công nghiệp; vẫn còn vài tin biệt thự, chung cư, shophouse cho thuê làm văn phòng.</span></div>` : ''}
       </div>
     </section>
   </div>`;

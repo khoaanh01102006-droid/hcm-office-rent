@@ -523,25 +523,21 @@ function ganCheDo() {
     document.body.dataset.ban = 'day_du';
     announce(`Phiên bản đầy đủ: ${n} tòa (${dd.toa_407 || 407} tòa của bộ dữ liệu và ${dd.toa_trang_rao || n - 407} tòa trên trang rao), ${NHAN.giaNgan}.`);
   }
-  import('../config.local.js').then((c) => {
-    if (c.SHARE_MODE) { const bp = $('#banpick'); if (bp) bp.hidden = true; if (sn) sn.style.display = ''; }
-  }).catch(() => {});
+  // QĐ 194 (02/10): công tắc hiện cả ở bản công khai (trước đây chế độ chia sẻ ẩn đi vì bản đầy đủ cần khoá Google)
 }
 
 function buildBasemapControls() {
   const wrap = $('#base-opts');
   if (!wrap) return;
-  const nen = DAY_DU ? Object.entries(BASEMAPS).filter(([, b]) => b.google) : Object.entries(BASEMAPS);
-  const macDinh = DAY_DU ? 'google-roadmap' : BASEMAP_DEFAULT;
+  const nen = Object.entries(BASEMAPS);
+  const macDinh = BASEMAP_DEFAULT;
   wrap.innerHTML = nen.map(([id, b]) => {
     const on = id === macDinh;
     return `<button class="baseopt ${b.kind === 'raster' ? 'is-online' : ''}" type="button"
       role="radio" aria-checked="${on}" data-base="${esc(id)}"
       title="${esc(b.note)}">${esc(b.label)}</button>`;
   }).join('');
-  $('#base-note').textContent = DAY_DU
-    ? 'Phiên bản đầy đủ chỉ dùng nền Google: vị trí tòa trên trang rao lấy từ Google Maps, điều khoản của Google không cho vẽ trên nền khác.'
-    : BASEMAPS[BASEMAP_DEFAULT].note;
+  $('#base-note').textContent = BASEMAPS[BASEMAP_DEFAULT].note;
 
   wrap.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-base]');

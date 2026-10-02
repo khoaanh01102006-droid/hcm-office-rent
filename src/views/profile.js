@@ -48,8 +48,8 @@ export function renderProfile(b, data, _osm, giaNguon, canXacNhan) {
     ${hero(b)}
     ${ca ? `<p class="pf__warn">${icon('alert', { size: 13 })} Đang chờ thầy xác nhận: ${esc(ca.van_de)} ${esc(ca.cau_hoi)}</p>` : ''}
     ${b.laToa407 ? '' : `<p class="pf__warn">${icon('alert', { size: 13 })} Tòa trên trang rao, ngoài bộ dữ liệu 407 tòa. Vị trí là ghim
-      Google Maps của trang rao, chỉ hiện trên nền Google${b.hetHanToaDo ? ` và được lấy lại trước ${esc(b.hetHanToaDo.split('-').reverse().join('/'))}` : ''};
-      trang rao không ghi diện tích cho thuê và tỷ lệ lấp đầy.</p>`}
+      Google Maps trên trang rao của tòa (lấy 30/09–02/10/2026); trang rao không ghi diện tích cho thuê và tỷ lệ lấp đầy.</p>`}
+    ${b.giaNghiSai ? `<p class="pf__warn">${icon('alert', { size: 13 })} Trang rao ghi giá ${esc(b.giaNghiSai.map((v) => money(v)).join(', '))} USD/m²/tháng, gần gấp đôi tòa hạng A đắt nhất trên trang rao; nghi gõ nhầm nên không tính vào thang giá và trung vị.</p>` : ''}
     ${priceSourcesBlock(b, g)}
     ${b.laToa407 ? leaseBlock(b) : hangTrangRao(b)}
     ${locationBlock(b, g)}
@@ -191,7 +191,7 @@ function locationBlock(b, g) {
       <dl class="pf__dl">
         <dt>Tọa độ</dt><dd>${hasCoordinate ? `<code>${b.lat.toFixed(6)}, ${b.lng.toFixed(6)}</code>` : missingChip(FieldState.NOT_COLLECTED, 'Chưa đủ căn cứ để đặt vị trí.', 'Chưa có')}</dd>
         <dt>Cách xác định</dt><dd>${esc(COORD_METHOD[b.coordinateStatus] || 'Theo nguồn dữ liệu')}</dd>
-        ${b.toaDoBen ? `<dt>Bản 407 tòa</dt><dd>dùng tọa độ lưu lâu được (${esc(COORD_METHOD[b.toaDoBenNguon] || 'theo nguồn dữ liệu')}), cách ghim ${esc(String(b.lechToaDoBenM))} m; bản này dùng ghim vì vẽ trên nền Google</dd>` : ''}
+        ${b.toaDoBen ? `<dt>Bản 407 tòa</dt><dd>dùng tọa độ lưu lâu được (${esc(COORD_METHOD[b.toaDoBenNguon] || 'theo nguồn dữ liệu')}), cách ghim ${esc(String(b.lechToaDoBenM))} m; bản đầy đủ dùng ghim trên trang rao</dd>` : ''}
         ${b.ghimNghi ? `<dt>Lưu ý</dt><dd>Ghim trên trang rao có dấu hiệu chỉ sang tòa khác nhưng Google Maps chưa xác nhận được vị trí khác; vị trí có thể lệch.</dd>` : ''}
         ${b.tenKhac?.length ? `<dt>Tên khác trên trang rao</dt><dd>${esc(b.tenKhac.join(' · '))}</dd>` : ''}
         ${b.selectedPlaceName ? `<dt>Địa điểm Google Maps</dt><dd>${esc(b.selectedPlaceName)}<br><small>${esc(b.selectedPlaceAddress || '')}</small></dd>` : ''}

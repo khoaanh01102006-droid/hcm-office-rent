@@ -210,6 +210,7 @@ function buildModel(rec, payload) {
     tenKhac: b.tenKhac || null,
     // bản đầy đủ (02/10): hạng lấy từ trang rao nào, trang kia ghi gì
     gradeSource: b.gradeSource || null,
+    giaNghiSai: b.giaNghiSai || null,     // giá chào > 80 USD/m² trên trang rao: nghi gõ nhầm, không vào thang giá (02/10)
     gradeOther: b.gradeOther || null,
     baseRentMin: field(b.baseRentMin, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw }),
     baseRentMax: field(b.baseRentMax, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw }),

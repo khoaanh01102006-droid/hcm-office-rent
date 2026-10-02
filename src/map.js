@@ -340,16 +340,8 @@ export class PilotMap {
     // Bảy hồ sơ kiểm tra thủ công chưa có tọa độ vẫn nằm trong danh sách và
     // hồ sơ, nhưng không được phép sinh marker giả trên bản đồ.
     this.buildings = buildings.filter((b) => Number.isFinite(b.lat) && Number.isFinite(b.lng));
-    /* Phiên bản đầy đủ (01/10): tọa độ tòa trang rao là ghim Google, chỉ được vẽ trên nền Google. Tạo phiên Google TRƯỚC khi dựng
-       bản đồ; hỏng thì bỏ các tòa ấy khỏi bản đồ (vẫn có trong danh sách) và nói ra, không vẽ lên nền khác. */
-    if (DAY_DU) {
-      try { await ganPhienGoogle(BASEMAPS['google-roadmap']); this.basemapId = 'google-roadmap'; } catch (err) {
-        this.googleLoi = err.message;
-        // 407 tòa: quay về tọa độ bền (không phải của Google); tòa trang rao: bỏ khỏi bản đồ
-        this.buildings.forEach((b) => { if (b.toaDoGoogle && b.toaDoBen) { [b.lat, b.lng] = b.toaDoBen; b.toaDoGoogle = false; } });
-        this.buildings = this.buildings.filter((b) => !b.toaDoGoogle);
-      }
-    }
+    /* Phiên bản đầy đủ: QĐ 194 (02/10, chủ dự án chọn): dùng đúng toạ độ ghim đã thu, trên nền mặc định như bản 407 (không khoá
+       Google), cả trên trang công khai. Bản 01/10 ép nền Google và bỏ chấm khi không có phiên Google; nay bỏ ràng buộc ấy. */
     const [ml, basemap] = await Promise.all([
       import('../vendor/maplibre/maplibre-gl.mjs'),
       fetch(BASEMAP_URL).then((r) => r.json()),
@@ -897,11 +889,6 @@ export class PilotMap {
       đường đi bộ và marker tiện ích đều phải đắp lại sau 'styledata'. */
   async setBasemap(id) {
     if (!BASEMAPS[id] || id === this.basemapId) return this.basemapId;
-    // Phiên bản đầy đủ chỉ dùng nền Google: tọa độ tòa trang rao lấy từ Google, điều khoản không cho vẽ trên nền khác.
-    if (DAY_DU && !BASEMAPS[id].google && !this.googleLoi) {
-      this.onBasemapError?.(id, new Error('phiên bản đầy đủ chỉ dùng nền Google (tọa độ tòa trang rao lấy từ Google)'));
-      return this.basemapId;
-    }
     const base = BASEMAPS[id];
     /* Kiểu vector phải TẢI XONG rồi mới đổi. Đổi trước rồi tải sau sẽ dựng
        một kiểu rỗng trong lúc chờ, và người dùng thấy bản đồ trắng nháy. */
