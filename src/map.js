@@ -345,6 +345,8 @@ export class PilotMap {
     if (DAY_DU) {
       try { await ganPhienGoogle(BASEMAPS['google-roadmap']); this.basemapId = 'google-roadmap'; } catch (err) {
         this.googleLoi = err.message;
+        // 407 tòa: quay về tọa độ bền (không phải của Google); tòa trang rao: bỏ khỏi bản đồ
+        this.buildings.forEach((b) => { if (b.toaDoGoogle && b.toaDoBen) { [b.lat, b.lng] = b.toaDoBen; b.toaDoGoogle = false; } });
         this.buildings = this.buildings.filter((b) => !b.toaDoGoogle);
       }
     }
@@ -999,7 +1001,7 @@ export class PilotMap {
           + (t.dia_chi ? '<p class="ampop__note">' + escapeHtml(t.dia_chi) + '</p>' : '')
           + (t.hang ? '<p class="ampop__note">Hạng: ' + escapeHtml(t.hang) + '</p>' : '') + tin
           + '<p class="ampop__src">Giá chào cơ bản trên trang rao (chưa gồm phí dịch vụ), thu ngày 29/9/2026. Vị trí: '
-          + (t.cach === 'ghim' ? 'đúng ghim trên trang rao' : 'theo địa chỉ, có nguồn thứ hai xác nhận') + '.</p></div>')
+          + (t.cach === 'ghim' ? 'đúng ghim trên trang rao' : t.cach === 'places' ? 'địa điểm Google Maps khớp tên và địa chỉ trên trang rao' : 'theo địa chỉ trên trang rao') + '.</p></div>')
         .addTo(this.map);
     });
   }

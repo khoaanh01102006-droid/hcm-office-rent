@@ -202,6 +202,12 @@ function buildModel(rec, payload) {
     laToa407: b.laToa407 !== false,
     toaDoGoogle: !!b.toaDoGoogle,
     hetHanToaDo: b.hetHanToaDo || null,
+    // 407 tòa trong bản đầy đủ: ghim trang rao (Google); tọa độ bền giữ ở đây để vẫn vẽ được khi Google hỏng (02/10)
+    toaDoBen: Array.isArray(b.toaDoBen) ? b.toaDoBen : null,
+    toaDoBenNguon: b.toaDoBenNguon || null,
+    lechToaDoBenM: b.lechToaDoBenM ?? null,
+    ghimNghi: b.ghimNghi || null,
+    tenKhac: b.tenKhac || null,
     baseRentMin: field(b.baseRentMin, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw }),
     baseRentMax: field(b.baseRentMax, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.rentRaw }),
     serviceCharge: field(b.serviceCharge, { ...srcMeta, unit: 'USD/m²/tháng', raw: b.serviceChargeRaw, definition: 'Phí dịch vụ do nguồn niêm yết công bố.' }),

@@ -29,6 +29,11 @@ export const COORD_METHOD = {
   AUDIT_20261001_LISTING_PAGE: 'Kiểm lại 01/10/2026: theo bản đồ trên trang rao của chính tòa',
   AUDIT_20261001_ADDRESS_ONLY: 'Kiểm lại địa chỉ 01/10/2026; tọa độ giữ nguyên',
   HOLD_V8_MANUAL_REVIEW: 'Chưa xác định',
+  GOOGLE_PIN_TRANG_RAO_407: 'Đúng ghim Google Maps trên trang rao của chính tòa (đã kiểm tên ghim, quận, địa chỉ)',
+  GOOGLE_PIN_TRANG_RAO: 'Đúng ghim Google Maps trên trang rao (đã kiểm tên ghim, quận, địa chỉ)',
+  GOOGLE_PIN_TRANG_RAO_CHUA_CHAC: 'Ghim Google Maps trên trang rao, chưa xác nhận được (tên ghim hoặc địa chỉ không khớp tòa, Google chưa chỉ ra vị trí khác)',
+  GOOGLE_PLACES_TEN_DIA_CHI: 'Địa điểm Google Maps tìm theo tên và địa chỉ trên trang rao (trang không có ghim, hoặc ghim chỉ sang tòa khác)',
+  GOOGLE_GEOCODE_DIA_CHI: 'Theo địa chỉ ghi trên trang rao (Google tra địa chỉ); trang không có ghim dùng được',
 };
 
 const host = (url) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; } };
@@ -182,6 +187,9 @@ function locationBlock(b, g) {
       <dl class="pf__dl">
         <dt>Tọa độ</dt><dd>${hasCoordinate ? `<code>${b.lat.toFixed(6)}, ${b.lng.toFixed(6)}</code>` : missingChip(FieldState.NOT_COLLECTED, 'Chưa đủ căn cứ để đặt vị trí.', 'Chưa có')}</dd>
         <dt>Cách xác định</dt><dd>${esc(COORD_METHOD[b.coordinateStatus] || 'Theo nguồn dữ liệu')}</dd>
+        ${b.toaDoBen ? `<dt>Bản 407 tòa</dt><dd>dùng tọa độ lưu lâu được (${esc(COORD_METHOD[b.toaDoBenNguon] || 'theo nguồn dữ liệu')}), cách ghim ${esc(String(b.lechToaDoBenM))} m; bản này dùng ghim vì vẽ trên nền Google</dd>` : ''}
+        ${b.ghimNghi ? `<dt>Lưu ý</dt><dd>Ghim trên trang rao có dấu hiệu chỉ sang tòa khác nhưng Google Maps chưa xác nhận được vị trí khác; vị trí có thể lệch.</dd>` : ''}
+        ${b.tenKhac?.length ? `<dt>Tên khác trên trang rao</dt><dd>${esc(b.tenKhac.join(' · '))}</dd>` : ''}
         ${b.selectedPlaceName ? `<dt>Địa điểm Google Maps</dt><dd>${esc(b.selectedPlaceName)}<br><small>${esc(b.selectedPlaceAddress || '')}</small></dd>` : ''}
       </dl>
     </details>
