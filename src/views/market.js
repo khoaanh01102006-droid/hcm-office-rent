@@ -113,7 +113,7 @@ export function renderMarket(d) {
         ${pt(d.trung_vi_moi_tin_pt)}.</p>
       ${soSanh(d)}
       ${phamVi(d)}
-      <div class="ov__stats">
+      <div class="ov__stats ov__stats--3">
         <div class="ov__stat"><span class="v">${d.tang}</span><span class="k">tin tăng giá chào</span></div>
         <div class="ov__stat"><span class="v">${d.giam}</span><span class="k">tin giảm giá chào</span></div>
         <div class="ov__stat"><span class="v">${pt(d.trung_vi_pt)}</span><span class="k">mức đổi trung vị của ${d.doi_gia} tin tăng hoặc giảm, tính theo điểm giữa khoảng giá (theo đầu thấp của khoảng: ${pt(d.trung_vi_dau_thap_pt)})</span></div>
@@ -155,7 +155,7 @@ export function renderMarket(d) {
 
     <section class="ov__band ov__band--notes">
       <div class="ov__head"><p class="ov__sectag">05 · Lưu ý</p><h3>Khi đọc số liệu</h3></div>
-      <div class="ov__stats">
+      <div class="ov__stats ov__stats--3">
         <div class="ov__stat"><span class="v">01</span><span class="k">Giá chào là giá trang rao ghi, chưa gồm phí dịch vụ; không phải giá ký hợp đồng. Giá 03/2026 của 407 tòa là giá niêm yết đã gồm phí dịch vụ, nên không so trực tiếp hai con số.</span></div>
         <div class="ov__stat"><span class="v">02</span><span class="k">Hai lần thu cách nhau ${d.cach_ngay} ngày, chưa đủ để nói về xu hướng thị trường.</span></div>
         <div class="ov__stat"><span class="v">03</span><span class="k">Giữ nguyên giá chào chưa chắc là thị trường đứng yên: trang rao có thể chưa cập nhật giá. Chưa đo được mỗi trang cập nhật giá thường xuyên đến đâu.</span></div>

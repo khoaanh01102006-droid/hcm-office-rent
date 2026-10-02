@@ -142,6 +142,9 @@ body[data-view="overview"] .tray { display: none; }
   border-block: 1px solid var(--line);
 }
 .ov__stat { background: var(--ground); padding: var(--s-5) var(--s-4) var(--s-5); }
+/* Lưới đúng 6 ô (Biến động): 3 cột x 2 hàng, khỏi để 1 ô lẻ cạnh một khoảng nền xám (5 cột + 1, chủ dự án chụp 02/10) */
+.ov__stats--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 720px) { .ov__stats--3 { grid-template-columns: minmax(0, 1fr); } }
 .ov__stat .v {
   font-family: var(--f-mono);
   font-size: 1.7rem;
@@ -574,6 +577,11 @@ gmp-place-details { width: 100%; display: block; }
 
 /* Biến động giá chào (QĐ 189): cùng khung "báo cáo" với Tổng quan, bật tắt như các bề mặt khác. */
 .marketview, .notesview { display: none; overflow: auto; background: var(--ground); }
+/* 02/10 (chủ dự án: "lướt xuống cuối trang thì mất thanh menu"): chữ ẩn .sr-only (position: absolute) trong khung cuộn không có
+   cha định vị nên bám vào cả trang, nằm ở đáy nội dung (y ~ 3.000–4.000 px) và làm TÀI LIỆU cao theo; cuộn hết khung thì tài liệu
+   cuộn tiếp, kéo thanh trên ra khỏi màn hình và lộ phần trắng. Neo vào khung, và không cho cuộn lan ra ngoài.
+   Kiểm: node test/_kiem_cuon.mjs (bánh xe chuột thật). */
+.overview, .marketview, .notesview { position: relative; overscroll-behavior: contain; }
 body[data-view="notes"] .notesview { display: block; }
 body[data-view="notes"] .workspace,
 body[data-view="notes"] .tray { display: none; }

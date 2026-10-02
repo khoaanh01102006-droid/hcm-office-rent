@@ -19,10 +19,9 @@
 <link rel="stylesheet" href="./src/styles/story.css">
 <script>
   // Đặt chế độ sáng/tối trước khi vẽ khung đầu tiên, tránh nháy nền.
+  // 02/10 (chủ dự án): mặc định luôn SÁNG, không theo hệ điều hành; khoá mới 'pi-theme-v2' để bỏ lựa chọn tối đã lưu từ trước.
   try {
-    var t = localStorage.getItem('pi-theme');
-    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    document.documentElement.dataset.theme = t;
+    document.documentElement.dataset.theme = localStorage.getItem('pi-theme-v2') || 'light';
   } catch (e) { /* localStorage bị chặn: giữ mặc định sáng */ }
 </script>
 <meta name="robots" content="noindex, nofollow">

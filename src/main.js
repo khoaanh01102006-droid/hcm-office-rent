@@ -26,7 +26,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const state = {
   data: null,
   filters: defaultFilters(),
-  sort: 'rent_asc',
+  sort: 'rent_desc',                 // 02/10 chủ dự án: mặc định giá cao → thấp
   visible: [],
   selectedId: null,
   compare: [],
@@ -1497,7 +1497,7 @@ function onTrapKey(e) {
 function toggleTheme() {
   const next = theme() === 'dark' ? 'light' : 'dark';
   document.documentElement.dataset.theme = next;
-  try { localStorage.setItem('pi-theme', next); } catch (e) { /* bị chặn */ }
+  try { localStorage.setItem('pi-theme-v2', next); } catch (e) { /* bị chặn */ }
   $('#ic-theme').innerHTML = icon(next === 'dark' ? 'sun' : 'moon', { size: 14 });
   $('#btn-theme').setAttribute('aria-label', next === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối');
   map?.setTheme();
@@ -1826,14 +1826,8 @@ function wireEvents() {
   // Đổi kích thước cửa sổ có thể lật bảng tiêu điểm từ cạnh trái xuống
   // đáy (ngưỡng 900px), tức đổi hẳn CHIỀU của phần bị che. Đo lại, đừng đoán.
   window.addEventListener('resize', () => { map?.resize(); syncMapPadding(); });
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (ev) => {
-    let stored = null;
-    try { stored = localStorage.getItem('pi-theme'); } catch (err) { /* bị chặn */ }
-    if (stored) return;                       // người dùng đã chọn thủ công
-    document.documentElement.dataset.theme = ev.matches ? 'dark' : 'light';
-    $('#ic-theme').innerHTML = icon(ev.matches ? 'sun' : 'moon', { size: 14 });
-    map?.setTheme();
-  });
+  // 02/10 (chủ dự án: "nền mặc định khi vào trang sẽ là màu trắng"): KHÔNG theo chế độ tối của hệ điều hành nữa; mặc định sáng,
+  // chỉ đổi khi người xem bấm nút sáng/tối.
 }
 
 function announce(msg) { $('#live').textContent = msg; }
