@@ -73,8 +73,8 @@ function phamVi(d) {
           <li><strong>Tin không so được.</strong> Tổng ${so(v.tong_tin, 0)} tin xuất hiện ở ít nhất một lần thu: ${so(d.so_duoc, 0)} so được;
             ${so(v.khong_so_duoc_gia, 0)} không có giá bằng số ở ít nhất một kỳ (phần lớn ghi "liên hệ"); ${d.tin_moi} tin mới chỉ có ở
             kỳ 2; ${v.chua_thu_lai} tin chưa thu lại ở kỳ 2; ${d.bi_go} tin bị gỡ khỏi trang rao.</li>
-          ${v.loai_khong_phai_van_phong ? `<li><strong>Đã loại.</strong> ${v.loai_khong_phai_van_phong} tin nhà xưởng, kho hoặc đất khu công nghiệp
-            mà trang rao vẫn xếp vào mục văn phòng; không tính vào mọi con số trên.</li>` : ''}
+          ${v.loai_khong_phai_van_phong ? `<li><strong>Đã loại.</strong> ${v.loai_khong_phai_van_phong} tin không phải tòa văn phòng (nhà xưởng, kho,
+            đất khu công nghiệp, biệt thự, chung cư, shophouse) mà trang rao vẫn xếp vào mục văn phòng; không tính vào mọi con số trên.</li>` : ''}
         </ul>
       </div>`;
 }

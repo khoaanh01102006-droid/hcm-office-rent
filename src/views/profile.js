@@ -29,6 +29,8 @@ export const COORD_METHOD = {
   AUDIT_20261001_LISTING_PAGE: 'Kiểm lại 01/10/2026: theo bản đồ trên trang rao của chính tòa',
   AUDIT_20261001_ADDRESS_ONLY: 'Kiểm lại địa chỉ 01/10/2026; tọa độ giữ nguyên',
   HOLD_V8_MANUAL_REVIEW: 'Chưa xác định',
+  AUDIT_20261002_LISTING_PIN: 'Kiểm lại 02/10/2026: đúng ghim Google Maps trên trang rao của chính tòa',
+  AUDIT_20261002_LISTING_PLACES: 'Kiểm lại 02/10/2026: ghim trang rao chỉ sang tòa khác, đặt theo địa điểm Google Maps khớp tên và địa chỉ',
   GOOGLE_PIN_TRANG_RAO_407: 'Đúng ghim Google Maps trên trang rao của chính tòa (đã kiểm tên ghim, quận, địa chỉ)',
   GOOGLE_PIN_TRANG_RAO: 'Đúng ghim Google Maps trên trang rao (đã kiểm tên ghim, quận, địa chỉ)',
   GOOGLE_PIN_TRANG_RAO_CHUA_CHAC: 'Ghim Google Maps trên trang rao, chưa xác nhận được (tên ghim hoặc địa chỉ không khớp tòa, Google chưa chỉ ra vị trí khác)',
