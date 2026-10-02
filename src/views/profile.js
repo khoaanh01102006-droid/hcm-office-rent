@@ -136,7 +136,7 @@ function priceSourcesBlock(b, g) {
 function hangTrangRao(b) {
   return `<section class="pf__sec">
     <div class="pf__sechead"><h4>${icon('layers', { size: 15 })} Thông tin trên trang rao</h4>
-      <span class="pf__srcnote">Maison Office, Saigon Office</span></div>
+      <span class="pf__srcnote">${esc([...new Set((b.identitySourceDomains || []).map((d) => (/maison/.test(d) ? 'Maison Office' : /saigonoffice/.test(d) ? 'Saigon Office' : d)))].join(', ') || 'trang rao')}</span></div>
     <div class="pf__pricegrid">
       <div class="pricerow"><div class="pricerow__label"><span>Hạng tòa nhà</span><em>${b.gradeSource ? `theo ${esc(b.gradeSource)}` : 'theo trang rao'}</em></div>
         <div class="pricerow__val">${b.gradeLabel ? `<strong>${esc(b.gradeLabel)}</strong>` : missingChip(FieldState.NOT_COLLECTED, 'Trang rao không ghi hạng.')}</div></div>
@@ -294,7 +294,8 @@ function evidenceBlock(b, data) {
     <dl class="pf__dl">
       <dt>Tên</dt><dd>${esc(b.name)}</dd>
       ${b.nameOriginal && b.nameOriginal !== b.name ? `<dt>Tên trong nguồn</dt><dd>${esc(b.nameOriginal)}</dd>` : ''}
-      ${b.knownAliases.length ? `<dt>Tên khác</dt><dd>${esc(b.knownAliases.join(' · '))}</dd>` : ''}
+      ${(() => { const k = (s) => (s || '').trim().toLowerCase(); const ds = b.knownAliases.filter((a) => k(a) !== k(b.name));   // bỏ tên trùng tên chính
+        return ds.length ? `<dt>Tên khác</dt><dd>${esc(ds.join(' · '))}</dd>` : ''; })()}
       ${b.identitySourceDomains.length ? `<dt>Nguồn đối chiếu</dt><dd>${esc(b.identitySourceDomains.join(' · '))}</dd>` : ''}
     </dl>
     ${links.length ? `<div class="pf__cta">${links.map((url, index) => `<a class="btn btn--outline" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Nguồn ${index + 1} ${icon('external', { size: 12 })}</a>`).join('')}</div>` : ''}

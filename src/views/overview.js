@@ -90,7 +90,7 @@ export function renderOverview(buildings, canXacNhan, loc = null) {
           <tbody>${loai.map(tableRow).join('')}</tbody>
         </table>
       </div>
-      <p class="ov__note">${esc(NHAN.giaDai)}, USD/m²/tháng. Khoảng cách tới metro đo theo đường thẳng.${DAY_DU ? ' Tòa ngoài bộ 407 chưa có số đo khoảng cách, NLA và lấp đầy.' : ''}</p>
+      <p class="ov__note">${esc(NHAN.giaDai)}, USD/m²/tháng. Khoảng cách tới metro đo theo đường thẳng.${DAY_DU ? ' Tòa ngoài bộ 407 chưa có NLA và lấp đầy; khoảng cách đường thẳng tới metro tính theo ghim trang rao.' : ''}</p>
     </section>
 
     <section class="ov__band ov__band--notes">
@@ -99,7 +99,7 @@ export function renderOverview(buildings, canXacNhan, loc = null) {
         <div class="ov__stat"><span class="v">01</span><span class="k">${esc(NHAN.giaDai)}; không phải giá ký hợp đồng.${DAY_DU ? ' Giá chào và giá niêm yết 03/2026 khác cơ sở (giá niêm yết gồm phí dịch vụ), nên không so trực tiếp.' : ''}</span></div>
         <div class="ov__stat"><span class="v">02</span><span class="k">Tỷ lệ lấp đầy và hạng lấy nguyên từ bộ dữ liệu; nguồn chưa ghi lấp đầy là diện tích đang sử dụng hay đã ký thuê, cũng chưa ghi tiêu chí phân hạng.</span></div>
         <div class="ov__stat"><span class="v">03</span><span class="k">Khoảng cách tới metro, trung tâm và sân bay đo theo đường thẳng; thời gian đi bộ đo theo đường thật trên bản đồ OpenStreetMap.</span></div>
-        <div class="ov__stat"><span class="v">04</span><span class="k">Thời gian lái xe có xét giao thông là một lần đo lúc 08:04 ngày 29/08/2026, có ở ${coGiaoThong}/${so407} tòa của bộ dữ liệu; các tòa sửa vị trí ngày 01/10/2026 chưa đo lại.</span></div>
+        <div class="ov__stat"><span class="v">04</span><span class="k">Thời gian lái xe có xét giao thông là một lần đo lúc 08:04 ngày 29/08/2026, có ở ${coGiaoThong}/${so407} tòa của bộ dữ liệu; các tòa sửa vị trí ngày 01–02/10/2026 chưa đo lại.</span></div>
         ${DAY_DU ? `<div class="ov__stat"><span class="v">05</span><span class="k">${buildings.length - so407} tòa ngoài bộ 407 lấy từ trang rao: vị trí là ghim Google Maps trên trang rao (lấy 30/09–02/10/2026), chưa có NLA, lấp đầy và số đo quanh tòa. Đã loại các tin không phải tòa văn phòng: nhà xưởng, kho, đất khu công nghiệp, biệt thự, chung cư, shophouse.</span></div>` : ''}
       </div>
     </section>
